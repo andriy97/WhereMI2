@@ -1,0 +1,76 @@
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+}
+
+.form-content {
+    background-color: #00000082;
+    padding: 20px;
+}
+
+.form-content h3 {
+    color: white;
+    font-size: 28px;
+    border-bottom: 2px solid white;
+    margin-bottom: 10px;
+    text-align: center;
+    padding-bottom: 10px;
+
+}
+
+.logo-text {
+    font-size: 24px;
+    position: relative;
+    top: 12px;
+    left: 10px;
+    font-size: 25px;
+    font-family: 'Baloo Bhai', cursive;
+}
+
+.microfone {
+    width: 40px;
+    margin-right: 10px;
+}
+
+.register-section .register {
+    height: 56px;
+    border: 3px solid #04b4cc;
+    padding-left: 15px;
+    padding-right: 29px;
+}
+.register-section{
+    background-color: #00000082;
+    padding-bottom: 24px;
+    border-bottom-right-radius: 186px;
+    padding-top: 20px;
+}
+.register-section .upload-audio {
+    height: 56px;
+    border: 3px solid #04b4cc;
+    padding-left: 15px;
+    padding-right: 29px;
+
+}
+
+.register-section .carica-file {
+    background-color: white;
+    padding-top: 12px;
+    height: 53px;
+}
+
+.block-center {
+    display: block;
+    text-align: -webkit-center;
+}
+
+.register-section .audio-view {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.border-mob{
+    background-color: #000000;
+    
+}

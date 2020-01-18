@@ -1,0 +1,390 @@
+<html>
+    <head>
+        <title>Where MI</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--includo libreria jquery tramite CDN, niente download-->
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+      
+        <link rel="shortcut icon" href="https://site181964.tw.cs.unibo.it/media/img/logo.png" />
+        
+        <!--Api youtube audio-->
+        <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
+        <!-- Latest compiled and minified CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- Link to the script-->
+        <script type="text/javascript" src="../media/Javascript/whereami.js"></script>
+        <!--Link to CSS-->
+        <link rel="stylesheet" href="../media/css/whereami.css">
+        <!-- FONT-FAMILY -->
+        <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet">
+        <!--LOGIN GOOGLE-->
+        <!-- Maps Javascript API-->
+        
+       <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
+            integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    </head>
+    <body>
+        <div class="loading" id="loading"></div>
+        <div class="page">
+            <div class="background-image">
+                <nav class="navbar navbar-inverse" role="navigation">
+                    <div class="container">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                data-target="#bs-example-navbar-collapse-1">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            </button>
+                            <div class="left-on-mobile logo-title-s">
+                                <img class="logo" src="../media/img/logo.png"><span class="logo-title-s logo-text">Where
+                                MI</span>
+                            </div>
+                        </div>
+                        <!-- Collect the nav links, forms, and other content for toggling -->
+                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                            <ul class="nav navbar-nav navbar-right">
+                                <li id="userStatus">
+                                    <a style="color: white;
+                                        font-size: 18px;
+                                        margin-top: 7px;" href="../media/HTML/editor.html">Editor</a>
+                                </li>
+                                <li class="dropdown">
+                                    <a style="    color: #ffffff;
+                                        font-size: 17px;
+                                        /* background: turquoise; */
+                                        margin-top: 6px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <span lang="en">Language</span>
+                                    <span lang="it">Lingua</span>
+                                    <span lang="fr">Langue</span>
+                                    <span lang="de">Sprache</span>
+                                    <span lang="es">Idiomas</span>
+                                    <b class="caret"></b></a>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" hreflang="it" onclick="setLang('it'); return false"><img
+                                            class="flags" src="../media/img/italy.png">Italian</a>
+                                        <li><a href="#" hreflang="it" onclick="setLang('es'); return false"><img
+                                            class="flags" src="../media/img/spain.png">Spanish</a>
+                                        <li><a href="#" hreflang="en" onclick="setLang('en'); return false"><img
+                                            class="flags" src="../media/img/uk.png">English</a></li>
+                                        <li> <a href="#" hreflang="de" onclick="setLang('de'); return false"><img
+                                            class="flags" src="../media/img/germany.png">German</a></li>
+                                        <li> <a href="#" hreflang="de" onclick="setLang('fr'); return false"><img
+                                            class="flags" src="../media/img/france.png">French</a></li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <button style="display: none; " type="button" id="authorize_button"
+                                        class="btn btn-Google btn-lg google-button">
+                                    <span lang='it'> Accesso con Google+ </span>
+                                    <span lang='en'> Sign in with Google+ </span>
+                                    <span lang='de'> Anmelden mit Google+ </span>
+                                    <span lang='es'> Iniciar con Google+ </span>
+                                    <span lang='fr'> connectez-vous avec Google+ </span>
+                                    </button>
+                                    <button type="button" class="btn btn-default btn-sm" id="signout_button"
+                                        style="display: none; font-size: 14px; margin-top:17px;">
+                                    <span class="glyphicon glyphicon-log-in"></span>
+                                    <span lang='it'>Disconnettersi</span>
+                                    <span lang='en'> Sign out</span>
+                                    <span lang='de'>Ausloggen</span>
+                                    <span lang='es'> Desconectar</span>
+                                    <span lang='fr'> Se déconnecter</span>
+                                    </button>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- /.navbar-collapse -->
+                    </div>
+                    <!-- /.container-fluid -->
+                </nav>
+                <div class="container">
+                    <div class="active remove-position">
+                        <div class="text-center flex">
+                            <img src="../media/img/map.png" style="    width: 47px;
+                                position: relative;
+                                bottom: 10px;">
+                            <label class="text-center search-where" lang="en">Where do you want to go?</label>
+                            <label class="text-center search-where" lang="es">¿a donde quieres ir?</label>
+                            <label class="text-center search-where" lang="it">Dove vorresti andare?</label>
+                            <label class="text-center search-where" lang="fr">Où veux-tu aller?</label>
+                            <label class="text-center search-where" lang="de">Wohin willst du gehen?</label>
+                            <div class="direction flex-center">
+                                <input class="search-directions" type="text" id="end" name="to" required="required"
+                                    placeholder="...?" size="30" />
+                                <input value="Go" class="search-directions" type="submit" />
+                            </div>
+                            <div>
+                            </div>
+                        </div>
+                        <div class="set-buttons space-between">
+                            <button style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="set-position" onclick="showBar(true)"
+                                value="Set position">
+                            <span lang="it">Posizione</span>
+                            <span lang="en"> Position</span>
+                            <span lang="es">Posición</span>
+                            <span lang="de">Position</span>
+                            <span lang="fr">Position</span>
+                            </button>
+                            <div style="position:relative;" class="form-group">
+                                <span class="position-style">
+                                <span lang="it"> Filtra luoghi per categoria</span>
+                                <span lang="en">Filter the places by category</span>
+                                <span lang="es">Filtrar lugares por categoría</span>
+                                <span lang="de">Orte nach Kategorie filtern</span>
+                                <span lang="fr">Filtrer les lieux par catégorie</span>
+                            </span>
+                                <select style="width: 100px; border:3px solid #03b4cc;color: #090909; height: 36px;" id="categoria"
+                                    class="form-control is-valid custom-select">
+                                    <option value selected disabled hidden></option>
+                                    <option lang="en" value=all>All</option>
+                                    <option lang="en" value=nat>Nature</option>
+                                    <option lang="en" value=art>Art</option>
+                                    <option lang="en" value=rel>Religion</option>
+                                    <option lang="en" value=his>History</option>
+                                    <option lang="en" value=oth>Other</option>
+                                    <option lang="it" value=all>Tutte</option>
+                                    <option lang="it" value=nat>Natura</option>
+                                    <option lang="it" value=art>Arte</option>
+                                    <option lang="it" value=his>Storia</option>
+                                    <option lang="it" value=rel>Religione</option>
+                                    <option lang="it" value=oth>Altro</option>
+                                    <option lang="es" value=all>Todos</option>
+                                    <option lang="es" value=nat>Naturaleza</option>
+                                    <option lang="es" value=art>Arte</option>
+                                    <option lang="es" value=his>historia</option>
+                                    <option lang="es" value=rel>Religión</option>
+                                    <option lang="es" value=oth>más</option>
+                                    <option lang="fr" value=all>Toute</option>
+                                    <option lang="fr" value=nat>Nature</option>
+                                    <option lang="fr" value=art>L'art</option>
+                                    <option lang="fr" value=his>histoire</option>
+                                    <option lang="fr" value=rel>Religion</option>
+                                    <option lang="fr" value=oth>Autre</option>
+                                    <option lang="de" value=all>Alle</option>
+                                    <option lang="de" value=nat>Natur</option>
+                                    <option lang="de" value=art>Art</option>
+                                    <option lang="de" value=his>Geschichte</option>
+                                    <option lang="de" value=rel>Religion</option>
+                                    <option lang="de" value=oth>mehr</option>
+                                </select>
+                            </div>
+                            <input style="width: 100px;" class="search-directions-extra add-margin-on-desk" type="text" id="pos" required="required"
+                                placeholder="..." size="30" />
+                            <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
+                        </div>
+                        <div id="map" class="map">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+           
+                
+                   <!--FILTRO-->
+                   <div class="container" id="openFilter"  style="display:none;">
+                    <!-- <hr style="border:1px solid grey;"> -->
+                    <div class="row m-5 filter-block remove-margin-on-mobile">
+                        <h3 id="gotofilter" style="text-align: center">
+                            <span lang="it">Filtra clip per: </span>
+                            <span lang="en">Filter clips by: </span>
+                            <span lang="fr">Filtrer les clips par: </span>
+                            <span lang="de">Clips filtern nach: </span>
+                            <span lang="es">Filtrar clips por: </span>
+                        </h3>
+                        <div class="col-md-4">
+                            <div>
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="selectlingua">
+                                    <span lang="en">Language</span>
+                                    <span lang="it">Lingua</span>
+                                    <span lang="es">Idioma</span>
+                                    <span lang="de">Sprache</span>
+                                    <span lang="fr">Langue</span>
+                                    </label>
+                                </div>
+                                <select id="selectlingua" class="form-control" required>
+                                    <option value selected disabled hidden> </option>
+                                    <option lang="it" value="ita">Italiano</option>
+                                    <option lang="it" value="eng">Inglese</option>
+                                    <option lang="it" value="deu">Tedesco</option>
+                                    <option lang="it" value="fra">Francese</option>
+                                    <option lang="it" value="esp">Spagnolo</option>
+                                    <option lang="en" value="ita">Italian</option>
+                                    <option lang="en" value="eng">English</option>
+                                    <option lang="en" value="fra">French</option>
+                                    <option lang="en" value="esp">Spanish</option>
+                                    <option lang="en" value="deu">German</option>
+                                    <option lang="es" value="esp">Español</option>
+                                    <option lang="es" value="ita">italiano</option>
+                                    <option lang="es" value="eng">Ingles</option>
+                                    <option lang="es" value="deu">Alemán</option>
+                                    <option lang="es" value="fra">francés</option>
+                                    <option lang="de" value="en"> Englisch</option>
+                                    <option lang="de" value="deu">Deutsch</option>
+                                    <option lang="de" value="esp">Spanische </option>
+                                    <option lang="de" value="fra">Französisch</option>
+                                    <option lang="de" value="ita">Italienische</option>
+                                    <option lang="fr" value="fra">Français</option>
+                                    <option lang="fr" value="deu">Allemand</option>
+                                    <option lang="fr" value="esp">Spagnolo</option>
+                                    <option lang="fr" value="ita">italienne</option>
+                                    <option lang="fr" value="eng">Anglaise</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-md-4">
+                            <div>
+                                <div class="input-group-prepend">
+                                    <label class="input-group-text" for="selectAudience">
+                                    <span lang="en">Audience</span>
+                                    <span lang="it">Pubblico</span>
+                                    <span lang="es">Audiencia</span>
+                                    <span lang="de">Publikum</span>
+                                    <span lang="fr">Public</span>
+                                    </label>
+                                </div>
+                                <select id="selectAudience" class="form-control">
+                                   <option value selected disabled hidden></option>
+                                    <option lang="it" value="gen">Generico</option>
+                                    <option lang="it" value="pre">Pre-scolare</option>
+                                    <option lang="it" value="elm">Elementari</option>
+                                    <option lang="it" value="mid">Scuola media</option>
+                                    <option lang="it" value="scl">Specializzato</option>
+                                    <option lang="en" value="gen">General</option>
+                                    <option lang="en" value="pre">Preschool</option>
+                                    <option lang="en" value="elm">Elementary</option>
+                                    <option lang="en" value="mid">Secondary school</option>
+                                    <option lang="en" value="scl">Specialized</option>
+                                    <option lang="es" value="gen">General</option>
+                                    <option lang="es" value="pre">preescolar</option>
+                                    <option lang="es" value="elm">elemental</option>
+                                    <option lang="es" value="mid">Escuela media</option>
+                                    <option lang="es" value="scl">especializado</option>
+                                    <option lang="de" value="gen">Allgemeine </option>
+                                    <option lang="de" value="pre">vorschulisch</option>
+                                    <option lang="de" value="elm">elementar</option>
+                                    <option lang="de" value="mid">Mittelschule</option>
+                                    <option lang="de" value="scl">spezialisiert</option>
+                                    <option lang="fr" value="pre">préscolaire</option>
+                                    <option lang="fr" value="gen">Générale</option>
+                                    <option lang="fr" value="elm">élémentaire</option>
+                                    <option lang="fr" value="mid">Premier cycle du secondaire</option>
+                                    <option lang="fr" value="scl">spécialisé</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row m-5 filter-block">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="testo">
+                                <span lang="it">Scopo</span>
+                                <span lang="en">Purpose</span>
+                                <span lang="es">Propósito</span>
+                                <span lang="de">Zweck</span>
+                                <span lang="fr">But</span>
+                                </label>
+                                <select class="form-control is-valid custom-select" name="scopo" id="scopo" required>
+                                    <option value selected disabled hidden></option>
+                                    <option value="how" lang="it">Come </option>
+                                    <option value="why" lang="it">Perché </option>
+                                    <option value="what" lang="it">Cosa</option>
+                                    <option value="how" lang="en">How </option>
+                                    <option value="why" lang="en">Why </option>
+                                    <option value="what" lang="en">What</option>
+                                    <option value="how" lang="es">Cómo</option>
+                                    <option value="why" lang="es">Por qué </option>
+                                    <option value="what" lang="es">Qué</option>
+                                    <option value="how" lang="de">Wie </option>
+                                    <option value="why" lang="de">Warum </option>
+                                    <option value="what" lang="de">Was</option>
+                                    <option value="how" lang="fr">Comment</option>
+                                    <option value="why" lang="fr">Pourquoi </option>
+                                    <option value="what" lang="fr">Quel</option>
+                                </select>
+                            </div>
+                        </div>
+                      
+                        <div class="col-md-4" style="text-align: center">
+                            <button class="btn btn-primary waves-effect waves-light" style="margin-top: 6%" id="filtraButton">
+                            <span lang="it">Filtra!</span>
+                            <span lang="en">Filter!</span>
+                            <span lang="es">Filtro</span>
+                            <span lang="de">Filter!</span>
+                            <span lang="fr">Filtrer!</span>
+                            </button>
+                        </div>
+                     
+                    </div>
+                </div>
+           
+            <!--PLAYER-->
+            <div class="background-image-map" id="divplayer" style="display: none;">
+                <div class="container">
+                    <div class="row clips-box">
+                        <h3 class="clips-text" id="gotoclips" style="text-align: center;">
+                                <div style="text-align: center; display:none; text-shadow: 1px 1px 1px black;" id="divfiltro">
+                                    <button class="filtra-clips" id="buttonfiltro">
+                                    <span lang="it">Clicca per filtrare<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
+                                    <span lang="en">Click to Filter Clips <img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
+                                    <span lang="es">Haga clic para filtrar<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
+                                    <span lang="de">Klicken Sie, um zu filtern.<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
+                                    <span lang="fr">Cliquez pour filtrer<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
+                                    </button>
+                                </div> 
+                        </h3>
+                        <div>
+                            <img style="float:left;" class="arrows" id="prevbutton" src="../media/img/back.png">
+                            <h3 id="titololuogo" style="text-align: center; color:white;    margin-right: 40px; text-shadow:1px 1px 1px black;
+                            ">Titolo Luogo</h3>
+                            <img style="float:right; margin-top:-34px;" id="skipbutton" src="../media/img/next.png" class="arrows">
+                            <div class="buttonsdiv bottom-box">
+                                <button class="btn-primary audio-buttons" type="button" id="backbutton">back</button>
+                                <button class="btn-primary audio-buttons" type="button" id="playbutton">play</button>
+                                <button class="btn-primary audio-buttons" type="button" id="nextbutton">next</button>
+                                <div></div>
+                                <div id="youtube-player"></div>
+                            </div>
+                            <div>
+                            </div>
+                            <div class="clip-list">
+                                <div style="flex: 1;
+                                    ">
+                                    <ul id="listavideodariprodurre" class="title-list">
+                                    </ul>
+                                </div>
+                                <div style="flex: 1">
+                                    <ul id="description" class="desc-part" style="list-style: none;">
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+     
+        </div>
+        <!-- LOGIN SCRIPT -->
+        <script type="text/javascript" src="../media/Javascript/login.js"></script>
+        <!-- SCRIPT FOR REDIRECT INTO HTTPS -->
+        <!-- <script>
+            if (window.location.protocol != "https:")
+                window.location.href = window.location.href.replace('http', 'https');
+            </script> -->
+        <!-- LANGUAGE actionsSCRIPT -->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A&libraries=geometry,places&callback=initCoords"
+            async defer></script>
+        <script type="text/javascript" src="../media/Javascript/configuration.js"></script>
+        <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    </body>
+</html>
