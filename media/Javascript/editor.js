@@ -469,6 +469,10 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 ////////PLAYER e VIDEO SALVATI////////
 
 $("#tastovideosalvati").click(function () {
+
+	console.log(OpenLocationCode.encode(43.89424, 11.42948));
+
+	/*
 	var display = document.getElementById("videosalvatilist").style.display;
 	if (display == "none") {
 		getPlaylist();
@@ -476,6 +480,8 @@ $("#tastovideosalvati").click(function () {
 	} else {
 		document.getElementById("videosalvatilist").style.display = "none";
 	}
+
+	*/
 });
 
 
