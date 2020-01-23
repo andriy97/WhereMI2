@@ -124,7 +124,15 @@ recorder.addEventListener('change', function (e) {
 /////////////////UPLOAD VIDEO PUBBLICI///////////////////
 
 
+function generatePlusCode(lat, lng){
 
+	var pluscode3=OpenLocationCode.encode(lat, lng);
+	var pluscode2=pluscode3.split("+")[0];
+	var pluscode1=pluscode2.substring(0, 6);
+
+	return result = pluscode1+"00+-"+pluscode2+"+-"+pluscode3;
+
+}
 
 
 async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
@@ -136,9 +144,9 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
-	nomeluogo = document.getElementById("nomeluogo").value;
+	
 
-	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "" || nomeluogo == "") {
+	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
 
@@ -154,7 +162,7 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
 
-			var metadatiClip = latlong.lat + ":" + latlong.lng + ":" + titolo + ":" + descrizione + ":" + scopo + ":" + lingua + ":" + categoria + ":" + audience + ":" + dettagli + ":" + nomeluogo;
+			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" +audience + ":P" + dettagli;
 			console.log(metadatiClip);
 
 			var success = window.uploadToYoutube(audSave.src || recorder.src, titolo, metadatiClip);
@@ -168,7 +176,6 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
                 document.getElementById("categoria").value="";
                 document.getElementById("audience").value="";
                 document.getElementById("dettagli").value="";
-                document.getElementById("nomeluogo").value="";
                 document.getElementById('luogo').value="";
 			}
 
@@ -250,9 +257,8 @@ async function getDataAndUploadPrivate() {
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
-	nomeluogo = document.getElementById("nomeluogo").value;
 
-	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "" || nomeluogo == "") {
+	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
 
@@ -265,7 +271,8 @@ async function getDataAndUploadPrivate() {
 			var x = results[0].geometry.location;
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
-			var metadatiClip = latlong.lat + ":" + latlong.lng + ":" + titolo + ":" + descrizione + ":" + scopo + ":" + lingua + ":" + categoria + ":" + audience + ":" + dettagli + ":" + nomeluogo;
+			
+			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" +audience + ":P" + dettagli;
 			console.log(metadatiClip);
 
 			var success = window.uploadToYoutubePrivate(audSave.src || recorder.src, titolo, metadatiClip);
@@ -279,7 +286,6 @@ async function getDataAndUploadPrivate() {
                 document.getElementById("categoria").value="";
                 document.getElementById("audience").value="";
                 document.getElementById("dettagli").value="";
-                document.getElementById("nomeluogo").value="";
                 document.getElementById('luogo').value="";
 			}
 		});
@@ -470,7 +476,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 
 $("#tastovideosalvati").click(function () {
 
-	console.log(OpenLocationCode.encode(43.89424, 11.42948));
+	console.log(OpenLocationCode.encode(44.498273, 11.356001));
 
 	/*
 	var display = document.getElementById("videosalvatilist").style.display;
