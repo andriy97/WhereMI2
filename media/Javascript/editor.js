@@ -356,24 +356,6 @@ async function uploadRawFilePrivate(videoclip, titolo, metadatiClip) {
 
 
 
-function getOLC(lat, long) { // converte coordinate in plus code
-	var urlCodereverse = "https://plus.codes/api?address=" + lat + "," + long + "&ekey=AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A"; //URL API di OLC(Plus code)
-	let stringa = "non ha convertito in olc";
-	$.ajax({
-		type: "GET",
-		async: false,
-		url: urlCodereverse,
-		success: function (code) {
-			console.log(code);
-			stringa = code.plus_code.global_code;
-		}
-	});
-
-	return stringa;
-}
-
-
-
 $("#upload").click(function () {
 	getDataAndUpload();
 
@@ -412,7 +394,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 		"https://www.googleapis.com/youtube/v3/playlistItems?access_token=" + encodeURIComponent(token), {
 			part: 'snippet, status',
 			maxResults: 20,
-			playlistId: videos
+			playlistId: videos 
 		},
 		function (data) {
 			$.each(data.items, function (i, item) {
@@ -476,9 +458,6 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 
 $("#tastovideosalvati").click(function () {
 
-	console.log(OpenLocationCode.encode(44.498273, 11.356001));
-
-	/*
 	var display = document.getElementById("videosalvatilist").style.display;
 	if (display == "none") {
 		getPlaylist();
@@ -487,7 +466,7 @@ $("#tastovideosalvati").click(function () {
 		document.getElementById("videosalvatilist").style.display = "none";
 	}
 
-	*/
+
 });
 
 
