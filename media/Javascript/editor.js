@@ -7,6 +7,7 @@ var uploadedBox = document.getElementById("uploadedCheck"); // success/fail cari
 var createForm = document.getElementById("myForm");
 
 
+
 function showAudio(show) { //mostra o nasconde il tag audio
 
 	if (show == true) {
@@ -123,28 +124,33 @@ recorder.addEventListener('change', function (e) {
 
 /////////////////UPLOAD VIDEO PUBBLICI///////////////////
 
+//input: posizione scelta
+//output: stringa con tre plusCode da mettere sulla descrizione
+function generatePlusCode(lat, lng) {
 
-function generatePlusCode(lat, lng){
+	var pluscode3 = OpenLocationCode.encode(lat, lng);
+	var pluscode2 = pluscode3.split("+")[0];
+	var pluscode1 = pluscode2.substring(0, 6);
 
-	var pluscode3=OpenLocationCode.encode(lat, lng);
-	var pluscode2=pluscode3.split("+")[0];
-	var pluscode1=pluscode2.substring(0, 6);
+	return result = pluscode1 + "00+-" + pluscode2 + "+-" + pluscode3;
 
-	return result = pluscode1+"00+-"+pluscode2+"+-"+pluscode3;
+}
 
+function decodePlusCode(olc){
+	
 }
 
 
 async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 
-	titolo = "whereami+" + document.getElementById("titolo").value;
+	titolo = document.getElementById("titolo").value + "#wheremi-guide";
 	descrizione = document.getElementById("descrizione").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
-	
+
 
 	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
@@ -162,21 +168,21 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
 
-			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" +audience + ":P" + dettagli;
+			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" + audience + ":P" + dettagli;
 			console.log(metadatiClip);
 
 			var success = window.uploadToYoutube(audSave.src || recorder.src, titolo, metadatiClip);
 			if (success) {
 				divMetadati.style.display = 'none';
 				uploadedBox.style.display = 'block';
-				document.getElementById("titolo").value="";
-                document.getElementById("descrizione").value="";
-                document.getElementById("scopo").value="";
-                document.getElementById("lingua").value="";
-                document.getElementById("categoria").value="";
-                document.getElementById("audience").value="";
-                document.getElementById("dettagli").value="";
-                document.getElementById('luogo').value="";
+				document.getElementById("titolo").value = "";
+				document.getElementById("descrizione").value = "";
+				document.getElementById("scopo").value = "";
+				document.getElementById("lingua").value = "";
+				document.getElementById("categoria").value = "";
+				document.getElementById("audience").value = "";
+				document.getElementById("dettagli").value = "";
+				document.getElementById('luogo').value = "";
 			}
 
 
@@ -250,7 +256,7 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 
 async function getDataAndUploadPrivate() {
 
-	titolo = "whereami+" + document.getElementById("titolo").value;
+	titolo = document.getElementById("titolo").value + "#wheremi-guide";
 	descrizione = document.getElementById("descrizione").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
@@ -271,22 +277,22 @@ async function getDataAndUploadPrivate() {
 			var x = results[0].geometry.location;
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
-			
-			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" +audience + ":P" + dettagli;
+
+			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" + audience + ":P" + dettagli;
 			console.log(metadatiClip);
 
 			var success = window.uploadToYoutubePrivate(audSave.src || recorder.src, titolo, metadatiClip);
 			if (success) {
 				divMetadati.style.display = 'none';
 				uploadedBox.style.display = 'block';
-				document.getElementById("titolo").value="";
-                document.getElementById("descrizione").value="";
-                document.getElementById("scopo").value="";
-                document.getElementById("lingua").value="";
-                document.getElementById("categoria").value="";
-                document.getElementById("audience").value="";
-                document.getElementById("dettagli").value="";
-                document.getElementById('luogo').value="";
+				document.getElementById("titolo").value = "";
+				document.getElementById("descrizione").value = "";
+				document.getElementById("scopo").value = "";
+				document.getElementById("lingua").value = "";
+				document.getElementById("categoria").value = "";
+				document.getElementById("audience").value = "";
+				document.getElementById("dettagli").value = "";
+				document.getElementById('luogo').value = "";
 			}
 		});
 	}
@@ -394,7 +400,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 		"https://www.googleapis.com/youtube/v3/playlistItems?access_token=" + encodeURIComponent(token), {
 			part: 'snippet, status',
 			maxResults: 20,
-			playlistId: videos 
+			playlistId: videos
 		},
 		function (data) {
 			$.each(data.items, function (i, item) {
@@ -403,7 +409,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 				if (item.status.privacyStatus == "unlisted" && arrStr[0] == "whereami") { //seleziono solo i video unlisted del canale
 					output = '<li id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">' + arrStr[1] + '</li>' +
 						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Play</button>' +
-						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+ item.snippet.resourceId.videoId + '">Stop</button>' +
+						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Stop</button>' +
 						'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button>';
 					$("#videosalvatilist").append(output); //aggiungo nomi e button alla lista dei video
 					//se clicco play
@@ -411,7 +417,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 						playVideo(item.snippet.resourceId.videoId);
 					}
 					//se clicco pause
-					document.getElementById(item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+ item.snippet.resourceId.videoId).onclick = function () { //riproduco il video salvato selezionato
+					document.getElementById(item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId).onclick = function () { //riproduco il video salvato selezionato
 						player.pauseVideo();
 					}
 					//se clicco carica
@@ -436,8 +442,8 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 								var listId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
 								var playId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
 								var caricaId = item.snippet.resourceId.videoId;
-								var pauseId=item.snippet.resourceId.videoId +item.snippet.resourceId.videoId +item.snippet.resourceId.videoId +item.snippet.resourceId.videoId;
-								
+								var pauseId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
+
 								$("#" + listId).remove();
 								$("#" + playId).remove();
 								$("#" + caricaId).remove();
@@ -458,6 +464,9 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 
 $("#tastovideosalvati").click(function () {
 
+	
+
+	
 	var display = document.getElementById("videosalvatilist").style.display;
 	if (display == "none") {
 		getPlaylist();
