@@ -136,9 +136,6 @@ function generatePlusCode(lat, lng) {
 
 }
 
-function decodePlusCode(olc){
-	
-}
 
 
 async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento

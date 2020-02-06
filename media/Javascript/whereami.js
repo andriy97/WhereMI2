@@ -1,8 +1,4 @@
- /**************SETTAGGIO MAPPA*************/
-
- var posizioneattuale; //posizione iniziale
-
-
+ 
  /*      PROTOTIPO OGGETTO
 
  var VideoRicevuti= {
@@ -26,81 +22,83 @@
  //8FPHG900+-8FPHG925+-8FPHG925+GG:what:ita:mod:A+gen:P+default#Il lab del DASPLab
  //8FPHG925+HJ:what:ita:flk:Agen:P1
  //8FPH0000+:8FPHF800+:8FPHF8WW+RX:what:ita:cui-prs:Agen:P1
+
  
- var VideoRicevuti={};
+ /**************SETTAGGIO MAPPA*************/
 
-var flag;
- function addToLista(item){
-	 flag=null;
-	var descrizione=item.snippet.description.split(":");
-	var olc=descrizione[0].split("-");
-	if(olc[2]){ //controlla che ci siano tutte 3 componenti dell'OLC
-		if (VideoRicevuti!={}){
-			for (var i in VideoRicevuti){
-				if (i==olc[2]){
-				   flag=i;
-				}
-			}
-			if(flag!=null){
-			   insertHere(flag, item, descrizione);
-			}else{
-			   creaNuovo(olc[2], item, descrizione);
-			}
-		}else{
-			creaNuovo(olc[2],item, descrizione);
-		}
-		
-	}
-	
+ var posizioneattuale; //posizione iniziale
+
+
+ 
+ var VideoRicevuti = {};
+
+ var flag;
+ function popolaVideoRicevuti(item) {
+ 	flag = null;
+ 	var descrizione = item.snippet.description.split(":");
+ 	var olc = descrizione[0].split("-");
+ 	if (olc[2]) { //controlla che ci siano tutte 3 componenti dell'OLC
+ 		if (VideoRicevuti != {}) {
+ 			for (var i in VideoRicevuti) {
+ 				if (i == olc[2]) {
+ 					flag = i;
+ 				}
+ 			}
+ 			if (flag != null) {
+ 				insertHere(flag, item, descrizione);
+ 			} else {
+ 				creaNuovo(olc[2], item, descrizione);
+ 			}
+ 		} else {
+ 			creaNuovo(olc[2], item, descrizione);
+ 		}
+
+ 	}
+
  }
 
+ function creaNuovo(olc, item, descrizione) {
+ 	VideoRicevuti[olc] = new Object;
+ 	VideoRicevuti[olc].what = new Array;
+ 	VideoRicevuti[olc].how = new Array;
+ 	VideoRicevuti[olc].why = new Array;
 
- function creaNuovo(olc, item, descrizione){
-	VideoRicevuti[olc]=new Object;
-	VideoRicevuti[olc].what=new Array;
-	VideoRicevuti[olc].how=new Array;
-	VideoRicevuti[olc].why=new Array;
+
+ 	var temp = new Object;
+ 	temp.id = item.id.videoId;
+ 	temp.titolo = item.snippet.title;
+ 	temp.lingua = descrizione[2];
+ 	temp.categoria = descrizione[3];
+ 	temp.audience = descrizione[4];
+ 	temp.dettagli = descrizione[5];
 
 
-	var temp = new Object;
-	temp.id=item.id.videoId;
-	temp.titolo = item.snippet.title;
-	temp.lingua = descrizione[2];
-	temp.categoria = descrizione[3];
-	temp.audience = descrizione[4];
-	temp.dettagli = descrizione[5];
-	
+ 	if (descrizione[1] == "what") {
+ 		VideoRicevuti[olc].what.push(temp);
+ 	} else if (descrizione[1] == "how") {
+ 		VideoRicevuti[olc].how.push(temp);
+ 	} else if (descrizione[1] == "why") {
+ 		VideoRicevuti[olc].why.push(temp);
+ 	}
 
-	if(descrizione[1]=="what"){
-		VideoRicevuti[olc].what.push(temp);
-	}
-	else if(descrizione[1]=="how"){
-		VideoRicevuti[olc].how.push(temp);
-	}
-	else if(descrizione[1]=="why"){
-		VideoRicevuti[olc].why.push(temp);
-	}
-	
  }
 
- function insertHere(flag, item, descrizione){
-	var temp = new Object;
-	temp.id=item.id.videoId;
-	temp.titolo = item.snippet.title;
-	temp.lingua = descrizione[2];
-	temp.categoria = descrizione[3];
-	temp.audience = descrizione[4];
-	temp.dettagli = descrizione[5];
+ function insertHere(flag, item, descrizione) {
+ 	var temp = new Object;
+ 	temp.id = item.id.videoId;
+ 	temp.titolo = item.snippet.title;
+ 	temp.lingua = descrizione[2];
+ 	temp.categoria = descrizione[3];
+ 	temp.audience = descrizione[4];
+ 	temp.dettagli = descrizione[5];
 
-	if(descrizione[1]=="what"){
-		VideoRicevuti[flag].what.push(temp);
-	}
-	else if(descrizione[1]=="how"){
-		VideoRicevuti[flag].how.push(temp);
-	}
-	else if(descrizione[1]=="why"){
-		VideoRicevuti[flag].why.push(temp);
-	}
+ 	if (descrizione[1] == "what") {
+ 		VideoRicevuti[flag].what.push(temp);
+ 	} else if (descrizione[1] == "how") {
+ 		VideoRicevuti[flag].how.push(temp);
+ 	} else if (descrizione[1] == "why") {
+ 		VideoRicevuti[flag].why.push(temp);
+ 	}
 
 
  }
@@ -126,12 +124,12 @@ var flag;
 
 
 
- //PRENDI VIDEO VICINO A TE
+
 
 
  //input: OLC da cercare
  function TrovaVideo(OLC) {
-VideoRicevuti={};
+ 	VideoRicevuti = {};
  	gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest")
  		.then(function () {
  			try {
@@ -146,12 +144,15 @@ VideoRicevuti={};
  					console.log(response); //just for debug purpose
  					response.items.forEach(function (item) {
 
-						addToLista(item);
+ 						popolaVideoRicevuti(item);
+
+
 					 })
 					 console.log(VideoRicevuti);
-				 });
-				 
-				 console.log(VideoRicevuti);
+ 					 PopolaMappa(VideoRicevuti);
+ 				});
+
+ 				
  			} catch (e) {
  				console.log(e);
  			}
@@ -159,12 +160,65 @@ VideoRicevuti={};
  }
 
 
-
-
-
-
-
  var map;
+
+ function PopolaMappa(oggettoOLC) {
+
+ 	for (let olc in oggettoOLC) {
+
+ 		var posizioneOLC = new google.maps.LatLng(OpenLocationCode.decode(olc).latitudeCenter, OpenLocationCode.decode(olc).longitudeCenter)
+ 		console.log(posizioneOLC);
+ 		stampaMarker(creaMarkerLuogo(posizioneOLC), map);
+ 	}
+
+ }
+
+ function stampaMarker(marker, map) {
+ 	marker.setMap(map);
+ }
+
+ function creaMarker(coords) { //crea marker della tua posizione
+	var marker = new google.maps.Marker({
+		position: coords,
+		draggable: true,
+		animation: google.maps.Animation.DROP,
+		id: "marker",
+		icon: {
+			url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+		}
+	});
+	return marker;
+}
+
+
+
+function creaMarkerLuogo(coords) { //crea marker del luogo in input
+	var marker = new google.maps.Marker({
+		position: coords,
+		draggable: false,
+		animation: google.maps.Animation.DROP,
+		id: "mark",
+		icon: {
+			url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+		}
+	});
+
+	google.maps.event.addListener(marker, 'click', function () { // al click apre il player con i video di quel posto
+		console.log("cliccato su "+marker);
+
+	});
+
+	google.maps.event.addListener(marker, 'mouseover', function () { //mostra un popup con il nome del posto
+		console.log("over su "+marker);
+	});
+
+	return marker;
+}
+
+
+
+
+
  var directionsRenderer;
 
  function initAutocomplete(position) { // crea mappa e marker con tutte le loro funzionalità
@@ -189,22 +243,10 @@ VideoRicevuti={};
 
 
 
- 	function creaMarker(coords) { //crea marker posizione
- 		var marker = new google.maps.Marker({
- 			position: coords,
- 			draggable: true,
- 			animation: google.maps.Animation.DROP,
- 			id: "marker",
- 			icon: {
- 				url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
- 			}
- 		});
- 		return marker;
- 	}
 
- 	function stampaMarker(marker, map) {
- 		marker.setMap(map);
- 	}
+ 
+
+
 
 
  	function geocodeAddress(geocoder, resultsMap, address) { //trasforma un indirizzo in un dato LatLng
@@ -249,8 +291,14 @@ VideoRicevuti={};
 
  	document.getElementById('reset-map').addEventListener('click', function () { //sposta la visuale della mappa alla posizione di partenza
 
- 		TrovaVideo("8FPHF8VV+F6");
+	 //trova video intorno a te e aggiunge i marker alla mappa
+	 var mioOlc=OpenLocationCode.encode(position.coords.latitude, position.coords.longitude);
+	 var olcGrande=mioOlc.substring(0,6) + "00+-";
+	 console.log(olcGrande);
+	 TrovaVideo(olcGrande);
+
  		/*
+ 		
  		map.setCenter(marker.position);
  		map.setZoom(15);
  		*/
