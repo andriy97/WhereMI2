@@ -34,87 +34,81 @@
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
     <body >
-        <div id='bacicci' style='width: 30%;height: 50%; display: none;'>
-            <ul id="listavideo"></ul>
-        </div>
-        <button type="button" id="wheremi">clicca</button>
-        <button type="button" id="nextLuogo">Next</button>
-        <button type="button" id="prevLuogo">Prev</button>
+       
         <div class="loading" id="loading"></div>
         <div class="page">
-            <div class="background-image">
-                <nav class="navbar navbar-inverse" role="navigation">
-                    <div class="container">
-                        <div class="navbar-header">
-                            <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                data-target="#bs-example-navbar-collapse-1">
-                            <span class="sr-only">Toggle navigation</span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            <span class="icon-bar"></span>
-                            </button>
-                            <div class="left-on-mobile logo-title-s">
-                                <img class="logo" src="../media/img/logo.png"><span class="logo-title-s logo-text">Where
-                                MI</span>
-                            </div>
+          
+            <nav class="navbar navbar-inverse" role="navigation">
+                <div class="container">
+                    <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                        <div class="left-on-mobile logo-title-s">
+                            <img class="logo" src="../media/img/logo.png"><span class="logo-title-s logo-text">Where
+                            MI</span>
                         </div>
-                        <!-- Collect the nav links, forms, and other content for toggling -->
-                        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                            <ul class="nav navbar-nav navbar-right">
-                                <li id="userStatus">
-                                    <a style="color: white;
-                                        font-size: 18px;
-                                        margin-top: 7px;" href="../media/HTML/editor.html">Editor</a>
-                                </li>
-                                <li class="dropdown">
-                                    <a style="    color: #ffffff;
-                                        font-size: 17px;
-                                        /* background: turquoise; */
-                                        margin-top: 6px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                    <span lang="en">Language</span>
-                                    <span lang="it">Lingua</span>
-                                    <span lang="fr">Langue</span>
-                                    <span lang="de">Sprache</span>
-                                    <span lang="es">Idiomas</span>
-                                    <b class="caret"></b></a>
-                                    <ul class="dropdown-menu">
-                                        <li><a href="#" hreflang="it" onclick="setLang('it'); return false"><img
-                                            class="flags" src="../media/img/italy.png">Italian</a>
-                                        <li><a href="#" hreflang="it" onclick="setLang('es'); return false"><img
-                                            class="flags" src="../media/img/spain.png">Spanish</a>
-                                        <li><a href="#" hreflang="en" onclick="setLang('en'); return false"><img
-                                            class="flags" src="../media/img/uk.png">English</a></li>
-                                        <li> <a href="#" hreflang="de" onclick="setLang('de'); return false"><img
-                                            class="flags" src="../media/img/germany.png">German</a></li>
-                                        <li> <a href="#" hreflang="de" onclick="setLang('fr'); return false"><img
-                                            class="flags" src="../media/img/france.png">French</a></li>
-                                    </ul>
-                                </li>
-                                <li>
-                                    <button style="display: none; " type="button" id="authorize_button"
-                                        class="btn btn-Google btn-lg google-button">
-                                    <span lang='it'> Accesso con Google+ </span>
-                                    <span lang='en'> Sign in with Google+ </span>
-                                    <span lang='de'> Anmelden mit Google+ </span>
-                                    <span lang='es'> Iniciar con Google+ </span>
-                                    <span lang='fr'> connectez-vous avec Google+ </span>
-                                    </button>
-                                    <button type="button" class="btn btn-default btn-sm" id="signout_button"
-                                        style="display: none; font-size: 14px; margin-top:17px;">
-                                    <span class="glyphicon glyphicon-log-in"></span>
-                                    <span lang='it'>Disconnettersi</span>
-                                    <span lang='en'> Sign out</span>
-                                    <span lang='de'>Ausloggen</span>
-                                    <span lang='es'> Desconectar</span>
-                                    <span lang='fr'> Se déconnecter</span>
-                                    </button>
-                                </li>
-                            </ul>
-                        </div>
-                        <!-- /.navbar-collapse -->
                     </div>
-                    <!-- /.container-fluid -->
-                </nav>
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li> <button class="wheremibtn" type="button" id="wheremi">clicca</button></li>
+                            <li id="userStatus">
+                                <a style="color: white;
+                                    font-size: 18px;
+                                    margin-top: 7px;" href="../media/HTML/editor.html">Editor</a>
+                            </li>
+                            <li class="dropdown">
+                                <a style="    color: #ffffff;
+                                    font-size: 17px;
+                                    /* background: turquoise; */
+                                    margin-top: 6px;" href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                <span lang="en">Language</span>
+                                <span lang="it">Lingua</span>
+                                <span lang="fr">Langue</span>
+                                <span lang="de">Sprache</span>
+                                <span lang="es">Idiomas</span>
+                                <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="#" hreflang="it" onclick="setLang('it'); return false"><img
+                                        class="flags" src="../media/img/italy.png">Italian</a>
+                                    <li><a href="#" hreflang="it" onclick="setLang('es'); return false"><img
+                                        class="flags" src="../media/img/spain.png">Spanish</a>
+                                    <li><a href="#" hreflang="en" onclick="setLang('en'); return false"><img
+                                        class="flags" src="../media/img/uk.png">English</a></li>
+                                    <li> <a href="#" hreflang="de" onclick="setLang('de'); return false"><img
+                                        class="flags" src="../media/img/germany.png">German</a></li>
+                                    <li> <a href="#" hreflang="de" onclick="setLang('fr'); return false"><img
+                                        class="flags" src="../media/img/france.png">French</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <button style="display: none; " type="button" id="authorize_button"
+                                    class="btn btn-Google btn-lg google-button">
+                                <span lang='it'> Accesso con Google+ </span>
+                                <span lang='en'> Sign in with Google+ </span>
+                                <span lang='de'> Anmelden mit Google+ </span>
+                                <span lang='es'> Iniciar con Google+ </span>
+                                <span lang='fr'> connectez-vous avec Google+ </span>
+                                </button>
+                                <button type="button" class="btn btn-default btn-sm" id="signout_button"
+                                    style="display: none; font-size: 14px; margin-top:17px;">
+                                <span class="glyphicon glyphicon-log-in"></span>
+                                <span lang='it'>Disconnettersi</span>
+                                <span lang='en'> Sign out</span>
+                                <span lang='de'>Ausloggen</span>
+                                <span lang='es'> Desconectar</span>
+                                <span lang='fr'> Se déconnecter</span>
+                                </button>
+                            </li>
+                        </ul>
+                    </div> 
+                </div>   
+            </nav>
+       <div class="background-image">
                 <div class="container">
                     <div class="active remove-position">
                         <div class="text-center flex">
@@ -190,14 +184,28 @@
                                 placeholder="..." size="30" />
                             <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
                         </div>
-                        <div id="map" class="map">
-                        </div>
                     </div>
                 </div>
             </div>
-            
-           
-                
+            <div id='bacicci' style='    
+            width: 35%;
+            position: absolute;
+            z-index: 1;
+            right: 0px;
+            background-color: white;
+            margin: auto;
+            top: 14%;
+            display: none;
+        '>
+                    <button class="nextbtn" type="button" id="nextLuogo">Next</button>
+                    <button  type="button" id="prevLuogo">Prev</button>
+                    <div id="youtube-player"></div>
+                <ul id="listavideo" style="list-style: none; height: 300px;overflow-y: scroll;">
+                </ul>
+            </div>
+          
+            <div id="map" class="map">
+            </div>
                    <!--FILTRO-->
                    <div class="container" id="openFilter"  style="display:none;">
                     <!-- <hr style="border:1px solid grey;"> -->
@@ -322,7 +330,6 @@
                                 </select>
                             </div>
                         </div>
-                      
                         <div class="col-md-4" style="text-align: center">
                             <button class="btn btn-primary waves-effect waves-light" style="margin-top: 6%" id="filtraButton">
                             <span lang="it">Filtra!</span>
@@ -332,7 +339,6 @@
                             <span lang="fr">Filtrer!</span>
                             </button>
                         </div>
-                     
                     </div>
                 </div>
            
@@ -380,7 +386,6 @@
                     </div>
                 </div>
             </div>
-     
         </div>
         <!-- LOGIN SCRIPT -->
         <script type="text/javascript" src="../media/Javascript/login.js"></script>
