@@ -1,5 +1,4 @@
- 
- /*      PROTOTIPO OGGETTO
+/*      PROTOTIPO OGGETTO
 
  var VideoRicevuti= {
 
@@ -23,16 +22,15 @@
  //8FPHG925+HJ:what:ita:flk:Agen:P1
  //8FPH0000+:8FPHF800+:8FPHF8WW+RX:what:ita:cui-prs:Agen:P1
 
- 
+
  /**************SETTAGGIO MAPPA*************/
 
  var posizioneattuale; //posizione iniziale
 
-
- 
- var VideoRicevuti = {};
+var VideoRicevuti = {};
 
  var flag;
+
  function popolaVideoRicevuti(item) {
  	flag = null;
  	var descrizione = item.snippet.description.split(":");
@@ -57,14 +55,14 @@
 
  }
 
- function creaNuovo(olc, item, descrizione) {
+
+function creaNuovo(olc, item, descrizione) {
  	VideoRicevuti[olc] = new Object;
  	VideoRicevuti[olc].what = new Array;
  	VideoRicevuti[olc].how = new Array;
  	VideoRicevuti[olc].why = new Array;
 
-
- 	var temp = new Object;
+	var temp = new Object;
  	temp.id = item.id.videoId;
  	temp.titolo = item.snippet.title;
  	temp.lingua = descrizione[2];
@@ -121,12 +119,6 @@
 
 
 
-
-
-
-
-
-
  //input: OLC da cercare
  function TrovaVideo(OLC) {
  	VideoRicevuti = {};
@@ -147,12 +139,12 @@
  						popolaVideoRicevuti(item);
 
 
-					 })
-					 console.log(VideoRicevuti);
- 					 PopolaMappa(VideoRicevuti);
+ 					})
+ 					console.log(VideoRicevuti);
+ 					PopolaMappa(VideoRicevuti);
  				});
 
- 				
+
  			} catch (e) {
  				console.log(e);
  			}
@@ -167,7 +159,6 @@
  	for (let olc in oggettoOLC) {
 
  		var posizioneOLC = new google.maps.LatLng(OpenLocationCode.decode(olc).latitudeCenter, OpenLocationCode.decode(olc).longitudeCenter)
- 		console.log(posizioneOLC);
  		stampaMarker(creaMarkerLuogo(posizioneOLC), map);
  	}
 
@@ -178,41 +169,54 @@
  }
 
  function creaMarker(coords) { //crea marker della tua posizione
-	var marker = new google.maps.Marker({
-		position: coords,
-		draggable: true,
-		animation: google.maps.Animation.DROP,
-		id: "marker",
-		icon: {
-			url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-		}
-	});
-	return marker;
-}
+ 	var marker = new google.maps.Marker({
+ 		position: coords,
+ 		draggable: true,
+ 		animation: google.maps.Animation.DROP,
+ 		id: "marker",
+ 		icon: {
+ 			url: "https://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+ 		}
+ 	});
+ 	return marker;
+ }
 
 
-
+ var markercliccato;
 function creaMarkerLuogo(coords) { //crea marker del luogo in input
-	var marker = new google.maps.Marker({
-		position: coords,
-		draggable: false,
-		animation: google.maps.Animation.DROP,
-		id: "mark",
-		icon: {
-			url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+ 	var marker = new google.maps.Marker({
+ 		position: coords,
+ 		draggable: false,
+ 		animation: google.maps.Animation.DROP,
+ 		id: "mark",
+ 		icon: {
+ 			url: "https://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+ 		}
+ 	});
+
+ 	google.maps.event.addListener(marker, 'click', function () { // al click apre il player con i video di quel posto
+		//apri div video
+		//popola div con video del luogo cliccato
+
+		var olc=OpenLocationCode.encode(marker.getPosition().lat(), marker.getPosition().lng());
+		
+		for(let tmp in VideoRicevuti){
+			
+			if(olc==tmp){
+				markercliccato=VideoRicevuti[tmp];
+				popolaDivVideo(markercliccato);
+				filtraVideo(markercliccato);
+				
+			}
 		}
-	});
 
-	google.maps.event.addListener(marker, 'click', function () { // al click apre il player con i video di quel posto
-		console.log("cliccato su "+marker);
+ 	});
 
-	});
+ 	google.maps.event.addListener(marker, 'mouseover', function () { //mostra un popup con il nome del posto
+ 		console.log("over su " + marker);
+ 	});
 
-	google.maps.event.addListener(marker, 'mouseover', function () { //mostra un popup con il nome del posto
-		console.log("over su "+marker);
-	});
-
-	return marker;
+ 	return marker;
 }
 
 
@@ -220,6 +224,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 
 
  var directionsRenderer;
+
 
  function initAutocomplete(position) { // crea mappa e marker con tutte le loro funzionalità
 
@@ -244,7 +249,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 
 
 
- 
+
 
 
 
@@ -289,14 +294,16 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
  		map.setZoom(15)
  	});
 
+	 
+
  	document.getElementById('reset-map').addEventListener('click', function () { //sposta la visuale della mappa alla posizione di partenza
 
-	 //trova video intorno a te e aggiunge i marker alla mappa
-	 var mioOlc=OpenLocationCode.encode(position.coords.latitude, position.coords.longitude);
-	 var olcGrande=mioOlc.substring(0,6) + "00+-";
-	 console.log(olcGrande);
-	 TrovaVideo(olcGrande);
-
+ 		//trova video intorno a te e aggiunge i marker alla mappa
+ 		var mioOlc = OpenLocationCode.encode(position.coords.latitude, position.coords.longitude);
+ 		var olcGrande = mioOlc.substring(0, 6) + "00+-";
+ 		console.log(olcGrande);
+ 		TrovaVideo(olcGrande);
+		
  		/*
  		
  		map.setCenter(marker.position);
@@ -361,18 +368,24 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 
 
  function popolaDivVideo(obj) {
- 	document.getElementById("titololuogo").innerHTML = obj.nome;
- 	var oggetto = obj.video;
- 	$("#listavideodariprodurre").html(''); //elimino contenuto lista
- 	$("#description").html(''); //elimino contenuto lista
- 	for (let video in oggetto) {
- 		var titolo = oggetto[video].titolo.split("+");
- 		var descrizione = oggetto[video].descrizione;
- 		outputTitolo = '<li id="' + oggetto[video].url + '" >' + titolo[1] + '</li>';
- 		outputDescrizione = '<li>' + descrizione + '</li>';
- 		$("#listavideodariprodurre").append(outputTitolo);
- 		$("#description").append(outputDescrizione);
- 	}
+	 document.getElementById("bacicci").style.display="block";
+	 $("#listavideo").html(''); //elimino contenuto lista
+	 
+ 	
+ 	for (let video in obj.what) {
+		console.log(obj.what[video]);
+		 console.log(obj.what[video].id);
+ 		outputTitolo = '<li id="' +obj.what[video].id + '" >' + '<iframe width="100%" height="auto", src="'+ 'https://www.youtube.com/embed/'+obj.what[video].id+'"></iframe>' + '</li>';
+ 		$("#listavideo").append(outputTitolo);
+	 }
+	 for (let video in obj.how) {
+		outputTitolo = '<li id="' +obj.how[video].id + '" >' + '<iframe width="100%" height="auto", src="'+ 'https://www.youtube.com/embed/'+obj.how[video].id+'"></iframe>' + '</li>';
+		$("#listavideo").append(outputTitolo);
+	}
+	for (let video in obj.why) {
+		outputTitolo = '<li id="' +obj.why[video].id + '" >' + '<iframe width="100%" height="auto", src="'+ 'https://www.youtube.com/embed/'+obj.why[video].id+'"></iframe>' + '</li>';
+		$("#listavideo").append(outputTitolo);
+	}
 
  }
 
@@ -620,74 +633,89 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
  /*************** FILTRI **************/
 
 
-
- function getValuesFiltro() { //crea un oggetto con i campi selezionati
-
- 	var A = {
+function getValuesFiltro() { //crea un oggetto con i campi selezionati
+/*
+ 	var Oggetto = {
  		lingua: document.getElementById("selectlingua").value,
  		audience: document.getElementById("selectAudience").value,
- 		scopo: document.getElementById("scopo").value,
- 	};
- 	return A;
+ 		categoria: document.getElementById("categoria").value,
+	 };
+	 
+*/
+var Oggetto = {
+	lingua: "ita",
+	categoria: "his",
+	audience: ""
+	
+};
+
+ 	return Oggetto;
  }
 
+//prendo in input l'oggetto del luogo dove ho cliccato e ritorna un oggetto filtrato
 
- function filtraVideo(luogoInCuiSono) {
+ function filtraVideo(oggInCuiSono) {
  	var newObject = new Object;
- 	newObject.nome = luogoInCuiSono.nome;
- 	newObject.categoria = luogoInCuiSono.categoria;
- 	newObject.video = new Array;
- 	var oggfiltro = getValuesFiltro();
- 	for (campo in oggfiltro) {
+	 newObject.what = new Array;
+	 newObject.how = new Array;
+ 	 newObject.why = new Array;
+	 
+	  oggfiltro=getValuesFiltro();
+ 	//var arrayvideo = luogoInCuiSono.video;
 
- 	}
+ 	for (var cat in oggInCuiSono) {		 
 
- 	var arrayvideo = luogoInCuiSono.video;
+		for(var video in oggInCuiSono[cat]){
+			
+			
 
- 	for (var i = 0; i < arrayvideo.length; i++) {
- 		//caso in cui tutti i campi sono vuoti
- 		if (oggfiltro.lingua == "" && oggfiltro.audience == "" && oggfiltro.scopo == "") {
- 			newObject.video.push(arrayvideo[i]);
- 		}
- 		//casi in cui due dei tre campi sono vuoti
- 		else if (oggfiltro.audience == "" && oggfiltro.scopo == "" && oggfiltro.lingua != "") {
- 			if (oggfiltro.lingua == arrayvideo[i].lingua) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		} else if (oggfiltro.lingua == "" && oggfiltro.scopo == "" && oggfiltro.audience != "") {
- 			if (oggfiltro.audience == arrayvideo[i].audience) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		} else if (oggfiltro.audience == "" && oggfiltro.lingua == "" && oggfiltro.scopo != "") {
- 			if (oggfiltro.scopo == arrayvideo[i].scopo) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		}
- 		//casi in cui solo un campo dei tre è vuoto
- 		else if (oggfiltro.audience == "" && oggfiltro.lingua != "" && oggfiltro.scopo != "") {
- 			if (oggfiltro.scopo == arrayvideo[i].scopo && oggfiltro.lingua == arrayvideo[i].lingua) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		} else if (oggfiltro.audience != "" && oggfiltro.lingua == "" && oggfiltro.scopo != "") {
- 			if (oggfiltro.scopo == arrayvideo[i].scopo && oggfiltro.audience == arrayvideo[i].audience) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		} else if (oggfiltro.audience != "" && oggfiltro.lingua != "" && oggfiltro.scopo == "") {
- 			if (oggfiltro.lingua == arrayvideo[i].lingua && oggfiltro.audience == arrayvideo[i].audience) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		}
- 		//caso in cui tutti i campi sono compilati
- 		else if (oggfiltro.audience != "" && oggfiltro.lingua != "" && oggfiltro.scopo != "") {
- 			if (oggfiltro.lingua == arrayvideo[i].lingua && oggfiltro.audience == arrayvideo[i].audience && oggfiltro.scopo == arrayvideo[i].scopo) {
- 				newObject.video.push(arrayvideo[i]);
- 			}
- 		}
+			//caso in cui tutti i campi sono vuoti
+			if (oggfiltro.lingua == "" && oggfiltro.audience == "" && oggfiltro.categoria == "") {
+				newObject[cat].push(oggInCuiSono[cat][video]);
+			}
+			//casi in cui due dei tre campi sono vuoti
+			else if (oggfiltro.audience == "" && oggfiltro.categoria == "" && oggfiltro.lingua != "") {
+				
+				if (oggfiltro.lingua == oggInCuiSono[cat][video].lingua) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			} 
+			else if (oggfiltro.lingua == "" && oggfiltro.categoria == "" && oggfiltro.audience != "") {
+				if (oggfiltro.audience == oggInCuiSono[cat][video].audience) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			} 
+			else if (oggfiltro.audience == "" && oggfiltro.lingua == "" && oggfiltro.categoria != "") {
+				if (oggfiltro.categoria == oggInCuiSono[cat][video].categoria) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			}
+			//casi in cui solo un campo dei tre è vuoto
+			else if (oggfiltro.audience == "" && oggfiltro.lingua != "" && oggfiltro.categoria != "") {
+				if (oggfiltro.categoria == oggInCuiSono[cat][video].categoria && oggfiltro.lingua == oggInCuiSono[cat][video].lingua) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			} else if (oggfiltro.audience != "" && oggfiltro.lingua == "" && oggfiltro.categoria != "") {
+				if (oggfiltro.categoria == oggInCuiSono[cat][video].categoria && oggfiltro.audience == oggInCuiSono[cat][video].audience) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			} else if (oggfiltro.audience != "" && oggfiltro.lingua != "" && oggfiltro.categoria == "") {
+				if (oggfiltro.lingua == oggInCuiSono[cat][video].lingua && oggfiltro.audience == oggInCuiSono[cat][video].audience) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			}
+			//caso in cui tutti i campi sono compilati
+			else if (oggfiltro.audience != "" && oggfiltro.lingua != "" && oggfiltro.categoria != "") {
+				if (oggfiltro.lingua == oggInCuiSono[cat][video].lingua && oggfiltro.audience == oggInCuiSono[cat][video].audience && oggfiltro.categoria == oggInCuiSono[cat][video].categoria) {
+					newObject[cat].push(oggInCuiSono[cat][video]);
+				}
+			}
 
+		}
 
- 	}
- 	addToPlayer(newObject);
-
+	 }
+	 	console.log(newObject);
+     	popolaDivVideo(newObject);
 
 
  }
@@ -759,4 +787,4 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 
  	}
 
- }
+}
