@@ -684,11 +684,11 @@ function popolaWhat(obj) {
 		$("#youtube-video").append(outputTitolo);
 	}
 }
-
+var videoPos;
 window.onload = function () {
 
 	$("#wheremi").click(function () {
-		var videoPos = nextLuogo(posizioneattuale);
+		videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
 		
@@ -704,6 +704,19 @@ window.onload = function () {
 		videoPos=prevLuogo();
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
+	});
+	$("#how").click(function () {
+		
+		$("#youtube-video").html('');
+		console.log(videoPos);
+		if (videoPos.how.length!=0) {
+			outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
+			$("#youtube-video").append(outputTitolo);
+		}else{
+			alert("No Video How");
+		}
+
+		
 	});
 
 }
