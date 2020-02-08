@@ -397,6 +397,9 @@ function popolaDivVideo(obj) {
 
 
 function playThisVideo(id){
+	$("#youtube-video").html('');
+	outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + id.id + '"></iframe>'+ '</li>';
+		$("#youtube-video").append(outputTitolo);
 
 }
 
