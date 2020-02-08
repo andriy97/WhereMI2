@@ -379,19 +379,27 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
-		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<iframe width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[video].id + '"></iframe>' + '</li>';
+		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<img onclick="playThisVideo('+obj.what[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
+		+ obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '
+		+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.how) {
-		outputTitolo = '<li id="' + obj.how[video].id + '" >' + '<iframe width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[video].id + '"></iframe>' + '</li>';
+		outputTitolo = '<li id="' + obj.how[video].id + '" >' + '<img width="50%" height="auto" src="https://img.youtube.com/vi/' + obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '</li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
-		outputTitolo = '<li id="' + obj.why[video].id + '" >' + '<iframe width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[video].id + '"></iframe>' + '</li>';
+		outputTitolo = '<li id="' + obj.why[video].id + '" >' + '<img width="50%" height="auto" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '</li>';
 		$("#listavideo").append(outputTitolo);
 	}
 
 }
+
+
+function playThisVideo(id){
+
+}
+
 
 function showPlayerDiv(show) { //mostra o nasconde la finestra del player e audio
 	var divfiltro = document.getElementById('divfiltro');
@@ -665,17 +673,17 @@ function filtraVideo(oggInCuiSono) {
 }
 
 function popolaWhat(obj) {
-
+	console.log(obj)
 	document.getElementById("bacicci").style.display = "block";
 	$("#youtube-video").html('');
 	
 
-	if (obj.what != []) {
+	if (obj.what.length != 0) {
 		console.log("entrato if what")
 		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>'+ '</li>';
 		$("#youtube-video").append(outputTitolo);
 	}
-	else if(obj.why != []){
+	else if(obj.why.length != 0){
 		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[0].id + '"></iframe>' + '</li>';
 		$("#youtube-video").append(outputTitolo);
 	}
