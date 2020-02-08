@@ -134,14 +134,14 @@ function TrovaVideo(OLC) {
 
 				request.execute(function (response) {
 
-					console.log(response); //just for debug purpose
+					 //just for debug purpose
 					response.items.forEach(function (item) {
 
 						popolaVideoRicevuti(item);
 
 
 					})
-					console.log(VideoRicevuti);
+					
 					PopolaMappa(VideoRicevuti);
 					oggProvvisorio = JSON.parse(JSON.stringify(VideoRicevuti));;
 				});
@@ -219,7 +219,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 	});
 
 	google.maps.event.addListener(marker, 'mouseover', function () { //mostra un popup con il nome del posto
-		console.log("over su " + marker);
+		
 	});
 
 	return marker;
@@ -285,7 +285,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	document.getElementById('end').addEventListener('change', function () { //crea il percorso dalla tua posizione a quella desiderata
 		directionsRenderer.set('directions', null);
 		var arrivo = document.getElementById('end').value;
-		console.log(posizioneattuale)
+		
 		calculateAndDisplayRoute(directionsService, directionsRenderer, posizioneattuale, arrivo);
 		document.getElementById("end").value = "";
 	});
@@ -307,9 +307,9 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		//trova video intorno a te e aggiunge i marker alla mappa
 		var mioOlc = OpenLocationCode.encode(position.coords.latitude, position.coords.longitude);
 		var olcGrande = mioOlc.substring(0, 6) + "00+-";
-		console.log(olcGrande);
+	
 		TrovaVideo(olcGrande);
-
+		
 		/*
 		
 		map.setCenter(marker.position);
@@ -379,8 +379,6 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
-		console.log(obj.what[video]);
-		console.log(obj.what[video].id);
 		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<iframe width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[video].id + '"></iframe>' + '</li>';
 		$("#listavideo").append(outputTitolo);
 	}
@@ -660,24 +658,30 @@ function filtraVideo(oggInCuiSono) {
 		}
 
 	}
-	console.log(newObject);
+	
 	popolaDivVideo(newObject);
 
 
 }
 
 function popolaWhat(obj) {
+
+	document.getElementById("bacicci").style.display = "block";
+	$("#youtube-video").html('');
+	
+
 	if (obj.what != []) {
-		outputTitolo = '<iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>' + '</li>';
-		$("#youtube-player").append(outputTitolo);
+		console.log("entrato if what")
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>'+ '</li>';
+		$("#youtube-video").append(outputTitolo);
 	}
 	else if(obj.why != []){
-		outputTitolo = '<iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[0].id + '"></iframe>' + '</li>';
-		$("#youtube-player").append(outputTitolo);
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[0].id + '"></iframe>' + '</li>';
+		$("#youtube-video").append(outputTitolo);
 	}
 	else{
-		outputTitolo = '<iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[0].id + '"></iframe>' + '</li>';
-		$("#youtube-player").append(outputTitolo);
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[0].id + '"></iframe>' + '</li>';
+		$("#youtube-video").append(outputTitolo);
 	}
 }
 
@@ -687,18 +691,19 @@ window.onload = function () {
 		var videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
-	
-
+		
 	});
 
 	$("#nextLuogo").click(function () {
-
-		popolaDivVideo(nextLuogo(posizioneattuale));
+		videoPos=nextLuogo(posizioneattuale);
+		popolaWhat(videoPos);
+		popolaDivVideo(videoPos);
 	});
 
 	$("#prevLuogo").click(function () {
-
-		popolaDivVideo(prevLuogo());
+		videoPos=prevLuogo();
+		popolaWhat(videoPos);
+		popolaDivVideo(videoPos);
 	});
 
 }
@@ -734,15 +739,14 @@ function LuogoVicino(position) { //ritorna il luogo più vicino
 function prevLuogo() {
 
 	var obj = luoghiVisitati.pop()
-	console.log(obj);
+	
 	var lat = OpenLocationCode.decode(obj).latitudeCenter;
 	var lng = OpenLocationCode.decode(obj).longitudeCenter;
 	var position = new google.maps.LatLng(lat, lng);
 	posizioneattuale = position;
 	oggProvvisorio[obj] = new Object;
 	oggProvvisorio[obj] = VideoRicevuti[obj]; //videoricevuti obj vuoto
-	console.log(VideoRicevuti);
-	console.log(oggProvvisorio);
+	
 
 	return oggProvvisorio[obj];
 }
@@ -750,7 +754,7 @@ function prevLuogo() {
 var luoghiVisitati = new Array;
 
 function nextLuogo(position) { //ritorna il luogo più vicino
-	console.log(oggProvvisorio);
+	
 	var OLC = OpenLocationCode.encode(position.lat(), position.lng());
 	var arraydistanza = new Array();
 	var luogopiuvicino;
@@ -758,7 +762,7 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 
 	for (let luogo in VideoRicevuti) {
 		if (luogo == OLC) {
-			console.log(luogo)
+			
 			luoghiVisitati.push(luogo);
 			delete oggProvvisorio[luogo];
 		}
@@ -774,12 +778,12 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 		var distanza = spherical.computeDistanceBetween(position, positionOgg);
 		arraydistanza.push(distanza);
 		if (distanza <= Math.min.apply(null, arraydistanza)) {
-			console.log(oggProvvisorio[luogo] + 'entrato if')
+			
 			luogopiuvicino = oggProvvisorio[luogo];
 			posizioneattuale = positionOgg;
 		}
 
 	}
-	console.log(luogopiuvicino);
+	
 	return luogopiuvicino;
-}k
+}
