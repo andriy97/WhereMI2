@@ -910,6 +910,10 @@ svg:not(:root).svg-inline--fa {
     top: 80px;
     display: block;
 }
+.video-image{
+  object-fit:contain;
+}
+
 .arrows{
   width: 100%;
   max-width: 31px;

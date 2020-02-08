@@ -379,7 +379,7 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
-		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<img onclick="playThisVideo('+obj.what[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
+		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.what[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
 		+ obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '
 		+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
