@@ -6,7 +6,6 @@
         <!--includo libreria jquery tramite CDN, niente download-->
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-      
         <link rel="shortcut icon" href="https://site181964.tw.cs.unibo.it/media/img/logo.png" />
         
         <!--Api youtube audio-->
@@ -21,10 +20,8 @@
         <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet">
         <!--LOGIN GOOGLE-->
-
         <!--OPEN LOCATION CODE-->
         <script src="https://cdn.jsdelivr.net/openlocationcode/latest/openlocationcode.js"></script>
-        
         <!-- Maps Javascript API-->
         
        <script src="https://apis.google.com/js/platform.js" async defer></script>
@@ -33,11 +30,9 @@
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
             integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     </head>
-    <body >
-       
+    <body>
         <div class="loading" id="loading"></div>
         <div class="page">
-          
             <nav class="navbar navbar-inverse" role="navigation">
                 <div class="container">
                     <div class="navbar-header">
@@ -54,8 +49,17 @@
                         </div>
                     </div>
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="navbar-left nav navbar-nav">
+                            <form style="    margin-left: 30px;
+                            margin-top: 10px;
+                            margin-bottom: -14px;" id="demo-2">
+                                <input  type="search" id="end" name="to" required="required"
+                                placeholder="...?" size="30" />
+                            <!-- <input value="Go"  type="submit" /> -->
+                            </form> 
+                        </ul>
                         <ul class="nav navbar-nav navbar-right">
-                            <li> <button class="wheremibtn" type="button" id="wheremi">clicca</button></li>
+                           
                             <li id="userStatus">
                                 <a style="color: white;
                                     font-size: 18px;
@@ -108,10 +112,11 @@
                     </div> 
                 </div>   
             </nav>
+          
        <div class="background-image">
-                <div class="container">
+                <div>
                     <div class="active remove-position">
-                        <div class="text-center flex">
+                        <!-- <div class="text-center flex">
                             <img src="../media/img/map.png" style="    width: 47px;
                                 position: relative;
                                 bottom: 10px;">
@@ -127,17 +132,36 @@
                             </div>
                             <div>
                             </div>
-                        </div>
-                        <div class="set-buttons space-between">
+                        </div> -->
+                        <div class="set-buttons">
+                        <div class="space-between">
+                        
                             <button style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="set-position" onclick="showBar(true)"
                                 value="Set position">
-                            <span lang="it">Posizione</span>
-                            <span lang="en"> Position</span>
-                            <span lang="es">Posición</span>
-                            <span lang="de">Position</span>
-                            <span lang="fr">Position</span>
+                                <span lang="it">Posizione</span>
+                                <span lang="en"> Position</span>
+                                <span lang="es">Posición</span>
+                                <span lang="de">Position</span>
+                                <span lang="fr">Position</span>
                             </button>
-                            <div style="position:relative;" class="form-group">
+                            <!-- <div class="text-center flex">
+                                <img src="../media/img/map.png" style="    width: 47px;
+                                    position: relative;
+                                    bottom: 10px;">
+                                <label class="text-center search-where" lang="en">Where do you want to go?</label>
+                                <label class="text-center search-where" lang="es">¿a donde quieres ir?</label>
+                                <label class="text-center search-where" lang="it">Dove vorresti andare?</label>
+                                <label class="text-center search-where" lang="fr">Où veux-tu aller?</label>
+                                <label class="text-center search-where" lang="de">Wohin willst du gehen?</label>
+                                    <div class="direction flex-center">
+                                        <input class="search-directions" type="text" id="end" name="to" required="required"
+                                            placeholder="...?" size="30" />
+                                        <input value="Go" class="search-directions" type="submit" />
+                                    </div>
+                                <div>
+                                </div>
+                            </div> -->
+                            <!-- <div style="position:relative;" class="form-group">
                                 <span class="position-style">
                                 <span lang="it"> Filtra luoghi per categoria</span>
                                 <span lang="en">Filter the places by category</span>
@@ -179,34 +203,30 @@
                                     <option lang="de" value=rel>Religion</option>
                                     <option lang="de" value=oth>mehr</option>
                                 </select>
-                            </div>
+                            </div> -->
                             <input style="width: 100px;" class="search-directions-extra add-margin-on-desk" type="text" id="pos" required="required"
                                 placeholder="..." size="30" />
                             <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
                         </div>
+                        <button class="wheremibtn" 
+                        type="button" id="wheremi"><img src="../media/img/map.png" style="    width: 32px;
+                        position: relative;
+                        bottom: 8px;">Where am I?</button>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div id='bacicci' style='    
-            width: 35%;
-            position: absolute;
-            z-index: 1;
-            right: 0px;
-            background-color: white;
-            margin: auto;
-            top: 14%;
-            display: none;
-        '>
-                    <button class="nextbtn" type="button" id="nextLuogo">Next</button>
-                    <button  type="button" id="prevLuogo">Prev</button>
-                    <button  type="button" id="how">how</button>
-                    <ul id=youtube-video></ul>
+            <div style="display: none;" id='bacicci' class="bacicci-player">
+                    <div class="space-between">
+                    <button class="nextbtn player-buttons" type="button" id="nextLuogo">Next</button>
+                    <button  type="button" class="player-buttons" id="how">how</button>
+                    <button  type="button" class="player-buttons" id="prevLuogo">Prev</button>
+                </div>
+                    <ul id="youtube-video"></ul>
                     <ul id="listavideo" style="list-style: none; height: 300px;overflow-y: scroll;">
                     </ul>
                 </div>
             </div>
-                        
-          
             <div id="map" class="map">
             </div>
                    <!--FILTRO-->
