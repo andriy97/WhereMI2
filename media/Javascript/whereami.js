@@ -26,7 +26,7 @@
 /**************SETTAGGIO MAPPA*************/
 
 var posizioneattuale; //posizione iniziale
-
+var posizioneiniziale;
 var VideoRicevuti = {};
 
 var flag;
@@ -236,6 +236,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 
 	var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 	posizioneattuale = coords;
+	posizioneiniziale = coords;
 	directionsRenderer = new google.maps.DirectionsRenderer; //servizi di google per la creazione di strade
 	var directionsService = new google.maps.DirectionsService; //servizi di google per la creazione di strade
 	var geocoder = new google.maps.Geocoder(); //servizio di google che converte luoghi in coordinate
@@ -295,7 +296,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		directionsRenderer.set('directions', null);
 
 		marker = geocodeAddress(geocoder, map, address);
-
+		posizioneiniziale=marker.getPosition();
 		marker.setMap(map);
 		map.setZoom(15)
 	});
@@ -320,8 +321,8 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	google.maps.event.addListener(marker, 'dragend', function () { //setta la tua posizione dopo che hai spostato il marker
 		directionsRenderer.set('directions', null);
 		marker.setPosition(marker.getPosition());
-		posizioneattuale = marker.getPosition();
-
+		posizioneiniziale = marker.getPosition();
+		
 	});
 
 }
@@ -379,6 +380,8 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
+		if(obj.what[video].dettagli)
+
 		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.what[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
 		+ obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '
 		+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
@@ -406,188 +409,6 @@ function playThisVideo(id){
 		$("#youtube-video").append(outputTitolo);
 
 }
-
-
-function showPlayerDiv(show) { //mostra o nasconde la finestra del player e audio
-	var divfiltro = document.getElementById('divfiltro');
-	var divplayer = document.getElementById('divplayer');
-	var gotoFilter = document.getElementById('gotoFilter');
-	if (show == true) {
-		divfiltro.style.display = 'block';
-		divplayer.style.display = 'block';
-	} else {
-		divfiltro.style.display = 'none';
-		divplayer.style.display = 'none';
-	}
-
-}
-
-
-
-
-/**********FINESTRA PLAYER E AUDIO **********/
-
-
-
-
-function showBar(show) { //mostra o nasconde la finestra del player e audio
-
-	var bottone = document.getElementById('set-position');
-	var barra = document.getElementById('pos');
-	if (show == true) {
-		bottone.style.visibility = 'hidden';
-		barra.style.visibility = 'visible';
-	} else {
-		bottone.style.visibility = 'visible';
-		barra.style.visibility = 'hidden';
-	}
-
-}
-
-
-var player;
-
-
-
-function onYouTubeIframeAPIReady() {
-
-	$("#playbutton").click(toggleAudio); //se clicchi sul pulsante chiama toogleAudio
-
-	player = new YT.Player('youtube-player', { //lega il player al div "youtube-player"
-		height: '0',
-		width: '0',
-		//url del video (stringa a 11 caratteri, dopo youtube.com/watch?v=)
-		playerVars: {
-			autoplay: 0,
-			loop: 0,
-			origin: 'https://site181964.tw.cs.unibo.it'
-		},
-	});
-
-	player.addEventListener("onStateChange", function (state) {
-		if (state.data === 0) {
-			togglePlayButton(false);
-		}
-	});
-
-
-	function toggleAudio() {
-
-		if (player.getPlayerState() == 1 || player.getPlayerState() == 3) {
-			player.pauseVideo();
-			togglePlayButton(false);
-		} else {
-			id = player.getVideoUrl().split("=")[1];
-			if (!id) {
-				player.loadVideoById(urlvideo[0]);
-				for (var i = 0; i < urlvideo.length; i++) {
-					document.getElementById(urlvideo[i]).style.color = "black";
-				}
-				document.getElementById(urlvideo[0]).style.color = "red";
-			}
-
-			player.playVideo();
-			togglePlayButton(true);
-
-
-
-		}
-	}
-
-	function togglePlayButton(play) {
-		document.getElementById("playbutton").innerHTML = play ? "pause" : "play";
-	}
-
-
-
-
-
-	function makeAllBlack() {
-		for (var i = 0; i < urlvideo.length; i++) {
-			document.getElementById(urlvideo[i]).style.color = "black";
-		}
-
-	}
-	$("#nextbutton").click(function () {
-		var index = urlvideo.indexOf(player.getVideoData()['video_id']); //prendo l'indice del video che è in esecuzione
-		if (index == urlvideo.length - 1) { //se siamo sull'ultimo video
-			player.loadVideoById(urlvideo[0]);
-			makeAllBlack();
-			document.getElementById(urlvideo[0]).style.color = "red";
-
-		} else {
-			player.loadVideoById(urlvideo[index + 1]);
-			makeAllBlack();
-			document.getElementById(urlvideo[index + 1]).style.color = "red";
-		}
-		player.playVideo;
-		togglePlayButton(true);
-	});
-
-	$("#backbutton").click(function () {
-		var index = urlvideo.indexOf(player.getVideoData()['video_id']);
-		if (index - 1 < 0) { //se siamo sul primo video
-			player.loadVideoById(urlvideo[0]);
-			makeAllBlack();
-			document.getElementById(urlvideo[0]).style.color = "red";
-		} else {
-			player.loadVideoById(urlvideo[index - 1]);
-			makeAllBlack();
-			document.getElementById(urlvideo[index - 1]).style.color = "red";
-		}
-		player.playVideo;
-		togglePlayButton(true);
-	});
-
-
-
-	$("#skipbutton").click(function () {
-
-
-		var directionsService = new google.maps.DirectionsService;
-		directionsRenderer.set('directions', null);
-		var lat = document.getElementById("skipbutton").value;
-		var lng = document.getElementById("skipbutton").name;
-		var posizionemomentanea = new google.maps.LatLng(lat, lng);
-		var nxt = nextLuogo(lat, lng);
-		var coord = new google.maps.LatLng(nxt.coord.lat, nxt.coord.long)
-		calculateAndDisplayRoute(directionsService, directionsRenderer, posizionemomentanea, coord);
-		directionsRenderer.setMap(map);
-		addToPlayer(nxt);
-		document.getElementById("skipbutton").value = nxt.coord.lat;
-		document.getElementById("skipbutton").name = nxt.coord.long;
-
-
-	});
-
-
-	$("#prevbutton").click(function () {
-
-		var directionsService = new google.maps.DirectionsService;
-		directionsRenderer.set('directions', null);
-		var posizioneprecedente = arrayposizionivisitate[arrayposizionivisitate.length - 1]
-		if (arrayposizionivisitate.length == 0 || arrayposizionivisitate.length == 1) {
-			return 0;
-		}
-		for (luogo in LuoghiAlCaricamento) {
-			if (LuoghiAlCaricamento[luogo].coord.lat == arrayposizionivisitate[arrayposizionivisitate.length - 2].lat() && LuoghiAlCaricamento[luogo].coord.long == arrayposizionivisitate[arrayposizionivisitate.length - 2].lng()) {
-				addToPlayer(LuoghiAlCaricamento[luogo]);
-				var posizionemomentanea = new google.maps.LatLng(LuoghiAlCaricamento[luogo].coord.lat, LuoghiAlCaricamento[luogo].coord.long);
-				calculateAndDisplayRoute(directionsService, directionsRenderer, posizioneprecedente, posizionemomentanea);
-				directionsRenderer.setMap(map);
-				document.getElementById("skipbutton").value = LuoghiAlCaricamento[luogo].coord.lat;
-				document.getElementById("skipbutton").name = LuoghiAlCaricamento[luogo].coord.long;
-			}
-		}
-
-		arrayposizionivisitate.pop();
-
-	});
-
-
-
-}
-
 
 
 
@@ -699,40 +520,81 @@ function popolaWhat(obj) {
 		$("#youtube-video").append(outputTitolo);
 	}
 }
+
+
+function popolaHow(videoPos){
+
+	
+	console.log(videoPos);
+
+	var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
+		var lng = OpenLocationCode.decode(arrivo).longitudeCenter;
+		var position = new google.maps.LatLng(lat, lng);
+		var directionsService = new google.maps.DirectionsService;
+		calculateAndDisplayRoute(directionsService, directionsRenderer,posizioneiniziale,position);
+		posizionepartenza=position;
+
+	if (videoPos.how.length!=0) {
+		$("#youtube-video").html('');
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
+		$("#youtube-video").append(outputTitolo);
+	}else{
+		alert("No Video How");
+	}
+
+	
+}
+
+
 var videoPos;
+var arraywhy= new Array();
 window.onload = function () {
 
 	$("#wheremi").click(function () {
 		videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
+		arraywhy=videoPos.why;
 		
 	});
 
 	$("#nextLuogo").click(function () {
+		directionsRenderer.set('directions', null);
 		videoPos=nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
+		arraywhy=videoPos.why;
 	});
 
 	$("#prevLuogo").click(function () {
+		directionsRenderer.set('directions', null);
 		videoPos=prevLuogo();
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
+		arraywhy=videoPos.why;
 	});
 	$("#how").click(function () {
 		
-		$("#youtube-video").html('');
-		console.log(videoPos);
-		if (videoPos.how.length!=0) {
-			outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
-			$("#youtube-video").append(outputTitolo);
-		}else{
-			alert("No Video How");
-		}
-
-		
+		popolaHow(videoPos);
+				
 	});
+	$("#more").click(function () {
+		
+		if(arraywhy.length!=0){
+		
+			$("#youtube-video").html('');
+			outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + arraywhy.pop().id + '"></iframe>'+ '</li>';
+				$("#youtube-video").append(outputTitolo);
+		}
+			
+		else{
+			console.log('non ci sono piu why e facciamo vedere gli how');
+			popolaHow(videoPos);
+		}
+		
+
+	});
+
 
 }
 
@@ -780,6 +642,7 @@ function prevLuogo() {
 }
 
 var luoghiVisitati = new Array;
+var arrivo;
 
 function nextLuogo(position) { //ritorna il luogo più vicino
 	
@@ -808,7 +671,8 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 		if (distanza <= Math.min.apply(null, arraydistanza)) {
 			
 			luogopiuvicino = oggProvvisorio[luogo];
-			posizioneattuale = positionOgg;
+			posizioneattuale = positionOgg; //settiamo posizione attuale 
+			arrivo=luogo; //arrivo e la pos dove deve andare con calculateandisplayroute
 		}
 
 	}
