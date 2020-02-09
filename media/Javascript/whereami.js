@@ -211,6 +211,9 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 			if (olc == tmp) {
 				markercliccato = VideoRicevuti[tmp];
 				popolaDivVideo(markercliccato);
+				
+		
+				popolaWhat(markercliccato);
 				filtraVideo(markercliccato);
 
 			}
@@ -252,7 +255,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	var marker = creaMarker(coords);
 	marker.setMap(map);
 
-
+	
 
 
 
@@ -304,12 +307,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 
 
 	document.getElementById('reset-map').addEventListener('click', function () { //sposta la visuale della mappa alla posizione di partenza
-
-		//trova video intorno a te e aggiunge i marker alla mappa
-		var mioOlc = OpenLocationCode.encode(position.coords.latitude, position.coords.longitude);
-		var olcGrande = mioOlc.substring(0, 6) + "00+-";
 	
-		TrovaVideo(olcGrande);
 		
 		/*
 		
@@ -324,6 +322,15 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		posizioneiniziale = marker.getPosition();
 		
 	});
+
+}
+
+function aggiornaVideo(lat, long){
+//trova video intorno a te e aggiunge i marker alla mappa
+var mioOlc = OpenLocationCode.encode(lat, long);
+var olcGrande = mioOlc.substring(0, 6) + "00+-";
+
+TrovaVideo(olcGrande);
 
 }
 
@@ -549,12 +556,16 @@ function popolaHow(videoPos){
 var videoPos;
 var arraywhy= new Array();
 window.onload = function () {
+	aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng());
 
 	$("#wheremi").click(function () {
+		
+
 		videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
 		arraywhy=videoPos.why;
+		console.log(luoghiVisitati);
 		
 	});
 
@@ -569,15 +580,20 @@ window.onload = function () {
 	$("#prevLuogo").click(function () {
 		directionsRenderer.set('directions', null);
 		videoPos=prevLuogo();
-		popolaWhat(videoPos);
-		popolaDivVideo(videoPos);
-		arraywhy=videoPos.why;
+		if(videoPos!=null){
+			popolaWhat(videoPos);
+			popolaDivVideo(videoPos);
+			arraywhy=videoPos.why;
+		}
+		
 	});
+
 	$("#how").click(function () {
 		
 		popolaHow(videoPos);
 				
 	});
+
 	$("#more").click(function () {
 		
 		if(arraywhy.length!=0){
@@ -599,46 +615,26 @@ window.onload = function () {
 }
 
 
-/*
-function LuogoVicino(position) { //ritorna il luogo più vicino
-	var arraydistanza= new Array();
-	var luogopiuvicino;
-	var spherical = google.maps.geometry.spherical;
+function prevLuogo() {
+	console.log(luoghiVisitati);
+	if(luoghiVisitati.length>1){
+		var obj = luoghiVisitati.pop();
+	
 
-	for (let luogo in VideoRicevuti) {
-
-		var latogg = OpenLocationCode.decode(luogo).latitudeCenter;
-		var lngogg = OpenLocationCode.decode(luogo).longitudeCenter;
-		var positionOgg = new google.maps.LatLng(latogg, lngogg); //posizione luogo da confrontare
-		var distanza = spherical.computeDistanceBetween(position, positionOgg);
+	
+		var lat = OpenLocationCode.decode(obj).latitudeCenter;
+		var lng = OpenLocationCode.decode(obj).longitudeCenter;
+		var position = new google.maps.LatLng(lat, lng);
+		posizioneattuale = position;
+		oggProvvisorio[obj] = new Object;
+		oggProvvisorio[obj] = VideoRicevuti[obj]; //videoricevuti obj vuoto
 		
-		arraydistanza.push(distanza);
-		if (distanza <= Math.min.apply(null, arraydistanza)) {
-			luogopiuvicino = VideoRicevuti[luogo];
-			posizioneattuale=positionOgg;
-
-		}
-
+	
+		return oggProvvisorio[obj];
+	}else{
+		return null;
 	}
 	
-	return luogopiuvicino;
-}
-*/
-
-
-function prevLuogo() {
-
-	var obj = luoghiVisitati.pop()
-	
-	var lat = OpenLocationCode.decode(obj).latitudeCenter;
-	var lng = OpenLocationCode.decode(obj).longitudeCenter;
-	var position = new google.maps.LatLng(lat, lng);
-	posizioneattuale = position;
-	oggProvvisorio[obj] = new Object;
-	oggProvvisorio[obj] = VideoRicevuti[obj]; //videoricevuti obj vuoto
-	
-
-	return oggProvvisorio[obj];
 }
 
 var luoghiVisitati = new Array;
