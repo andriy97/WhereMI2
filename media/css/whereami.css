@@ -918,7 +918,7 @@ svg:not(:root).svg-inline--fa {
 }
 
 .bacicci-player {
-	width: 35%;
+	width: 100%;
 	position: fixed;
 	z-index: 1;
 	right: 0px;
@@ -928,10 +928,11 @@ svg:not(:root).svg-inline--fa {
 	padding-right: 10px;
 	padding-left: 10px;
 	padding-top: 5px;
-	box-shadow: 4px -5px 6px 10px black;
-	overflow: scroll;
+    box-shadow: 4px -5px 6px 10px black;
+    overflow: scroll;
     max-height: max-content;
     height: 100%;
+    max-width: 400px;
 }
 
 .buttons-back {
@@ -953,6 +954,8 @@ svg:not(:root).svg-inline--fa {
 	height: 100%;
 	overflow-y: scroll;
 	padding: 0;
+	max-height: 400px;
+     padding-bottom: 68px;
 }
 
 .small-list li {
@@ -963,6 +966,7 @@ svg:not(:root).svg-inline--fa {
 	object-fit: contain;
 	margin-bottom: 10px;
 	margin-right: 10px;
+	width: 140px;
 }
 .close-block{
 	text-align: right; cursor: pointer;  position: relative;
@@ -1306,14 +1310,17 @@ button {
                                     position: relative;
                                     bottom: 8px;
 }
-@media (min-width:501px){	
+.video-preview li iframe{
+	height: 34% !important;
+  }
+@media (min-width:768px){	
   .hide-on-desktop{
     display: none;
   }
   
 }
 
-@media (max-width:500px) {
+@media (max-width:767px) {
 	.bacicci-player {
 		width: 100%;
 		position: fixed;
@@ -1328,8 +1335,9 @@ button {
 		box-shadow: -1px 7px 6px 9px black;
 		bottom: 0;
 		height: 100%;
-    	max-height: 290px;
+        max-height: 262px;
 		top: inherit;
+		max-width: 100%;
   	}
 	  .video-preview li iframe{
 		height: 115px !important;
@@ -1343,7 +1351,7 @@ button {
   }
   .where_mobile {
 	z-index: 13;
-    left: 42%;
+    left: 81%;
     position: absolute;
     width: auto;
     border-radius: 50%;

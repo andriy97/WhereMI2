@@ -264,14 +264,6 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	var marker = creaMarker(coords);
 	marker.setMap(map);
 
-	
-
-
-
-
-
-
-
 
 	function geocodeAddress(geocoder, resultsMap, address) { //trasforma un indirizzo in un dato LatLng
 		marker.setMap(null);
@@ -774,3 +766,16 @@ $(function () {
         $('#homeCarousel').carousel('pause');
     });
 });
+
+function showBar(show) { //mostra o nasconde la finestra del player e audio
+
+	var bottone = document.getElementById('set-position');
+	var barra = document.getElementById('pos');
+	if (show == true) {
+		bottone.style.visibility = 'hidden';
+		barra.style.visibility = 'visible';
+	} else {
+		bottone.style.visibility = 'visible';
+		barra.style.visibility = 'hidden';
+	}
+}
