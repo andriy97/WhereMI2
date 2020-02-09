@@ -385,11 +385,15 @@ function popolaDivVideo(obj) {
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.how) {
-		outputTitolo = '<li id="' + obj.how[video].id + '" >' + '<img width="50%" height="auto" src="https://img.youtube.com/vi/' + obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '</li>';
+		outputTitolo = '<li id="' + obj.how[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.how[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
+		+ obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.how[video].titolo+'<br>purpose: how<br>lingua: '
+		+obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
-		outputTitolo = '<li id="' + obj.why[video].id + '" >' + '<img width="50%" height="auto" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '</li>';
+		outputTitolo = '<li id="' + obj.why[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.why[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
+		+ obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: '
+		+obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 
