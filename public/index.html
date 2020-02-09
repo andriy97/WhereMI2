@@ -42,7 +42,8 @@
                         <span class="icon-bar"></span>
                         </button>
                         <div class="left-on-mobile logo-title-s">
-                            <img class="logo" src="../media/img/logo.png"><span class="logo-title-s logo-text">Where
+                            <img class="logo" src="../media/img/logo.png">
+                            <span class="logo-title-s logo-text">Where
                             MI</span>
                         </div>
                     </div>
@@ -122,7 +123,7 @@
                     <div class="carousel-inner">
                         <!-- Item 1 -->
                         <div class="item active">
-                            <img style="    width: 100%;" src="https://besthqwallpapers.com/img/original/17081/bologna-4k-summer-buildings-cityscapes.jpg"/>
+                            <img style="width: 100%;" src="https://i.ibb.co/68nNcPw/bologna-4k-summer-buildings-cityscapes-min.jpg"/>
                             <div class="container">
                                 <div class="carousel-caption">
                                     <h1 style="font-size: 48px;">Let the city talk to you</h1>
@@ -182,6 +183,7 @@
                                 <div>
                                 </div>
                                 </div> -->
+                              
                             <div class="set-buttons">
                                 <div class="space-between buttons-back">
                                     <button style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="set-position" onclick="showBar(true)"
@@ -192,6 +194,10 @@
                                     <span lang="de">Position</span>
                                     <span lang="fr">Position</span>
                                     </button>
+                                    <!-- <button class="hide-on-desktop where_mobile" id="wheremi" style="
+                                    z-index: 13;
+                                    left: 40%;
+                                "><img class="mobile-map" src="../media/img/map.png" ></button> -->
                                     <!-- <div class="text-center flex">
                                         <img src="../media/img/map.png" style="    width: 47px;
                                             position: relative;
@@ -256,31 +262,26 @@
                                         placeholder="..." size="30" />
                                     <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
                                 </div>
-                                <button class="wheremibtn" 
-                                    type="button" id="wheremi"><img src="../media/img/map.png" style="    width: 32px;
-                                    position: relative;
-                                    bottom: 8px;">Where am I?</button>
+                               
+                                <button class="wheremibtn where_mobile" 
+                                    type="button" id="wheremi"><img class="mobile-map desk-map" src="../media/img/map.png"><span class="hide-on-mobile"> Where am I?</span>
+                                </button>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div style="display: none;" id='bacicci' class="bacicci-player">
-                    <div class="space-between" style="padding-bottom:10px;">
-                        <button  type="button" class="player-buttons" id="prevLuogo">Prev</button>
-                        <button class="nextbtn player-buttons" type="button" id="nextLuogo">Next</button>
-                        <button  type="button" class="player-buttons" id="how">how</button>
-                    </div>
-                    <ul class="video-preview"  id="youtube-video"></ul>
-                    <ul class="small-list" id="listavideo">
-                    </ul>
-                </div>
-                <div id="map" class="map">
-                </div>
-                <!--FILTRO-->
-                <div class="container" id="openFilter"  style="display:none;">
+                    <div class="space-between">
+                  
+                    <div onclick="openCloseFilter()"  class="close-block-filter"><img class="filter-img" src="../media/img/filter.png"></div>
+                       
+                        <div onclick="closeBacicci()" class="close-block"><img  class="close-img" src="../media/img/close.png"></div>
+                         </div>
+                      <!--FILTRO-->
+                <div style="display: none;" id="openFilter" >
                     <!-- <hr style="border:1px solid grey;"> -->
                     <div class="row m-5 filter-block remove-margin-on-mobile">
-                        <h3 id="gotofilter" style="text-align: center">
+                        <h3 id="gotofilter" style="text-align: center;font-size: 22px;">
                             <span lang="it">Filtra clip per: </span>
                             <span lang="en">Filter clips by: </span>
                             <span lang="fr">Filtrer les clips par: </span>
@@ -369,8 +370,8 @@
                                 </select>
                             </div>
                         </div>
-                    </div>
-                    <div class="row m-5 filter-block">
+                 
+                   
                         <div class="col-md-4">
                             <div class="form-group">
                                 <label for="testo">
@@ -400,23 +401,37 @@
                                 </select>
                             </div>
                         </div>
-                        <div class="col-md-4" style="text-align: center">
-                            <button class="btn btn-primary waves-effect waves-light" style="margin-top: 6%" id="filtraButton">
-                            <span lang="it">Filtra!</span>
-                            <span lang="en">Filter!</span>
-                            <span lang="es">Filtro</span>
-                            <span lang="de">Filter!</span>
-                            <span lang="fr">Filtrer!</span>
-                            </button>
-                        </div>
                     </div>
+               
+         
+                <div  style="text-align: center">
+                    <button class="btn btn-primary waves-effect waves-light" style="margin-top: 6%; width: 100%; max-width: 100%;margin-top: 0px !important;    height: 39px; background-color: #204d74;color: white;border: none; " id="filtraButton">
+                    <span lang="it">Filtra!</span>
+                    <span lang="en">Filter!</span>
+                    <span lang="es">Filtro</span>
+                    <span lang="de">Filter!</span>
+                    <span lang="fr">Filtrer!</span>
+                    </button>
+                </div>
+            </div>
+                <hr>
+                <div class="space-between" style="padding-bottom:10px;">
+                    <button  type="button" class="player-buttons" id="prevLuogo">Prev</button>
+                    <button class="nextbtn player-buttons" type="button" id="nextLuogo">Next</button>
+                    <button  type="button" class="player-buttons" id="how">how</button>
+                </div>
+                    <ul class="video-preview"  id="youtube-video"></ul>
+                    <ul class="small-list" id="listavideo">
+                    </ul>
+                </div>
+                <div id="map" class="map">
                 </div>
                 <!--PLAYER-->
                 <div class="background-image-map" id="divplayer" style="display: none;">
                     <div class="container">
                         <div class="row clips-box">
                             <h3 class="clips-text" id="gotoclips" style="text-align: center;">
-                                <div style="text-align: center; display:none; text-shadow: 1px 1px 1px black;" id="divfiltro">
+                                <div style="text-align: center; text-shadow: 1px 1px 1px black;" id="divfiltro">
                                     <button class="filtra-clips" id="buttonfiltro">
                                     <span lang="it">Clicca per filtrare<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
                                     <span lang="en">Click to Filter Clips <img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>

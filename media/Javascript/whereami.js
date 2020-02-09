@@ -496,8 +496,6 @@ function onYouTubeIframeAPIReady() {
 
 
 
-
-
 	function makeAllBlack() {
 		for (var i = 0; i < urlvideo.length; i++) {
 			document.getElementById(urlvideo[i]).style.color = "black";
@@ -539,7 +537,6 @@ function onYouTubeIframeAPIReady() {
 
 	$("#skipbutton").click(function () {
 
-
 		var directionsService = new google.maps.DirectionsService;
 		directionsRenderer.set('directions', null);
 		var lat = document.getElementById("skipbutton").value;
@@ -552,8 +549,6 @@ function onYouTubeIframeAPIReady() {
 		addToPlayer(nxt);
 		document.getElementById("skipbutton").value = nxt.coord.lat;
 		document.getElementById("skipbutton").name = nxt.coord.long;
-
-
 	});
 
 
@@ -575,17 +570,9 @@ function onYouTubeIframeAPIReady() {
 				document.getElementById("skipbutton").name = LuoghiAlCaricamento[luogo].coord.long;
 			}
 		}
-
 		arrayposizionivisitate.pop();
-
 	});
-
-
-
 }
-
-
-
 
 /*************** FILTRI **************/
 
@@ -729,7 +716,6 @@ window.onload = function () {
 
 		
 	});
-
 }
 
 
@@ -758,27 +744,20 @@ function LuogoVicino(position) { //ritorna il luogo più vicino
 	return luogopiuvicino;
 }
 */
-
-
 function prevLuogo() {
 
 	var obj = luoghiVisitati.pop()
-	
 	var lat = OpenLocationCode.decode(obj).latitudeCenter;
 	var lng = OpenLocationCode.decode(obj).longitudeCenter;
 	var position = new google.maps.LatLng(lat, lng);
 	posizioneattuale = position;
 	oggProvvisorio[obj] = new Object;
 	oggProvvisorio[obj] = VideoRicevuti[obj]; //videoricevuti obj vuoto
-	
-
 	return oggProvvisorio[obj];
 }
 
 var luoghiVisitati = new Array;
-
 function nextLuogo(position) { //ritorna il luogo più vicino
-	
 	var OLC = OpenLocationCode.encode(position.lat(), position.lng());
 	var arraydistanza = new Array();
 	var luogopiuvicino;
@@ -790,7 +769,6 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 			luoghiVisitati.push(luogo);
 			delete oggProvvisorio[luogo];
 		}
-
 	}
 
 
@@ -818,6 +796,18 @@ function openBrowser(){
 	document.getElementById("browser-section").style.display = "block";
 	document.getElementById("hideCarousel").style.display = "none";
 }
+function closeBacicci(){
+	document.getElementById("bacicci").style.display = "none";
+}
+function openCloseFilter(){
+	var filter = document.getElementById("openFilter");
+	if (filter.style.display === "block"){
+		filter.style.display="none";
+	}
+	else if (filter.style.display === "none"){
+		filter.style.display="block";
+	}
+}
 //CAROUSEL BUTTON
 $(function () {
     $('#homeCarousel').carousel({
@@ -831,4 +821,3 @@ $(function () {
         $('#homeCarousel').carousel('pause');
     });
 });
-
