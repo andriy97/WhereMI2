@@ -211,9 +211,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 			if (olc == tmp) {
 				markercliccato = VideoRicevuti[tmp];
 				popolaDivVideo(markercliccato);
-				
 				popolaWhat(markercliccato);
-
 			}
 		}
 
@@ -304,16 +302,6 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 
 
 
-	document.getElementById('reset-map').addEventListener('click', function () { //sposta la visuale della mappa alla posizione di partenza
-	
-		
-		/*
-		
-		map.setCenter(marker.position);
-		map.setZoom(15);
-		*/
-	});
-
 	google.maps.event.addListener(marker, 'dragend', function () { //setta la tua posizione dopo che hai spostato il marker
 		directionsRenderer.set('directions', null);
 		marker.setPosition(marker.getPosition());
@@ -397,7 +385,7 @@ function popolaDivVideo(obj) {
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
-		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: ' +obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.why[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: ' +obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 
@@ -503,13 +491,12 @@ function filtraVideo(oggInCuiSono) {
 }
 
 function popolaWhat(obj) {
-	console.log(obj)
+	
 	document.getElementById("bacicci").style.display = "block";
 	$("#youtube-video").html('');
 	
 
 	if (obj.what.length != 0) {
-		console.log("entrato if what")
 		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>'+ '</li>';
 		$("#youtube-video").append(outputTitolo);
 	}
@@ -525,9 +512,6 @@ function popolaWhat(obj) {
 
 
 function popolaHow(videoPos){
-
-	
-	console.log(videoPos);
 
 	var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
 		var lng = OpenLocationCode.decode(arrivo).longitudeCenter;
@@ -560,7 +544,6 @@ window.onload = function () {
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
 		arraywhy=videoPos.why;
-		console.log(luoghiVisitati);
 		
 	});
 
