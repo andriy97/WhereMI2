@@ -253,7 +253,7 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 
 async function getDataAndUploadPrivate() {
 
-	titolo = document.getElementById("titolo").value + "#wheremi-guide";
+	titolo = document.getElementById("titolo").value ;
 	descrizione = document.getElementById("descrizione").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
