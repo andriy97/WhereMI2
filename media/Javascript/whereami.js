@@ -212,9 +212,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 				markercliccato = VideoRicevuti[tmp];
 				popolaDivVideo(markercliccato);
 				
-		
 				popolaWhat(markercliccato);
-				filtraVideo(markercliccato);
 
 			}
 		}
@@ -320,6 +318,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		directionsRenderer.set('directions', null);
 		marker.setPosition(marker.getPosition());
 		posizioneiniziale = marker.getPosition();
+		aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng());
 		
 	});
 
@@ -327,6 +326,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 
 function aggiornaVideo(lat, long){
 //trova video intorno a te e aggiunge i marker alla mappa
+
 var mioOlc = OpenLocationCode.encode(lat, long);
 var olcGrande = mioOlc.substring(0, 6) + "00+-";
 
@@ -387,23 +387,17 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
-		if(obj.what[video].dettagli)
+		//if(obj.what[video].dettagli)
 
-		outputTitolo = '<li id="' + obj.what[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.what[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
-		+ obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '
-		+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.how) {
-		outputTitolo = '<li id="' + obj.how[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.how[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
-		+ obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.how[video].titolo+'<br>purpose: how<br>lingua: '
-		+obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.how[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.how[video].titolo+'<br>purpose: how<br>lingua: ' +obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
-		outputTitolo = '<li id="' + obj.why[video].id + '" >' + '<img class="video-image" onclick="playThisVideo('+obj.why[video].id+')" width="50%" height="50%" src="https://img.youtube.com/vi/' 
-		+ obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: '
-		+obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: ' +obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 
@@ -411,8 +405,9 @@ function popolaDivVideo(obj) {
 
 
 function playThisVideo(id){
+	console.log(id);
 	$("#youtube-video").html('');
-	outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + id.id + '"></iframe>'+ '</li>';
+	outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + id + '"></iframe>'+ '</li>';
 		$("#youtube-video").append(outputTitolo);
 
 }
@@ -502,7 +497,7 @@ function filtraVideo(oggInCuiSono) {
 
 	}
 	
-	popolaDivVideo(newObject);
+	popolaDivVideo(newObject); 
 
 
 }
@@ -560,7 +555,7 @@ window.onload = function () {
 
 	$("#wheremi").click(function () {
 		
-
+		console.log(VideoRicevuti);
 		videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
@@ -627,7 +622,7 @@ function prevLuogo() {
 		var position = new google.maps.LatLng(lat, lng);
 		posizioneattuale = position;
 		oggProvvisorio[obj] = new Object;
-		oggProvvisorio[obj] = VideoRicevuti[obj]; //videoricevuti obj vuoto
+		oggProvvisorio[obj] = VideoRicevuti[obj]; 
 		
 	
 		return oggProvvisorio[obj];
