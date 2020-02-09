@@ -1340,7 +1340,7 @@ button {
 		max-width: 100%;
   	}
 	  .video-preview li iframe{
-		height: 115px !important;
+		height: 210px !important;
 	  }
   .mobile-map{
 	width: 40px;
@@ -1375,5 +1375,13 @@ button {
   }
   .video-image{
     width: 28% !important;
+  }
+  .small-list{
+	list-style: none;
+    height: 100%;
+    overflow-y: unset;
+    padding: 0;
+    max-height: unset;
+    padding-bottom: 0;
   }
 }
