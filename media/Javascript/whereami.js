@@ -158,13 +158,26 @@ function TrovaVideo(OLC) {
 
 
 var map;
+var arraymarker= new Array();
 
 function PopolaMappa(oggettoOLC) {
+	
+	for(var i=0;i<arraymarker.length;i++){
+		arraymarker[i].setMap(null);
 
+	}
+		
+		
+	arraymarker=[];
+
+	
 	for (let olc in oggettoOLC) {
 
 		var posizioneOLC = new google.maps.LatLng(OpenLocationCode.decode(olc).latitudeCenter, OpenLocationCode.decode(olc).longitudeCenter)
-		stampaMarker(creaMarkerLuogo(posizioneOLC), map);
+		var mark=creaMarkerLuogo(posizioneOLC);
+		arraymarker.push(mark);
+		stampaMarker(mark, map);
+
 	}
 
 }
@@ -296,6 +309,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 
 		marker = geocodeAddress(geocoder, map, address);
 		posizioneiniziale=marker.getPosition();
+		posizioneattuale=marker.getPosition();
 		marker.setMap(map);
 		map.setZoom(15)
 	});
@@ -305,6 +319,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	google.maps.event.addListener(marker, 'dragend', function () { //setta la tua posizione dopo che hai spostato il marker
 		directionsRenderer.set('directions', null);
 		marker.setPosition(marker.getPosition());
+		posizioneattuale = marker.getPosition();
 		posizioneiniziale = marker.getPosition();
 		aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng());
 		
@@ -317,7 +332,6 @@ function aggiornaVideo(lat, long){
 
 var mioOlc = OpenLocationCode.encode(lat, long);
 var olcGrande = mioOlc.substring(0, 6) + "00+-";
-
 TrovaVideo(olcGrande);
 
 }
@@ -569,6 +583,8 @@ window.onload = function () {
 	$("#how").click(function () {
 		
 		popolaHow(videoPos);
+		alert(LatLentoID(posizioneattuale));
+
 				
 	});
 
@@ -674,3 +690,73 @@ $(function () {
     });
 });
 
+function LatLentoID(pos) {
+	var service;
+	service = new google.maps.places.PlacesService(map);
+
+	var request = {
+		location: pos,
+		radius: '10'
+	}
+
+	service.nearbySearch(request, function (results, status) {
+		if (status == google.maps.places.PlacesServiceStatus.OK) {
+			arraydistanza=[];
+			var spherical = google.maps.geometry.spherical;
+			
+
+			var place; 
+
+			for(var i=0;i<status.length;i++){
+			var posizionerequest= new google.maps.LatLng(results[i].geometry.location.lat(),results[i].geometry.location.lng())
+
+			var distanza = spherical.computeDistanceBetween(pos, posizionerequest);
+			arraydistanza.push(distanza);
+		if (distanza <= Math.min.apply(null, arraydistanza)) {
+			
+			var place = results[i];//se trova dei luoghi allora prendo il primo luogo aka il più vicino
+				}
+			}
+			 console.log(place)
+			var placeID = place.place_id; //prendo il suo placeID
+			getOrari(placeID); //stampa su console gli orari se ci sono
+		}
+	});
+}
+
+var text;
+function getOrari(placeID) {
+
+	var service;
+	service = new google.maps.places.PlacesService(map);
+
+	var request = {
+		placeId: placeID,
+		fields: ['opening_hours']
+	};
+	
+	service.getDetails(request, function (place, status) {
+		
+			if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+				if (place.hasOwnProperty('opening_hours')) {
+					if (place.opening_hours.hasOwnProperty('weekday_text')) {
+						console.log(place.opening_hours.weekday_text);
+					
+						
+						for (i = 0; i < place.opening_hours.weekday_text.length; i++) {
+							text += place.opening_hours.weekday_text[i] + "<br>";
+						}
+						
+					} else {
+						console.log('Orari del luogo non disponibili.');
+					}
+				} else {
+					console.log('Orari del luogo non disponibili.');
+				}
+
+				riempiCampoOrari(text); //ancora da creare
+			}
+	});
+	
+}
