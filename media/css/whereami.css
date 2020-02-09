@@ -1312,6 +1312,9 @@ button {
 }
 .video-preview li iframe{
 	height: 34% !important;
+	/* border: 6px solid #dd0813;
+    border-top-left-radius: 60px;
+    border-top-right-radius: 60px; */
   }
 @media (min-width:768px){	
   .hide-on-desktop{
@@ -1340,7 +1343,7 @@ button {
 		max-width: 100%;
   	}
 	  .video-preview li iframe{
-		height: 210px !important;
+		height: 100% !important;
 	  }
   .mobile-map{
 	width: 40px;
