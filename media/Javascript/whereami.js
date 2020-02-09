@@ -808,3 +808,24 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 	
 	return luogopiuvicino;
 }
+
+
+// OPEN BROWSER AND CLOSE PREVIEW
+function openBrowser(){
+	document.getElementById("browser-section").style.display = "block";
+	document.getElementById("hideCarousel").style.display = "none";
+}
+//CAROUSEL BUTTON
+$(function () {
+    $('#homeCarousel').carousel({
+        interval:3000,
+        pause: "false"
+    });
+    $('#playButton').click(function () {
+        $('#homeCarousel').carousel('cycle');
+    });
+    $('#pauseButton').click(function () {
+        $('#homeCarousel').carousel('pause');
+    });
+});
+

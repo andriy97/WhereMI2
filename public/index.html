@@ -7,7 +7,6 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js"
             integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
         <link rel="shortcut icon" href="https://site181964.tw.cs.unibo.it/media/img/logo.png" />
-        
         <!--Api youtube audio-->
         <script type="text/javascript" src="https://www.youtube.com/iframe_api"></script>
         <!-- Latest compiled and minified CSS -->
@@ -23,8 +22,7 @@
         <!--OPEN LOCATION CODE-->
         <script src="https://cdn.jsdelivr.net/openlocationcode/latest/openlocationcode.js"></script>
         <!-- Maps Javascript API-->
-        
-       <script src="https://apis.google.com/js/platform.js" async defer></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css"
             integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
@@ -34,15 +32,15 @@
         <div class="loading" id="loading"></div>
         <div class="page">
             <nav class="navbar navbar-inverse" role="navigation">
-                <div class="container">
+                <div class="container-fluid">
                     <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                        <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target="#bs-example-navbar-collapse-1">
                         <span class="sr-only">Toggle navigation</span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
-                    </button>
+                        </button>
                         <div class="left-on-mobile logo-title-s">
                             <img class="logo" src="../media/img/logo.png"><span class="logo-title-s logo-text">Where
                             MI</span>
@@ -51,15 +49,14 @@
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                         <ul class="navbar-left nav navbar-nav">
                             <form style="    margin-left: 30px;
-                            margin-top: 10px;
-                            margin-bottom: -14px;" id="demo-2">
+                                margin-top: 10px;
+                                margin-bottom: -14px;" id="demo-2">
                                 <input  type="search" id="end" name="to" required="required"
-                                placeholder="...?" size="30" />
-                            <!-- <input value="Go"  type="submit" /> -->
-                            </form> 
+                                    placeholder="...?" size="30" />
+                                <!-- <input value="Go"  type="submit" /> -->
+                            </form>
                         </ul>
                         <ul class="nav navbar-nav navbar-right">
-                           
                             <li id="userStatus">
                                 <a style="color: white;
                                     font-size: 18px;
@@ -109,41 +106,65 @@
                                 </button>
                             </li>
                         </ul>
-                    </div> 
-                </div>   
+                    </div>
+                </div>
             </nav>
-          
-       <div class="background-image">
-                <div>
-                    <div class="active remove-position">
-                        <!-- <div class="text-center flex">
-                            <img src="../media/img/map.png" style="    width: 47px;
-                                position: relative;
-                                bottom: 10px;">
-                            <label class="text-center search-where" lang="en">Where do you want to go?</label>
-                            <label class="text-center search-where" lang="es">¿a donde quieres ir?</label>
-                            <label class="text-center search-where" lang="it">Dove vorresti andare?</label>
-                            <label class="text-center search-where" lang="fr">Où veux-tu aller?</label>
-                            <label class="text-center search-where" lang="de">Wohin willst du gehen?</label>
-                            <div class="direction flex-center">
-                                <input class="search-directions" type="text" id="end" name="to" required="required"
-                                    placeholder="...?" size="30" />
-                                <input value="Go" class="search-directions" type="submit" />
+            <!-- Carousel -->
+            <div id="hideCarousel">
+                <div id="homeCarousel" class="carousel slide">
+                    <!-- Menu -->
+                    <!-- <ol class="carousel-indicators">
+                        <li data-target="#homeCarousel" data-slide-to="0" class="active"></li>
+                        <li data-target="#homeCarousel" data-slide-to="1"></li>
+                        <li data-target="#homeCarousel" data-slide-to="2"></li>
+                        </ol> -->
+                    <!-- Items -->
+                    <div class="carousel-inner">
+                        <!-- Item 1 -->
+                        <div class="item active">
+                            <img style="    width: 100%;" src="https://besthqwallpapers.com/img/original/17081/bologna-4k-summer-buildings-cityscapes.jpg"/>
+                            <div class="container">
+                                <div class="carousel-caption">
+                                    <h1 style="font-size: 48px;">Let the city talk to you</h1>
+                                    <p style="font-size:25px">Location based audio tours</p>
+                                    <button onclick="openBrowser()" class="btn btn-lg btn-primary" >Explore NOW</button>
+                                </div>
                             </div>
-                            <div>
+                        </div>
+                        <!-- Item 2 -->
+                        <!-- <div class="item">
+                            <img src="https://www.leitv.it/wp-content/uploads/2017/03/bologna-apertura-650x400.jpg?v=69233"/>
+                            <div class="container">
+                            <div class="carousel-caption">
+                              <h1>Changes to the Grid</h1>
+                              <p>Bootstrap 3 still features a 12-column grid, but many of the CSS class names have completely changed.</p>
+                              <p><a class="btn btn-large btn-primary" href="#">Learn more</a></p>
                             </div>
-                        </div> -->
-                        <div class="set-buttons">
-                        <div class="space-between">
-                        
-                            <button style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="set-position" onclick="showBar(true)"
-                                value="Set position">
-                                <span lang="it">Posizione</span>
-                                <span lang="en"> Position</span>
-                                <span lang="es">Posición</span>
-                                <span lang="de">Position</span>
-                                <span lang="fr">Position</span>
-                            </button>
+                            </div>
+                            </div> -->
+                        <!-- Item 3 -->
+                        <!-- Controls -->
+                        <!-- <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+                            <span class="icon-prev"></span>
+                            </a>
+                            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+                            <span class="icon-next"></span>
+                            </a>  
+                            <div id="carouselButtons">
+                              <button id="playButton" type="button" class="btn btn-default btn-xs">
+                                  <span class="glyphicon glyphicon-play"></span>
+                               </button>
+                              <button id="pauseButton" type="button" class="btn btn-default btn-xs">
+                                  <span class="glyphicon glyphicon-pause"></span>
+                              </button>
+                            </div> -->
+                    </div>
+                </div>
+            </div>
+            <div id="browser-section" style="display: none;">
+                <div class="background-image">
+                    <div>
+                        <div class="active remove-position">
                             <!-- <div class="text-center flex">
                                 <img src="../media/img/map.png" style="    width: 47px;
                                     position: relative;
@@ -153,84 +174,110 @@
                                 <label class="text-center search-where" lang="it">Dove vorresti andare?</label>
                                 <label class="text-center search-where" lang="fr">Où veux-tu aller?</label>
                                 <label class="text-center search-where" lang="de">Wohin willst du gehen?</label>
-                                    <div class="direction flex-center">
-                                        <input class="search-directions" type="text" id="end" name="to" required="required"
-                                            placeholder="...?" size="30" />
-                                        <input value="Go" class="search-directions" type="submit" />
-                                    </div>
+                                <div class="direction flex-center">
+                                    <input class="search-directions" type="text" id="end" name="to" required="required"
+                                        placeholder="...?" size="30" />
+                                    <input value="Go" class="search-directions" type="submit" />
+                                </div>
                                 <div>
                                 </div>
-                            </div> -->
-                            <!-- <div style="position:relative;" class="form-group">
-                                <span class="position-style">
-                                <span lang="it"> Filtra luoghi per categoria</span>
-                                <span lang="en">Filter the places by category</span>
-                                <span lang="es">Filtrar lugares por categoría</span>
-                                <span lang="de">Orte nach Kategorie filtern</span>
-                                <span lang="fr">Filtrer les lieux par catégorie</span>
-                            </span>
-                                <select style="width: 100px; border:3px solid #03b4cc;color: #090909; height: 36px;" id="categoria"
-                                    class="form-control is-valid custom-select">
-                                    <option value selected disabled hidden></option>
-                                    <option lang="en" value=all>All</option>
-                                    <option lang="en" value=nat>Nature</option>
-                                    <option lang="en" value=art>Art</option>
-                                    <option lang="en" value=rel>Religion</option>
-                                    <option lang="en" value=his>History</option>
-                                    <option lang="en" value=oth>Other</option>
-                                    <option lang="it" value=all>Tutte</option>
-                                    <option lang="it" value=nat>Natura</option>
-                                    <option lang="it" value=art>Arte</option>
-                                    <option lang="it" value=his>Storia</option>
-                                    <option lang="it" value=rel>Religione</option>
-                                    <option lang="it" value=oth>Altro</option>
-                                    <option lang="es" value=all>Todos</option>
-                                    <option lang="es" value=nat>Naturaleza</option>
-                                    <option lang="es" value=art>Arte</option>
-                                    <option lang="es" value=his>historia</option>
-                                    <option lang="es" value=rel>Religión</option>
-                                    <option lang="es" value=oth>más</option>
-                                    <option lang="fr" value=all>Toute</option>
-                                    <option lang="fr" value=nat>Nature</option>
-                                    <option lang="fr" value=art>L'art</option>
-                                    <option lang="fr" value=his>histoire</option>
-                                    <option lang="fr" value=rel>Religion</option>
-                                    <option lang="fr" value=oth>Autre</option>
-                                    <option lang="de" value=all>Alle</option>
-                                    <option lang="de" value=nat>Natur</option>
-                                    <option lang="de" value=art>Art</option>
-                                    <option lang="de" value=his>Geschichte</option>
-                                    <option lang="de" value=rel>Religion</option>
-                                    <option lang="de" value=oth>mehr</option>
-                                </select>
-                            </div> -->
-                            <input style="width: 100px;" class="search-directions-extra add-margin-on-desk" type="text" id="pos" required="required"
-                                placeholder="..." size="30" />
-                            <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
-                        </div>
-                        <button class="wheremibtn" 
-                        type="button" id="wheremi"><img src="../media/img/map.png" style="    width: 32px;
-                        position: relative;
-                        bottom: 8px;">Where am I?</button>
+                                </div> -->
+                            <div class="set-buttons">
+                                <div class="space-between buttons-back">
+                                    <button style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="set-position" onclick="showBar(true)"
+                                        value="Set position">
+                                    <span lang="it">Posizione</span>
+                                    <span lang="en"> Position</span>
+                                    <span lang="es">Posición</span>
+                                    <span lang="de">Position</span>
+                                    <span lang="fr">Position</span>
+                                    </button>
+                                    <!-- <div class="text-center flex">
+                                        <img src="../media/img/map.png" style="    width: 47px;
+                                            position: relative;
+                                            bottom: 10px;">
+                                        <label class="text-center search-where" lang="en">Where do you want to go?</label>
+                                        <label class="text-center search-where" lang="es">¿a donde quieres ir?</label>
+                                        <label class="text-center search-where" lang="it">Dove vorresti andare?</label>
+                                        <label class="text-center search-where" lang="fr">Où veux-tu aller?</label>
+                                        <label class="text-center search-where" lang="de">Wohin willst du gehen?</label>
+                                            <div class="direction flex-center">
+                                                <input class="search-directions" type="text" id="end" name="to" required="required"
+                                                    placeholder="...?" size="30" />
+                                                <input value="Go" class="search-directions" type="submit" />
+                                            </div>
+                                        <div>
+                                        </div>
+                                        </div> -->
+                                    <!-- <div style="position:relative;" class="form-group">
+                                        <span class="position-style">
+                                        <span lang="it"> Filtra luoghi per categoria</span>
+                                        <span lang="en">Filter the places by category</span>
+                                        <span lang="es">Filtrar lugares por categoría</span>
+                                        <span lang="de">Orte nach Kategorie filtern</span>
+                                        <span lang="fr">Filtrer les lieux par catégorie</span>
+                                        </span>
+                                        <select style="width: 100px; border:3px solid #03b4cc;color: #090909; height: 36px;" id="categoria"
+                                            class="form-control is-valid custom-select">
+                                            <option value selected disabled hidden></option>
+                                            <option lang="en" value=all>All</option>
+                                            <option lang="en" value=nat>Nature</option>
+                                            <option lang="en" value=art>Art</option>
+                                            <option lang="en" value=rel>Religion</option>
+                                            <option lang="en" value=his>History</option>
+                                            <option lang="en" value=oth>Other</option>
+                                            <option lang="it" value=all>Tutte</option>
+                                            <option lang="it" value=nat>Natura</option>
+                                            <option lang="it" value=art>Arte</option>
+                                            <option lang="it" value=his>Storia</option>
+                                            <option lang="it" value=rel>Religione</option>
+                                            <option lang="it" value=oth>Altro</option>
+                                            <option lang="es" value=all>Todos</option>
+                                            <option lang="es" value=nat>Naturaleza</option>
+                                            <option lang="es" value=art>Arte</option>
+                                            <option lang="es" value=his>historia</option>
+                                            <option lang="es" value=rel>Religión</option>
+                                            <option lang="es" value=oth>más</option>
+                                            <option lang="fr" value=all>Toute</option>
+                                            <option lang="fr" value=nat>Nature</option>
+                                            <option lang="fr" value=art>L'art</option>
+                                            <option lang="fr" value=his>histoire</option>
+                                            <option lang="fr" value=rel>Religion</option>
+                                            <option lang="fr" value=oth>Autre</option>
+                                            <option lang="de" value=all>Alle</option>
+                                            <option lang="de" value=nat>Natur</option>
+                                            <option lang="de" value=art>Art</option>
+                                            <option lang="de" value=his>Geschichte</option>
+                                            <option lang="de" value=rel>Religion</option>
+                                            <option lang="de" value=oth>mehr</option>
+                                        </select>
+                                        </div> -->
+                                    <input style="width: 100px;" class="search-directions-extra add-margin-on-desk" type="text" id="pos" required="required"
+                                        placeholder="..." size="30" />
+                                    <input style="width: 100px;" class="search-directions add-margin-on-desk" type="button" id="reset-map" value="Reset" />
+                                </div>
+                                <button class="wheremibtn" 
+                                    type="button" id="wheremi"><img src="../media/img/map.png" style="    width: 32px;
+                                    position: relative;
+                                    bottom: 8px;">Where am I?</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div style="display: none; padding-right: 10px; padding-left:10px; padding-top:5px;" id='bacicci' class="bacicci-player">
+                <div style="display: none;" id='bacicci' class="bacicci-player">
                     <div class="space-between" style="padding-bottom:10px;">
                         <button  type="button" class="player-buttons" id="prevLuogo">Prev</button>
                         <button class="nextbtn player-buttons" type="button" id="nextLuogo">Next</button>
                         <button  type="button" class="player-buttons" id="how">how</button>
-                </div>
-                    <ul style="list-style:none;padding:0" id="youtube-video"></ul>
-                    <ul id="listavideo" style="list-style: none; height: 300px;overflow-y: scroll;">
+                    </div>
+                    <ul class="video-preview"  id="youtube-video"></ul>
+                    <ul class="small-list" id="listavideo">
                     </ul>
                 </div>
-            </div>
-            <div id="map" class="map">
-            </div>
-                   <!--FILTRO-->
-                   <div class="container" id="openFilter"  style="display:none;">
+                <div id="map" class="map">
+                </div>
+                <!--FILTRO-->
+                <div class="container" id="openFilter"  style="display:none;">
                     <!-- <hr style="border:1px solid grey;"> -->
                     <div class="row m-5 filter-block remove-margin-on-mobile">
                         <h3 id="gotofilter" style="text-align: center">
@@ -293,7 +340,7 @@
                                     </label>
                                 </div>
                                 <select id="selectAudience" class="form-control">
-                                   <option value selected disabled hidden></option>
+                                    <option value selected disabled hidden></option>
                                     <option lang="it" value="gen">Generico</option>
                                     <option lang="it" value="pre">Pre-scolare</option>
                                     <option lang="it" value="elm">Elementari</option>
@@ -364,12 +411,11 @@
                         </div>
                     </div>
                 </div>
-           
-            <!--PLAYER-->
-            <div class="background-image-map" id="divplayer" style="display: none;">
-                <div class="container">
-                    <div class="row clips-box">
-                        <h3 class="clips-text" id="gotoclips" style="text-align: center;">
+                <!--PLAYER-->
+                <div class="background-image-map" id="divplayer" style="display: none;">
+                    <div class="container">
+                        <div class="row clips-box">
+                            <h3 class="clips-text" id="gotoclips" style="text-align: center;">
                                 <div style="text-align: center; display:none; text-shadow: 1px 1px 1px black;" id="divfiltro">
                                     <button class="filtra-clips" id="buttonfiltro">
                                     <span lang="it">Clicca per filtrare<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
@@ -378,33 +424,33 @@
                                     <span lang="de">Klicken Sie, um zu filtern.<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
                                     <span lang="fr">Cliquez pour filtrer<img style="width: 30px;margin-left: 10px;" src="../media/img/filter.png"></span>
                                     </button>
-                                </div> 
-                        </h3>
-                        <div>
-                            <img style="float:left;" class="arrows" id="prevbutton" src="../media/img/back.png">
-                            <h3 id="titololuogo" style="text-align: center; color:white;    margin-right: 40px; text-shadow:1px 1px 1px black;
-                            ">Titolo Luogo</h3>
-                            <img style="float:right; margin-top:-34px;" id="skipbutton" src="../media/img/next.png" class="arrows">
-                            <div class="buttonsdiv bottom-box">
-                                <button class="btn-primary audio-buttons" type="button" id="backbutton">back</button>
-                                <button class="btn-primary audio-buttons" type="button" id="playbutton">play</button>
-                                <button class="btn-primary audio-buttons" type="button" id="nextbutton">next</button>
-                                <div></div>
-                                <div id="youtube-player"></div>
-                            </div>
-                            <div>
-                            </div>
-                            <div class="clip-list">
-                                <div style="flex: 1;
-                                    ">
-                                    <ul id="listavideodariprodurre" class="title-list">
-                                    </ul>
                                 </div>
-                                <div style="flex: 1">
-                                    <ul id="description" class="desc-part" style="list-style: none;">
-                                    </ul>
+                            </h3>
+                            <!-- <div>
+                                <img style="float:left;" class="arrows" id="prevbutton" src="../media/img/back.png">
+                                <h3 id="titololuogo" style="text-align: center; color:white;    margin-right: 40px; text-shadow:1px 1px 1px black;
+                                ">Titolo Luogo</h3>
+                                <img style="float:right; margin-top:-34px;" id="skipbutton" src="../media/img/next.png" class="arrows">
+                                <div class="buttonsdiv bottom-box">
+                                    <button class="btn-primary audio-buttons" type="button" id="backbutton">back</button>
+                                    <button class="btn-primary audio-buttons" type="button" id="playbutton">play</button>
+                                    <button class="btn-primary audio-buttons" type="button" id="nextbutton">next</button>
+                                    <div></div>
+                                    <div id="youtube-player"></div>
                                 </div>
-                            </div>
+                                
+                                <div class="clip-list">
+                                    <div style="flex: 1;
+                                        ">
+                                        <ul id="listavideodariprodurre" class="title-list">
+                                        </ul>
+                                    </div>
+                                    <div style="flex: 1">
+                                        <ul id="description" class="desc-part" style="list-style: none;">
+                                        </ul>
+                                    </div>
+                                </div>
+                                </div> -->
                         </div>
                     </div>
                 </div>
