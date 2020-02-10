@@ -469,7 +469,54 @@ function popolaDivVideo(obj) {
 
 
 	for (let video in obj.what) {
-		//if(obj.what[video].dettagli)
+		//controlli su dettagli
+		
+		if (obj.what[video].dettagli==undefined){
+			obj.what[video].dettagli="none";
+		}
+		if(obj.what[video].dettagli.charAt(1)=="#"){
+			obj.what[video].dettagli=obj.what[video].dettagli.charAt(0);
+		}
+		if (obj.what[video].dettagli.charAt(0)=="P"||obj.what[video].dettagli.charAt(0)=="p"){
+			if(obj.what[video].dettagli.charAt(1)=="+"){
+				if([1,2,3,4,5].indexOf(obj.what[video].dettagli.charAt(2)) == -1){
+					obj.what[video].dettagli="none";
+				}else{
+					obj.what[video].dettagli=obj.what[video].dettagli.substring(2,3);
+				}
+				
+			}
+			else if(obj.what[video].dettagli.charAt(1)=="d"||obj.what[video].dettagli.charAt(1)=="g"){
+				obj.what[video].dettagli="none";
+			}else{
+				obj.what[video].dettagli=obj.what[video].dettagli.substring(1,2);
+			}
+		}
+		else if(obj.what[video].dettagli.charAt(0)=="d"||obj.what[video].dettagli.charAt(0)=="g"){
+			obj.what[video].dettagli="none";
+		}
+		//controlli su audience
+		if (obj.what[video].audience==undefined){
+			obj.what[video].audience="none";
+		}
+		if (obj.what[video].audience.charAt(0)=="A"||obj.what[video].audience.charAt(0)=="a"){
+			if(obj.what[video].audience.charAt(1)=="+"){
+				
+				
+					obj.what[video].audience=obj.what[video].audience.substring(2,5);
+				
+			}
+			else if(obj.what[video].audience.charAt(1)=="d"||obj.what[video].dettagli.charAt(0)=="g"){
+				obj.what[video].audience="gen";
+			}else{
+				obj.what[video].audience=obj.what[video].audience.substring(1,4);
+			}
+			
+		}
+		else if(obj.what[video].audience.charAt(0)=="d"||obj.what[video].audience.charAt(0)=="g"){
+			obj.what[video].audience="gen";
+		}
+	
 
 		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + 
 		obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b>'+obj.what[video].titolo+'</b><br>purpose: what<br>lingua: '+
@@ -477,12 +524,109 @@ function popolaDivVideo(obj) {
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.how) {
+
+		
+		if (obj.how[video].dettagli==undefined){
+			obj.how[video].dettagli="none";
+		}
+		if(obj.how[video].dettagli.charAt(1)=="#"){
+			obj.how[video].dettagli=obj.how[video].dettagli.charAt(0);
+		}
+		 if (obj.how[video].dettagli.charAt(0)=="P"||obj.how[video].dettagli.charAt(0)=="p"){
+			if(obj.how[video].dettagli.charAt(1)=="+"){
+				if([1,2,3,4,5].indexOf(obj.how[video].dettagli.charAt(2)) == -1){
+					obj.how[video].dettagli="none";
+				}else{
+					obj.how[video].dettagli=obj.how[video].dettagli.substring(2,3);
+				}
+				
+			}
+			else if(obj.how[video].dettagli.charAt(1)=="d"||obj.how[video].dettagli.charAt(1)=="g"){
+				obj.how[video].dettagli="none";
+			}else{
+				obj.how[video].dettagli=obj.how[video].dettagli.substring(1,2);
+			}
+		}
+		else if(obj.how[video].dettagli.charAt(0)=="d"||obj.how[video].dettagli.charAt(0)=="g"){
+			obj.how[video].dettagli="none";
+		}
+		//controlli su audience
+		if (obj.how[video].audience==undefined){
+			obj.how[video].audience="none";
+		}
+		if (obj.how[video].audience.charAt(0)=="A"||obj.how[video].audience.charAt(0)=="a"){
+			if(obj.how[video].audience.charAt(1)=="+"){
+				
+				
+					obj.how[video].audience=obj.how[video].audience.substring(2,5);
+				
+			}
+			else if(obj.how[video].audience.charAt(1)=="d"||obj.how[video].dettagli.charAt(0)=="g"){
+				obj.how[video].audience="gen";
+			}else{
+				obj.how[video].audience=obj.how[video].audience.substring(1,4);
+			}
+			
+		}
+		else if(obj.how[video].audience.charAt(0)=="d"||obj.how[video].audience.charAt(0)=="g"){
+			obj.how[video].audience="gen";
+		}
+	
+
 		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.how[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + 
 		obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b>'+obj.how[video].titolo+'</b><br>purpose: how<br>lingua: ' +
 		obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
+		//controlli dettagli
+		if (obj.why[video].dettagli==undefined){
+			obj.why[video].dettagli="none";
+		}
+		if(obj.why[video].dettagli.charAt(1)=="#"){
+			obj.why[video].dettagli=obj.why[video].dettagli.charAt(0);
+		}
+		 if (obj.why[video].dettagli.charAt(0)=="P"||obj.why[video].dettagli.charAt(0)=="p"){
+			if(obj.why[video].dettagli.charAt(1)=="+"){
+				if([1,2,3,4,5].indexOf(obj.why[video].dettagli.charAt(2)) == -1){
+					obj.why[video].dettagli="none";
+				}else{
+					obj.why[video].dettagli=obj.why[video].dettagli.substring(2,3);
+				}
+				
+			}
+			else if(obj.why[video].dettagli.charAt(1)=="d"||obj.why[video].dettagli.charAt(1)=="g"){
+				obj.why[video].dettagli="none";
+			}else{
+				obj.why[video].dettagli=obj.why[video].dettagli.substring(1,2);
+			}
+		}
+		else if(obj.why[video].dettagli.charAt(0)=="d"||obj.why[video].dettagli.charAt(0)=="g"){
+			obj.why[video].dettagli="none";
+		}
+		//controlli su audience
+		if (obj.why[video].audience==undefined){
+			obj.why[video].audience="none";
+		}
+		if (obj.why[video].audience.charAt(0)=="A"||obj.why[video].audience.charAt(0)=="a"){
+			if(obj.why[video].audience.charAt(1)=="+"){
+				
+				
+					obj.why[video].audience=obj.why[video].audience.substring(2,5);
+				
+			}
+			else if(obj.why[video].audience.charAt(1)=="d"||obj.why[video].dettagli.charAt(0)=="g"){
+				obj.why[video].audience="gen";
+			}else{
+				obj.why[video].audience=obj.why[video].audience.substring(1,4);
+			}
+			
+		}
+		else if(obj.why[video].audience.charAt(0)=="d"||obj.why[video].audience.charAt(0)=="g"){
+			obj.why[video].audience="gen";
+		}
+	
+
 		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.why[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' +
 		obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b> '+obj.why[video].titolo+'</b><br>purpose: why<br>lingua: ' +
 		obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
@@ -633,7 +777,7 @@ window.onload = function () {
 
 	$("#wheremi").click(function () {
 		
-		console.log(VideoRicevuti);
+	
 		videoPos = nextLuogo(posizioneattuale);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
