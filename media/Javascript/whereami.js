@@ -222,9 +222,12 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 		for (let tmp in VideoRicevuti) {
 
 			if (olc == tmp) {
-				markercliccato = VideoRicevuti[tmp];
-				popolaDivVideo(markercliccato);
-				popolaWhat(markercliccato);
+				videoPos = VideoRicevuti[tmp];
+				arraywhy=videoPos.why;
+				posizioneattuale=marker.getPosition();
+				arrivo=olc;
+				popolaDivVideo(videoPos);
+				popolaWhat(videoPos);
 			}
 		}
 
@@ -273,6 +276,8 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 			resultsMap.setCenter(results[0].geometry.location);
 			marker.setPosition(results[0].geometry.location)
 			posizioneattuale = results[0].geometry.location;
+			posizioneiniziale = results[0].geometry.location;
+			aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng())
 
 		});
 		showBar(false);
@@ -298,10 +303,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 	document.getElementById('pos').addEventListener('change', function () { //cambia il tuo luogo di partrenza
 		var address = document.getElementById('pos').value;
 		directionsRenderer.set('directions', null);
-
 		marker = geocodeAddress(geocoder, map, address);
-		posizioneiniziale=marker.getPosition();
-		posizioneattuale=marker.getPosition();
 		marker.setMap(map);
 		map.setZoom(15)
 	});
@@ -513,13 +515,14 @@ function popolaWhat(obj) {
 	else{
 		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[0].id + '"></iframe>' + '</li>';
 		$("#youtube-video").append(outputTitolo);
+
 	}
 }
 
 
 function popolaHow(videoPos){
 
-	var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
+		var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
 		var lng = OpenLocationCode.decode(arrivo).longitudeCenter;
 		var position = new google.maps.LatLng(lat, lng);
 		var directionsService = new google.maps.DirectionsService;
@@ -531,7 +534,9 @@ function popolaHow(videoPos){
 		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
 		$("#youtube-video").append(outputTitolo);
 	}else{
-		alert("No Video How");
+		$("#youtube-video").html('');
+		outputTitolo = '<li> Non ci sono video HOW </li>';
+		$("#youtube-video").append(outputTitolo);
 	}
 
 	
@@ -556,9 +561,12 @@ window.onload = function () {
 	$("#nextLuogo").click(function () {
 		directionsRenderer.set('directions', null);
 		videoPos=nextLuogo(posizioneattuale);
-		popolaWhat(videoPos);
-		popolaDivVideo(videoPos);
-		arraywhy=videoPos.why;
+		if(videoPos!=null){
+			popolaWhat(videoPos);
+			popolaDivVideo(videoPos);
+			arraywhy=videoPos.why;
+		}
+		
 	});
 
 	$("#prevLuogo").click(function () {
@@ -573,11 +581,10 @@ window.onload = function () {
 	});
 
 	$("#how").click(function () {
-		
+		console.log(posizioneattuale);
 		popolaHow(videoPos);
-		alert(LatLentoID(posizioneattuale));
+		LatLentoID(posizioneattuale);
 
-				
 	});
 
 	$("#more").click(function () {
@@ -592,6 +599,7 @@ window.onload = function () {
 		else{
 			console.log('non ci sono piu why e facciamo vedere gli how');
 			popolaHow(videoPos);
+			LatLentoID(posizioneattuale)
 		}
 		
 
@@ -636,8 +644,13 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 	for (let luogo in VideoRicevuti) {
 		if (luogo == OLC) {
 			
-			luoghiVisitati.push(luogo);
-			delete oggProvvisorio[luogo];
+			if(jQuery.isEmptyObject(oggProvvisorio)){
+				return null;
+			}else{
+				luoghiVisitati.push(luogo);
+				delete oggProvvisorio[luogo];
+			}
+			
 		}
 
 	}
@@ -661,7 +674,6 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 	
 	return luogopiuvicino;
 }
-
 
 
 function LatLentoID(pos) {
@@ -698,9 +710,9 @@ function LatLentoID(pos) {
 	});
 }
 
-var text;
+var text="";
 function getOrari(placeID) {
-
+	
 	var service;
 	service = new google.maps.places.PlacesService(map);
 
@@ -722,17 +734,30 @@ function getOrari(placeID) {
 							text += place.opening_hours.weekday_text[i] + "<br>";
 						}
 						
-					} else {
-						console.log('Orari del luogo non disponibili.');
-					}
-				} else {
-					console.log('Orari del luogo non disponibili.');
-				}
-
+					} 
+				} 
 				riempiCampoOrari(text); //ancora da creare
+				text="";
 			}
 	});
 	
+}
+
+
+function riempiCampoOrari(text){
+	if(text!=""){
+
+			$("#listavideo").html('');
+
+				outputTitolo = '<h2> Orari di Apertura:</h2><br><li>' + text +  '</li>';
+				$("#listavideo").append(outputTitolo);
+		
+	}else{
+		$("#listavideo").html('');
+				outputTitolo = '<li> Orari non disponibili </li>';
+				$("#listavideo").append(outputTitolo);
+	}
+
 }
 
 
