@@ -1,156 +1,150 @@
 <html>
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <!--includo libreria jquery tramite CDN, niente download-->
-    <!--Youtube audio api-->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
-    <!-- FONT-FAMILY -->
-    <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet">
-    <!--Link to CSS-->
-    <link rel="stylesheet" href="../css/editor.css">
-    <link rel="stylesheet" href="../css/whereami.css">
-
-    <!--OPEN LOCATION CODE-->
-		<script src="https://cdn.jsdelivr.net/openlocationcode/latest/openlocationcode.js"></script>
-		
-</head>
-</head>
-
-<body>
-    <div class="loading" id="loading"></div>
-    <div class="page">
-        <div>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width">
+        <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <!--includo libreria jquery tramite CDN, niente download-->
+        <!--Youtube audio api-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+        <!-- FONT-FAMILY -->
+        <link href="https://fonts.googleapis.com/css?family=Alatsi&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Baloo+Bhai&display=swap" rel="stylesheet">
+        <!--Link to CSS-->
+        <link rel="stylesheet" href="../css/editor.css">
+        <link rel="stylesheet" href="../css/whereami.css">
+        <!--OPEN LOCATION CODE-->
+        <script src="https://cdn.jsdelivr.net/openlocationcode/latest/openlocationcode.js"></script>
+    </head>
+    </head>
+    <body>
+        <div class="loading" id="loading"></div>
+        <div class="page">
             <div>
-                <div class="background-image remove-border-radius" style="min-height: 100%; width:100%">
-                    <nav class="navbar navbar-inverse" role="navigation">
-                        <div class="container">
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse"
-                                    data-target="#bs-example-navbar-collapse-1">
+                <div>
+                    <div class="background-image remove-border-radius" style="min-height: 100%; width:100%">
+                        <nav class="navbar navbar-inverse" role="navigation">
+                            <div class="container">
+                                <div class="navbar-header">
+                                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                                        data-target="#bs-example-navbar-collapse-1">
                                     <span class="sr-only">Toggle navigation</span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
                                     <span class="icon-bar"></span>
-                                </button>
-
-                                <div class="left-on-mobile logo-title-s">
-                                    <a href="../../../index.html"> <img class="logo" src="../img/logo.png"><span
+                                    </button>
+                                    <div class="left-on-mobile logo-title-s">
+                                        <a href="../../../index.html"> <img class="logo" src="../img/logo.png"><span
                                             class="logo-title-s logo-text">Where MI</a></span>
+                                    </div>
                                 </div>
-                            </div>
-                            <!-- Collect the nav links, forms, and other content for toggling -->
-                            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                                <ul class="nav navbar-nav navbar-right">
-                                    <li>
-                                        <a style="color: white;
+                                <!-- Collect the nav links, forms, and other content for toggling -->
+                                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                                    <ul class="nav navbar-nav navbar-right">
+                                        <li>
+                                            <a style="color: white;
                                                 font-size: 18px;
                                                 margin-top: 7px;" href="../../../index.html">Home</a>
-                                    </li>
-                                    <li class="dropdown">
-                                        <a style="    color: #ffffff;
+                                        </li>
+                                        <li class="dropdown">
+                                            <a style="    color: #ffffff;
                                                 font-size: 17px;
                                                 /* background: turquoise; */
                                                 margin-top: 6px;" href="#" class="dropdown-toggle"
-                                            data-toggle="dropdown">
+                                                data-toggle="dropdown">
                                             <span lang="en">Language</span>
                                             <span lang="it">Lingua</span>
                                             <span lang="fr">Langue</span>
                                             <span lang="de">Sprache</span>
                                             <span lang="es">Idiomas</span>
                                             <b class="caret"></b></a>
-                                        <ul class="dropdown-menu">
-                                            <li><a href="#" hreflang="it" onclick="setLang('it'); return false"><img
-                                                        class="flags" src="../../media/img/italy.png">Italian</a>
-                                            <li><a href="#" hreflang="it" onclick="setLang('es'); return false"><img
-                                                        class="flags" src="../../media/img/spain.png">Spanish</a>
-                                            <li><a href="#" hreflang="en" onclick="setLang('en'); return false"><img
-                                                        class="flags" src="../../media/img/uk.png">English</a></li>
-                                            <li> <a href="#" hreflang="de" onclick="setLang('de'); return false"><img
-                                                        class="flags" src="../../media/img/germany.png">German</a></li>
-                                            <li> <a href="#" hreflang="de" onclick="setLang('fr'); return false"><img
-                                                        class="flags" src="../../media/img/france.png">French</a></li>
-                                        </ul>
-                                    </li>
-                                    <li>
-                                        <button style="display: none; " type="button" id="authorize_button"
-                                            class="btn btn-Google btn-lg google-button">
+                                            <ul class="dropdown-menu">
+                                                <li><a href="#" hreflang="it" onclick="setLang('it'); return false"><img
+                                                    class="flags" src="../../media/img/italy.png">Italian</a>
+                                                <li><a href="#" hreflang="it" onclick="setLang('es'); return false"><img
+                                                    class="flags" src="../../media/img/spain.png">Spanish</a>
+                                                <li><a href="#" hreflang="en" onclick="setLang('en'); return false"><img
+                                                    class="flags" src="../../media/img/uk.png">English</a></li>
+                                                <li> <a href="#" hreflang="de" onclick="setLang('de'); return false"><img
+                                                    class="flags" src="../../media/img/germany.png">German</a></li>
+                                                <li> <a href="#" hreflang="de" onclick="setLang('fr'); return false"><img
+                                                    class="flags" src="../../media/img/france.png">French</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <button style="display: none; " type="button" id="authorize_button"
+                                                class="btn btn-Google btn-lg google-button">
                                             <span lang='it'> Accesso con Google+ </span>
                                             <span lang='en'> Sign in with Google+ </span>
                                             <span lang='de'> Anmelden mit Google+ </span>
                                             <span lang='es'> Iniciar con Google+ </span>
                                             <span lang='fr'> connectez-vous avec Google+ </span>
-                                        </button>
-                                        <button type="button" class="btn btn-default btn-sm" id="signout_button"
-                                            style="display: none; font-size: 14px; margin-top:17px;">
+                                            </button>
+                                            <button type="button" class="btn btn-default btn-sm" id="signout_button"
+                                                style="display: none; font-size: 14px; margin-top:17px;">
                                             <span class="glyphicon glyphicon-log-in"></span>
                                             <span lang='it'>Disconnettersi</span>
                                             <span lang='en'> Sign out</span>
                                             <span lang='de'>Ausloggen</span>
                                             <span lang='es'> Desconectar</span>
                                             <span lang='fr'> Se déconnecter</span>
-                                        </button>
-                                    </li>
-                                </ul>
-                            </div>
-                            <!-- /.navbar-collapse -->
-                        </div>
-                        <!-- /.container-fluid -->
-                    </nav>
-                    <div >
-                        <!--scegli file da pc-->
-                        <div class="row">
-                            <div class="col-md-6 register-section">
-                                <h2 style="color: white;" class="text-center">
-                                    <span lang="it">Seleziona oppure registra clip audio</span>
-                                    <span lang="en">Select or record audio clips</span>
-                                    <span lang="es">Seleccionar o grabar clips de audio</span>
-                                    <span lang="de">Audioclips auswählen oder aufnehmen</span>
-                                    <span lang="fr">Sélectionner ou enregistrer des clips audio</span>
-                                </h2>
-                                <div class="block-center" style="color:white;">
-                                    <div lang="it">Seleziona audio localmente</div>
-                                    <div lang="en">Select audio locally</div>
-                                    <div lang="es">Seleccionar audio localmente</div>
-                                    <div lang="de">Audio lokal auswählen</div>
-                                    <div lang="fr">Sélectionnez l'audio localement.</div>
-                                    <input style="font-size: 15px; max-width: 300px; text-align: center; height: 50px"
-                                        class="search-directions carica-file " type="file" accept="video/*" capture
-                                        id="recorder">
-                                    <div style="color:white;" lang="it">Oppure</div>
-                                    <div style="color:white;" lang="en">Or</div>
-                                    <div style="color:white;" lang="es">O</div>
-                                    <div style="color:white;" lang="de">Or</div>
-                                    <div style="color:white;" lang="fr">Or</div>
-                                    <div>
-                                        <button class="search-directions register btn-primary" id="btnStart">
-                                            <!-- <img class="microfone" src="../img/microphone.png"> -->
-                                            <span lang="it">Registra</span>
-                                            <span lang="en">Record</span>
-                                            <span lang="es">Grabar</span>
-                                            <span lang="de">Aufnehmen</span>
-                                            <span lang="fr">Enregistrer</span>
-                                        </button>
-                                    </div>
-                                    <audio controls style="width: 0px; height: 0px;"></audio>
-                                    <!-- tag dove viene registrato l'audio-->
-                                    <video id="aud2" style="display: none; width: 50%; height: 30%" controls></video>
-                                    <!-- tag dove viene visualizzato l'audio-->
+                                            </button>
+                                        </li>
+                                    </ul>
                                 </div>
-
+                                <!-- /.navbar-collapse -->
+                            </div>
+                            <!-- /.container-fluid -->
+                        </nav>
+                        <div>
+                            <!--scegli file da pc-->
+                            <div class="row">
+                                <div class="col-md-6 register-section">
+                                    <h2 style="color: white;" class="text-center">
+                                        <span lang="it">Seleziona oppure registra clip audio</span>
+                                        <span lang="en">Select or record audio clips</span>
+                                        <span lang="es">Seleccionar o grabar clips de audio</span>
+                                        <span lang="de">Audioclips auswählen oder aufnehmen</span>
+                                        <span lang="fr">Sélectionner ou enregistrer des clips audio</span>
+                                    </h2>
+                                    <div class="block-center" style="color:white;">
+                                        <div lang="it">Seleziona audio localmente</div>
+                                        <div lang="en">Select audio locally</div>
+                                        <div lang="es">Seleccionar audio localmente</div>
+                                        <div lang="de">Audio lokal auswählen</div>
+                                        <div lang="fr">Sélectionnez l'audio localement.</div>
+                                        <input style="font-size: 15px; max-width: 300px; text-align: center; height: 50px"
+                                            class="search-directions carica-file " type="file" accept="video/*" capture
+                                            id="recorder">
+                                        <div style="color:white;" lang="it">Oppure</div>
+                                        <div style="color:white;" lang="en">Or</div>
+                                        <div style="color:white;" lang="es">O</div>
+                                        <div style="color:white;" lang="de">Or</div>
+                                        <div style="color:white;" lang="fr">Or</div>
+                                        <div>
+                                            <button class="search-directions register btn-primary" id="btnStart">
+                                                <!-- <img class="microfone" src="../img/microphone.png"> -->
+                                                <span lang="it">Registra</span>
+                                                <span lang="en">Record</span>
+                                                <span lang="es">Grabar</span>
+                                                <span lang="de">Aufnehmen</span>
+                                                <span lang="fr">Enregistrer</span>
+                                            </button>
+                                        </div>
+                                        <audio controls style="width: 0px; height: 0px;"></audio>
+                                        <!-- tag dove viene registrato l'audio-->
+                                        <video id="aud2" style="display: none; width: 50%; height: 30%" controls></video>
+                                        <!-- tag dove viene visualizzato l'audio-->
+                                    </div>
+                                </div>
                             </div>
                             <div class="row" style="text-align: center; margin:0;">
                                 <div style="text-align: center" class="col-md-6">
                                     <button type="button" class="btn btn-primary" id="tastovideosalvati">
-                                        <span lang="it"> Video Salvati</span>
-                                        <span lang="en">Saved videos</span>
-                                        <span lang="es"> Subir</span>
-                                        <span lang="de"> Gespeicherte Videos</span>
-                                        <span lang="fr">Videos guardados</span>
-
+                                    <span lang="it"> Video Salvati</span>
+                                    <span lang="en">Saved videos</span>
+                                    <span lang="es"> Subir</span>
+                                    <span lang="de"> Gespeicherte Videos</span>
+                                    <span lang="fr">Videos guardados</span>
                                     </button>
                                     <div id="videosalvati" style="display: block; ">
                                         <div id="youtube-player2"></div>
@@ -160,332 +154,311 @@
                                         <!--lista video salvati-->
                                     </div>
                                 </div>
-                            </div>
-                            <div class="col-md-6 form-content border-mob" id="uploadedCheck" style="display: none;">
-                                <h2 style="color: white; text-align:center;">
-                                    <span lang="it">In caricamento </span>
-                                    <span lang="it">In caricamento</span>
-                                    <span lang="en">Loading </span>
-                                    <span lang="es">Cargando</span>
-                                    <span lang="de">laden </span>
-                                    <span lang="fr">Chargement</span>
-                                    <img id="imgToChange" style="width: 36px;
-                                    margin-left: 15px;"
-                                        src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif">
-                                </h2>
-                            </div>
-                            <div class="col-md-6 form-content" id="metadatiupload" style="display: none;">
-                                <form id="createClip" class="was-validated">
-                                    <h3 lang="it">Inserisci le informazioni per salvare la nuova clip</h3>
-                                    <h3 lang="en">Enter the information to save the new clip</h3>
-                                    <h3 lang="es">Ingrese la información para guardar el nuevo clip</h3>
-                                    <h3 lang="de">Geben Sie die Informationen ein, um den neuen Clip zu speichern</h3>
-                                    <h3 lang="fr">Entrez les informations pour enregistrer le nouveau clip</h3>
-                                    <div class="form-group">
-                                        <label for="titolo">
+                                <div class="col-md-6 form-content border-mob" id="uploadedCheck" style="display: none;">
+                                    <h2 style="color: white; text-align:center;">
+                                        <span lang="it">In caricamento </span>
+                                        <span lang="it">In caricamento</span>
+                                        <span lang="en">Loading </span>
+                                        <span lang="es">Cargando</span>
+                                        <span lang="de">laden </span>
+                                        <span lang="fr">Chargement</span>
+                                        <img id="imgToChange" style="width: 36px;
+                                            margin-left: 15px;"
+                                            src="https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif">
+                                    </h2>
+                                </div>
+                                <div class="col-md-6 form-content" id="metadatiupload" style="display: none;">
+                                    <form id="createClip" class="was-validated">
+                                        <h3 lang="it">Inserisci le informazioni per salvare la nuova clip</h3>
+                                        <h3 lang="en">Enter the information to save the new clip</h3>
+                                        <h3 lang="es">Ingrese la información para guardar el nuevo clip</h3>
+                                        <h3 lang="de">Geben Sie die Informationen ein, um den neuen Clip zu speichern</h3>
+                                        <h3 lang="fr">Entrez les informations pour enregistrer le nouveau clip</h3>
+                                        <div class="form-group">
+                                            <label for="titolo">
                                             <span lang="it">Titolo</span>
                                             <span lang="en">Title</span>
                                             <span lang="es">Título</span>
                                             <span lang="de">Titel</span>
                                             <span lang="fr">Titre</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="titolo" placeholder="..." required>
-                                        <h6 lang="it" class="white">*Inserisci il titolo che vuoi dare alla clip</h6>
-                                        <h6 lang="en" class="white">*Enter the title you want to give to the clip.</h6>
-                                        <h6 lang="es" class="white">*Ingrese el título que desea darle al clip</h6>
-                                        <h6 lang="de" class="white">*Geben Sie den Titel ein, den Sie dem Clip geben
-                                            möchten</h6>
-                                        <h6 lang="fr" class="white">*Saisissez le titre que vous souhaitez donner au
-                                            clip</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="luogo">
+                                            </label>
+                                            <input type="text" class="form-control" id="titolo" placeholder="..." required>
+                                            <h6 lang="it" class="white">*Inserisci il titolo che vuoi dare alla clip</h6>
+                                            <h6 lang="en" class="white">*Enter the title you want to give to the clip.</h6>
+                                            <h6 lang="es" class="white">*Ingrese el título que desea darle al clip</h6>
+                                            <h6 lang="de" class="white">*Geben Sie den Titel ein, den Sie dem Clip geben
+                                                möchten
+                                            </h6>
+                                            <h6 lang="fr" class="white">*Saisissez le titre que vous souhaitez donner au
+                                                clip
+                                            </h6>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="luogo">
                                             <span lang="it">Indirizzo</span>
                                             <span lang="en">Address</span>
                                             <span lang="es">Dirección</span>
                                             <span lang="de">Adresse</span>
                                             <span lang="fr">Adresse</span>
-                                        </label>
-                                        <input type="text" class="form-control" id="luogo" placeholder="..." required>
-                                        <h6 lang="it" class="white">*Inserisci l'indirizzo del luogo</h6>
-                                        <h6 lang="en" class="white">*Enter the place's address</h6>
-                                        <h6 lang="es" class="white">*Ingrese la dirección del lugar</h6>
-                                        <h6 lang="de" class="white">*Geben Sie die Adresse des Ortes ein</h6>
-                                        <h6 lang="fr" class="white">*Entrez l'adresse du lieu</h6>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="testo">
+                                            </label>
+                                            <input type="text" class="form-control" id="luogo" placeholder="..." required>
+                                            <h6 lang="it" class="white">*Inserisci l'indirizzo del luogo</h6>
+                                            <h6 lang="en" class="white">*Enter the place's address</h6>
+                                            <h6 lang="es" class="white">*Ingrese la dirección del lugar</h6>
+                                            <h6 lang="de" class="white">*Geben Sie die Adresse des Ortes ein</h6>
+                                            <h6 lang="fr" class="white">*Entrez l'adresse du lieu</h6>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="testo">
                                             <span lang="it">Scopo</span>
                                             <span lang="en">Purpose</span>
                                             <span lang="es">Propósito</span>
                                             <span lang="de">Zweck</span>
                                             <span lang="fr">But</span>
-                                        </label>
-                                        <select class="form-control custom-select" name="scopo" id="scopo" required>
-                                            <option value selected disabled hidden></option>
-                                            <option value="how" lang="it">Come </option>
-                                            <option value="how" lang="en">How </option>
-                                            <option value="how" lang="es">Cómo</option>
-                                            <option value="how" lang="de">Wie </option>
-                                            <option value="how" lang="fr">Comment</option>
-                                            <option value="why" lang="it">Perché </option>
-                                            <option value="why" lang="en">Why </option>
-                                            <option value="why" lang="es">Por qué </option>
-                                            <option value="why" lang="de">Warum </option>
-                                            <option value="why" lang="fr">Pourquoi </option>
-                                            <option value="what" lang="it">Cosa</option>
-                                            <option value="what" lang="en">What</option>
-                                            <option value="what" lang="es">Qué</option>
-                                            <option value="what" lang="de">Was</option>
-                                            <option value="what" lang="fr">Quel</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lingua">
+                                            </label>
+                                            <select class="form-control custom-select" name="scopo" id="scopo" required>
+                                                <option value selected disabled hidden></option>
+                                                <option value="how" lang="it">Come </option>
+                                                <option value="how" lang="en">How </option>
+                                                <option value="how" lang="es">Cómo</option>
+                                                <option value="how" lang="de">Wie </option>
+                                                <option value="how" lang="fr">Comment</option>
+                                                <option value="why" lang="it">Perché </option>
+                                                <option value="why" lang="en">Why </option>
+                                                <option value="why" lang="es">Por qué </option>
+                                                <option value="why" lang="de">Warum </option>
+                                                <option value="why" lang="fr">Pourquoi </option>
+                                                <option value="what" lang="it">Cosa</option>
+                                                <option value="what" lang="en">What</option>
+                                                <option value="what" lang="es">Qué</option>
+                                                <option value="what" lang="de">Was</option>
+                                                <option value="what" lang="fr">Quel</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="lingua">
                                             <span lang="en">Language</span>
                                             <span lang="it">Lingua</span>
                                             <span lang="es">Idioma</span>
                                             <span lang="de">Sprache</span>
                                             <span lang="fr">Langue</span>
-                                        </label>
-                                        <select required id="lingua" class="form-control is-valid custom-select">
-                                            <option value selected disabled hidden></option>
-                                            <option lang="it" value="ita">Italiano</option>
-                                            <option lang="en" value="ita">Italian</option>
-                                            <option lang="es" value="ita">italiano</option>
-                                            <option lang="de" value="ita">Italienische</option>
-                                            <option lang="fr" value="ita">italienne</option>
-                                            <option lang="it" value="eng">Inglese</option>
-                                            <option lang="en" value="eng">English</option>
-                                            <option lang="es" value="eng">Ingles</option>
-                                            <option lang="de" value="eng">Englische</option>
-                                            <option lang="fr" value="eng">Anglaise</option>
-                                            <option lang="it" value="deu">Tedesco</option>
-                                            <option lang="en" value="deu">German</option>
-                                            <option lang="es" value="deu">Alemán</option>
-                                            <option lang="de" value="deu">Deutsch</option>
-                                            <option lang="fr" value="deu">Allemand</option>
-                                            <option lang="it" value="fra">Francese</option>
-                                            <option lang="en" value="fra">French</option>
-                                            <option lang="es" value="fra">francés</option>
-                                            <option lang="de" value="fra">Französisch</option>
-                                            <option lang="fr" value="fra">Français</option>
-                                            <option lang="it" value="esp">Spagnolo</option>
-                                            <option lang="en" value="esp">Spanish</option>
-                                            <option lang="es" value="esp">Español</option>
-                                            <option lang="de" value="esp">Spanische </option>
-                                            <option lang="fr" value="esp">Spagnolo</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="categoria">
+                                            </label>
+                                            <select required id="lingua" class="form-control is-valid custom-select">
+                                                <option value selected disabled hidden></option>
+                                                <option lang="it" value="ita">Italiano</option>
+                                                <option lang="en" value="ita">Italian</option>
+                                                <option lang="es" value="ita">italiano</option>
+                                                <option lang="de" value="ita">Italienische</option>
+                                                <option lang="fr" value="ita">italienne</option>
+                                                <option lang="it" value="eng">Inglese</option>
+                                                <option lang="en" value="eng">English</option>
+                                                <option lang="es" value="eng">Ingles</option>
+                                                <option lang="de" value="eng">Englische</option>
+                                                <option lang="fr" value="eng">Anglaise</option>
+                                                <option lang="it" value="deu">Tedesco</option>
+                                                <option lang="en" value="deu">German</option>
+                                                <option lang="es" value="deu">Alemán</option>
+                                                <option lang="de" value="deu">Deutsch</option>
+                                                <option lang="fr" value="deu">Allemand</option>
+                                                <option lang="it" value="fra">Francese</option>
+                                                <option lang="en" value="fra">French</option>
+                                                <option lang="es" value="fra">francés</option>
+                                                <option lang="de" value="fra">Französisch</option>
+                                                <option lang="fr" value="fra">Français</option>
+                                                <option lang="it" value="esp">Spagnolo</option>
+                                                <option lang="en" value="esp">Spanish</option>
+                                                <option lang="es" value="esp">Español</option>
+                                                <option lang="de" value="esp">Spanische </option>
+                                                <option lang="fr" value="esp">Spagnolo</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="categoria">
                                             <span lang="en">Category</span>
                                             <span lang="it">Categoria</span>
                                             <span lang="es">Categoría</span>
                                             <span lang="de">Kategorie</span>
                                             <span lang="fr">Catégorie</span>
-                                        </label>
-                                        <select required id="categoria" class="form-control is-valid custom-select">
-                                            <option value selected disabled hidden></option>
-                                            <option lang="it" value=nat>Natura</option>
-                                            <option lang="es" value=nat>Naturaleza</option>
-                                            <option lang="en" value=nat>Nature</option>
-                                            <option lang="fr" value=nat>Nature</option>
-                                            <option lang="de" value=nat>Natur</option>
-
-                                            <option lang="it" value=art>Arte</option>
-                                            <option lang="es" value=art>Arte</option>
-                                            <option lang="fr" value=art>L'art</option>
-                                            <option lang="de" value=art>Art</option>
-                                            <option lang="en" value=art>Art</option>
-
-                                            <option lang="it" value=his>Storia</option>
-                                            <option lang="en" value=his>History</option>
-                                            <option lang="de" value=his>Geschichte</option>
-                                            <option lang="es" value=his>historia</option>
-                                            <option lang="fr" value=his>histoire</option>
-
-                                            <option lang="it" value=flk>Folklore</option>
-                                            <option lang="en" value=flk>Folklore</option>
-                                            <option lang="de" value=flk>Folklore</option>
-                                            <option lang="es" value=flk>Folklore</option>
-                                            <option lang="fr" value=flk>Folklore</option>
-
-                                            <option lang="it" value=mod>Cultura moderna</option>
-                                            <option lang="en" value=mod>Modern culture</option>
-                                            <option lang="de" value=mod>Moderne Kultur</option>
-                                            <option lang="es" value=mod>Cultura moderna</option>
-                                            <option lang="fr" value=mod>Culture moderne</option>
-                                            
-                                            <option lang="it" value=rel>Religione</option>
-                                            <option lang="en" value=rel>Religion</option>
-                                            <option lang="de" value=rel>Religion</option>
-                                            <option lang="es" value=rel>Religión</option>
-                                            <option lang="fr" value=rel>Religion</option>
-
-                                            <option lang="it" value=cui>Cucina e drink</option>
-                                            <option lang="en" value=cui>Cooking and drinks</option>
-                                            <option lang="de" value=cui>Kochen und Trinken</option>
-                                            <option lang="es" value=cui>Cocina y bebidas</option>
-                                            <option lang="fr" value=cui>Cuisine et boissons</option>
-
-                                            <option lang="it" value=spo>Sport</option>
-                                            <option lang="en" value=spo>Sport</option>
-                                            <option lang="de" value=spo>Sport</option>
-                                            <option lang="es" value=spo>Deportes</option>
-                                            <option lang="fr" value=spo>Sportif</option>
-
-                                            <option lang="it" value=mus>Musica</option>
-                                            <option lang="en" value=mus>Music</option>
-                                            <option lang="de" value=mus>Musik</option>
-                                            <option lang="es" value=mus>Música</option>
-                                            <option lang="fr" value=mus>Musique</option>
-
-                                            <option lang="it" value=mov>Film</option>
-                                            <option lang="en" value=mov>Movie</option>
-                                            <option lang="de" value=mov>Kino</option>
-                                            <option lang="es" value=mov>Cine</option>
-                                            <option lang="fr" value=mov>Films</option>
-
-                                            <option lang="it" value=fas>Moda</option>
-                                            <option lang="en" value=fas>Fashion</option>
-                                            <option lang="de" value=fas>Mode</option>
-                                            <option lang="es" value=fas>Moda</option>
-                                            <option lang="fr" value=fas>Mode</option>
-
-                                            <option lang="it" value=shp>Shopping</option>
-                                            <option lang="en" value=shp>Shopping</option>
-                                            <option lang="de" value=shp>Einkaufen</option>
-                                            <option lang="es" value=shp>Compras</option>
-                                            <option lang="fr" value=shp>Achats</option>
-
-                                            <option lang="it" value=tec>Tecnologia</option>
-                                            <option lang="en" value=tec>Technology</option>
-                                            <option lang="de" value=tec>Technologie</option>
-                                            <option lang="es" value=tec>Tecnología</option>
-                                            <option lang="fr" value=tec>technologie</option>
-
-                                            <option lang="it" value=pop>Cult, pop, gossip</option>
-                                            <option lang="en" value=pop>Cult, pop, gossip</option>
-                                            <option lang="de" value=pop>Cult, pop, gossip</option>
-                                            <option lang="es" value=pop>Cult, pop, gossip</option>
-                                            <option lang="fr" value=pop>Cult, pop, gossip</option>
-
-                                            <option lang="it" value=prs>Esperienze</option>
-                                            <option lang="en" value=prs>Personal experiences</option>
-                                            <option lang="de" value=prs>Persönliche Erfahrungen</option>
-                                            <option lang="es" value=prs>Experiencias personales</option>
-                                            <option lang="fr" value=prs>Expériences personnelles</option> ciao
-
-                                            <option lang="it" value=oth>Altro</option>
-                                            <option lang="en" value=oth>Other</option>
-                                            <option lang="de" value=oth>mehr</option>
-                                            <option lang="es" value=oth>más</option>
-                                            <option lang="fr" value=oth>Autre</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="audience">
+                                            </label>
+                                            <select required id="categoria" class="form-control is-valid custom-select">
+                                                <option value selected disabled hidden></option>
+                                                <option lang="it" value=nat>Natura</option>
+                                                <option lang="es" value=nat>Naturaleza</option>
+                                                <option lang="en" value=nat>Nature</option>
+                                                <option lang="fr" value=nat>Nature</option>
+                                                <option lang="de" value=nat>Natur</option>
+                                                <option lang="it" value=art>Arte</option>
+                                                <option lang="es" value=art>Arte</option>
+                                                <option lang="fr" value=art>L'art</option>
+                                                <option lang="de" value=art>Art</option>
+                                                <option lang="en" value=art>Art</option>
+                                                <option lang="it" value=his>Storia</option>
+                                                <option lang="en" value=his>History</option>
+                                                <option lang="de" value=his>Geschichte</option>
+                                                <option lang="es" value=his>historia</option>
+                                                <option lang="fr" value=his>histoire</option>
+                                                <option lang="it" value=flk>Folklore</option>
+                                                <option lang="en" value=flk>Folklore</option>
+                                                <option lang="de" value=flk>Folklore</option>
+                                                <option lang="es" value=flk>Folklore</option>
+                                                <option lang="fr" value=flk>Folklore</option>
+                                                <option lang="it" value=mod>Cultura moderna</option>
+                                                <option lang="en" value=mod>Modern culture</option>
+                                                <option lang="de" value=mod>Moderne Kultur</option>
+                                                <option lang="es" value=mod>Cultura moderna</option>
+                                                <option lang="fr" value=mod>Culture moderne</option>
+                                                <option lang="it" value=rel>Religione</option>
+                                                <option lang="en" value=rel>Religion</option>
+                                                <option lang="de" value=rel>Religion</option>
+                                                <option lang="es" value=rel>Religión</option>
+                                                <option lang="fr" value=rel>Religion</option>
+                                                <option lang="it" value=cui>Cucina e drink</option>
+                                                <option lang="en" value=cui>Cooking and drinks</option>
+                                                <option lang="de" value=cui>Kochen und Trinken</option>
+                                                <option lang="es" value=cui>Cocina y bebidas</option>
+                                                <option lang="fr" value=cui>Cuisine et boissons</option>
+                                                <option lang="it" value=spo>Sport</option>
+                                                <option lang="en" value=spo>Sport</option>
+                                                <option lang="de" value=spo>Sport</option>
+                                                <option lang="es" value=spo>Deportes</option>
+                                                <option lang="fr" value=spo>Sportif</option>
+                                                <option lang="it" value=mus>Musica</option>
+                                                <option lang="en" value=mus>Music</option>
+                                                <option lang="de" value=mus>Musik</option>
+                                                <option lang="es" value=mus>Música</option>
+                                                <option lang="fr" value=mus>Musique</option>
+                                                <option lang="it" value=mov>Film</option>
+                                                <option lang="en" value=mov>Movie</option>
+                                                <option lang="de" value=mov>Kino</option>
+                                                <option lang="es" value=mov>Cine</option>
+                                                <option lang="fr" value=mov>Films</option>
+                                                <option lang="it" value=fas>Moda</option>
+                                                <option lang="en" value=fas>Fashion</option>
+                                                <option lang="de" value=fas>Mode</option>
+                                                <option lang="es" value=fas>Moda</option>
+                                                <option lang="fr" value=fas>Mode</option>
+                                                <option lang="it" value=shp>Shopping</option>
+                                                <option lang="en" value=shp>Shopping</option>
+                                                <option lang="de" value=shp>Einkaufen</option>
+                                                <option lang="es" value=shp>Compras</option>
+                                                <option lang="fr" value=shp>Achats</option>
+                                                <option lang="it" value=tec>Tecnologia</option>
+                                                <option lang="en" value=tec>Technology</option>
+                                                <option lang="de" value=tec>Technologie</option>
+                                                <option lang="es" value=tec>Tecnología</option>
+                                                <option lang="fr" value=tec>technologie</option>
+                                                <option lang="it" value=pop>Cult, pop, gossip</option>
+                                                <option lang="en" value=pop>Cult, pop, gossip</option>
+                                                <option lang="de" value=pop>Cult, pop, gossip</option>
+                                                <option lang="es" value=pop>Cult, pop, gossip</option>
+                                                <option lang="fr" value=pop>Cult, pop, gossip</option>
+                                                <option lang="it" value=prs>Esperienze</option>
+                                                <option lang="en" value=prs>Personal experiences</option>
+                                                <option lang="de" value=prs>Persönliche Erfahrungen</option>
+                                                <option lang="es" value=prs>Experiencias personales</option>
+                                                <option lang="fr" value=prs>Expériences personnelles</option>
+                                                ciao
+                                                <option lang="it" value=oth>Altro</option>
+                                                <option lang="en" value=oth>Other</option>
+                                                <option lang="de" value=oth>mehr</option>
+                                                <option lang="es" value=oth>más</option>
+                                                <option lang="fr" value=oth>Autre</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="audience">
                                             <span lang="en">Audience</span>
                                             <span lang="it">Pubblico</span>
                                             <span lang="es">Audiencia</span>
                                             <span lang="de">Publikum</span>
                                             <span lang="fr">Public</span>
-                                        </label>
-                                        <select required id="audience" class="form-control is-valid custom-select">
-                                            <option value selected disabled hidden></option>
-                                            <option lang="it" value="gen">Generico</option>
-                                            <option lang="en" value="gen">General</option>
-                                            <option lang="es" value="gen">General</option>
-                                            <option lang="de" value="gen">Allgemeine </option>
-                                            <option lang="fr" value="gen">Générale</option>
-
-                                            <option lang="it" value="pre">Pre-scolare</option>
-                                            <option lang="en" value="pre">Preschool</option>
-                                            <option lang="es" value="pre">preescolar</option>
-                                            <option lang="de" value="pre">vorschulisch</option>
-                                            <option lang="fr" value="pre">préscolaire</option>
-
-                                            <option lang="it" value="elm">Elementari</option>
-                                            <option lang="en" value="elm">Elementary</option>
-                                            <option lang="es" value="elm">elemental</option>
-                                            <option lang="de" value="elm">elementar</option>
-                                            <option lang="fr" value="elm">élémentaire</option>
-
-                                            <option lang="it" value="mid">Scuola media</option>
-                                            <option lang="en" value="mid">Secondary school</option>
-                                            <option lang="es" value="mid">Escuela media</option>
-                                            <option lang="de" value="mid">Mittelschule</option>
-                                            <option lang="fr" value="mid">Premier cycle du secondaire</option>
-                                            
-                                            <option lang="it" value="scl">Specializzato</option>
-                                            <option lang="en" value="scl">Specialized</option>
-                                            <option lang="es" value="scl">especializado</option>
-                                            <option lang="de" value="scl">spezialisiert</option>
-                                            <option lang="fr" value="scl">spécialisé</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="form-group">
-                                        <label for="dettagli">
-                                            <span lang="en"> Detail</span>
-                                            <span lang="it"> Dettagli </span>
-                                            <span lang="fr">Détails</span>
-                                            <span lang="de"> Einzelheiten </span>
-                                            <span lang="es"> Detalles</span>
-                                            <!-- [<span id="num_dettagli"></span>] -->
-                                        </label>
-                                        <select id="dettagli" class="form-control is-valid custom-select" required>
-                                            <option value selected disabled hidden></option>
-                                            <option value="1">1</option>
-                                            <option value="2">2</option>
-                                            <option value="3">3</option>
-                                            <option value="4">4</option>
-                                            <option value="5">5</option>
-                                        </select>
-                                    </div>
-                                    <div style="display: flex;justify-content: space-between;">
-                                        <button type="button" class="btn btn-primary" id="salva">
+                                            </label>
+                                            <select required id="audience" class="form-control is-valid custom-select">
+                                                <option value selected disabled hidden></option>
+                                                <option lang="it" value="gen">Generico</option>
+                                                <option lang="en" value="gen">General</option>
+                                                <option lang="es" value="gen">General</option>
+                                                <option lang="de" value="gen">Allgemeine </option>
+                                                <option lang="fr" value="gen">Générale</option>
+                                                <option lang="it" value="pre">Pre-scolare</option>
+                                                <option lang="en" value="pre">Preschool</option>
+                                                <option lang="es" value="pre">preescolar</option>
+                                                <option lang="de" value="pre">vorschulisch</option>
+                                                <option lang="fr" value="pre">préscolaire</option>
+                                                <option lang="it" value="elm">Elementari</option>
+                                                <option lang="en" value="elm">Elementary</option>
+                                                <option lang="es" value="elm">elemental</option>
+                                                <option lang="de" value="elm">elementar</option>
+                                                <option lang="fr" value="elm">élémentaire</option>
+                                                <option lang="it" value="mid">Scuola media</option>
+                                                <option lang="en" value="mid">Secondary school</option>
+                                                <option lang="es" value="mid">Escuela media</option>
+                                                <option lang="de" value="mid">Mittelschule</option>
+                                                <option lang="fr" value="mid">Premier cycle du secondaire</option>
+                                                <option lang="it" value="scl">Specializzato</option>
+                                                <option lang="en" value="scl">Specialized</option>
+                                                <option lang="es" value="scl">especializado</option>
+                                                <option lang="de" value="scl">spezialisiert</option>
+                                                <option lang="fr" value="scl">spécialisé</option>
+                                            </select>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="dettagli">
+                                                <span lang="en"> Detail</span>
+                                                <span lang="it"> Dettagli </span>
+                                                <span lang="fr">Détails</span>
+                                                <span lang="de"> Einzelheiten </span>
+                                                <span lang="es"> Detalles</span>
+                                                <!-- [<span id="num_dettagli"></span>] -->
+                                            </label>
+                                            <select id="dettagli" class="form-control is-valid custom-select" required>
+                                                <option value selected disabled hidden></option>
+                                                <option value="1">1</option>
+                                                <option value="2">2</option>
+                                                <option value="3">3</option>
+                                                <option value="4">4</option>
+                                                <option value="5">5</option>
+                                            </select>
+                                        </div>
+                                        <div style="display: flex;justify-content: space-between;">
+                                            <button type="button" class="btn btn-primary" id="salva">
                                             <span lang="it">Salva</span>
                                             <span lang="en">Save</span>
                                             <span lang="es">Guardar</span>
                                             <span lang="de">Speichern</span>
                                             <span lang="fr">Enregistrer</span>
-                                        </button>
-                                        <button class="search-directions btn-primary2 upload-audio" type="button"
-                                            id="upload">
-                                            <!-- <img class="microfone" src="../img/upload.png"> -->
-                                            <span lang="it"> Carica</span>
-                                            <span lang="en"> Upload</span>
-                                            <span lang="es"> Subir</span>
-                                            <span lang="de"> Hochladen</span>
-                                            <span lang="fr"> Importer</span>
-                                        </button>
-                                    </div>
-                                </form>
+                                            </button>
+                                            <button class="search-directions btn-primary2 upload-audio" type="button"
+                                                id="upload">
+                                                <!-- <img class="microfone" src="../img/upload.png"> -->
+                                                <span lang="it"> Carica</span>
+                                                <span lang="en"> Upload</span>
+                                                <span lang="es"> Subir</span>
+                                                <span lang="de"> Hochladen</span>
+                                                <span lang="fr"> Importer</span>
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"
-        integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
-    </script>
-    <!-- SIGN IN WITH GOOGLE -->
-    <script type="text/javascript" src="../Javascript/configuration.js"></script>
-    <script type="text/javascript" src="../Javascript/login.js"></script>
-    <script type="text/javascript" src="../Javascript/editor.js"></script>
-    <!-- api google maps per prendere coordinate-->
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A&libraries=places&callback=callbackgoogle"
-        async defer></script>
-    <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
-        onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
-</body>
-
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+            integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+        <!-- SIGN IN WITH GOOGLE -->
+        <script type="text/javascript" src="../Javascript/configuration.js"></script>
+        <script type="text/javascript" src="../Javascript/login.js"></script>
+        <script type="text/javascript" src="../Javascript/editor.js"></script>
+        <!-- api google maps per prendere coordinate-->
+        <script
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A&libraries=places&callback=callbackgoogle"
+            async defer></script>
+        <script async defer src="https://apis.google.com/js/api.js" onload="this.onload=function(){};handleClientLoad()"
+            onreadystatechange="if (this.readyState === 'complete') this.onload()"></script>
+    </body>
 </html>
