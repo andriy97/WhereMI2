@@ -143,7 +143,7 @@ function TrovaVideo(OLC) {
 					})
 					
 					PopolaMappa(VideoRicevuti);
-					oggProvvisorio = JSON.parse(JSON.stringify(VideoRicevuti));;
+					oggProvvisorio = JSON.parse(JSON.stringify(VideoRicevuti));
 				});
 
 
@@ -778,16 +778,17 @@ window.onload = function () {
 	$("#wheremi").click(function () {
 		
 	
-		videoPos = nextLuogo(posizioneattuale);
+		videoPos = nextLuogo(posizioneattuale, true);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
 		arraywhy=videoPos.why;
+		document.getElementById("wheremi").style.display="none";
 		
 	});
 
 	$("#nextLuogo").click(function () {
 		directionsRenderer.set('directions', null);
-		videoPos=nextLuogo(posizioneattuale);
+		videoPos=nextLuogo(posizioneattuale, false);
 		if(videoPos!=null){
 			popolaWhat(videoPos);
 			popolaDivVideo(videoPos);
@@ -871,12 +872,12 @@ function prevLuogo() {
 var luoghiVisitati = new Array;
 var arrivo;
 
-function nextLuogo(position) { //ritorna il luogo più vicino
-	
+function nextLuogo(position, flag) { //ritorna il luogo più vicino
 	var OLC = OpenLocationCode.encode(position.lat(), position.lng());
 	var arraydistanza = new Array();
 	var luogopiuvicino;
 	var spherical = google.maps.geometry.spherical;
+	
 
 	for (let luogo in VideoRicevuti) {
 		if (luogo == OLC) {
@@ -885,11 +886,11 @@ function nextLuogo(position) { //ritorna il luogo più vicino
 				return null;
 			}else{
 				luoghiVisitati.push(luogo);
-				delete oggProvvisorio[luogo];
+				if(flag==false){
+					delete oggProvvisorio[luogo];
+				}
 			}
-			
 		}
-
 	}
 
 
@@ -1005,6 +1006,10 @@ function openBrowser(){
 }
 function closeBacicci(){
 	document.getElementById("bacicci").style.display = "none";
+	luoghiVisitati=[];
+	oggProvvisorio = JSON.parse(JSON.stringify(VideoRicevuti));
+	document.getElementById("wheremi").style.display="block";
+	posizioneattuale=posizioneiniziale;
 }
 function openCloseFilter(){
 	var filter = document.getElementById("openFilter");
