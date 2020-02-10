@@ -234,7 +234,93 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 	});
 
 	google.maps.event.addListener(marker, 'mouseover', function () { //mostra un popup con il nome del posto
-		
+
+		var olc = OpenLocationCode.encode(marker.getPosition().lat(), marker.getPosition().lng());
+
+		for (let tmp in VideoRicevuti) {
+
+			if (olc == tmp) {
+				var titolo;
+				if(VideoRicevuti[tmp].what.length!=0){
+					if(VideoRicevuti[tmp].what[0].titolo.split(":").length>1){
+						titolo=VideoRicevuti[tmp].what[0].titolo.split(":")[0];
+					}
+					else if(VideoRicevuti[tmp].what[0].titolo.split("#").length>1){
+						titolo=VideoRicevuti[tmp].what[0].titolo.split("#")[0];
+						
+					}else{
+						if(VideoRicevuti[tmp].what[0].titolo.includes("what")){
+							var tit=VideoRicevuti[tmp].what[0].titolo;
+							titolo=tit.replace('what','');  // tolgo what dal titolo
+						}
+						else if(VideoRicevuti[tmp].what[0].titolo.includes("What")){
+							var tit=VideoRicevuti[tmp].what[0].titolo;
+							titolo=tit.replace('What','');  // tolgo what dal titolo
+						}else{
+							titolo=VideoRicevuti[tmp].what[0].titolo;
+						}
+						
+					}
+					
+					var infowindow = new google.maps.InfoWindow({
+						content: titolo
+					  });
+					infowindow.open(map, marker);
+				}
+				else if(VideoRicevuti[tmp].how.length!=0){
+
+					if(VideoRicevuti[tmp].how[0].titolo.split(":").length>1){
+						titolo=VideoRicevuti[tmp].how[0].titolo.split(":")[0];
+					}
+					else if(VideoRicevuti[tmp].how[0].titolo.split("#").length>1){
+						titolo=VideoRicevuti[tmp].how[0].titolo.split("#")[0];
+					}else{
+						if(VideoRicevuti[tmp].how[0].titolo.includes("how")){
+							var tit=VideoRicevuti[tmp].how[0].titolo;
+							titolo=tit.replace('how','');  // tolgo what dal titolo
+						}
+						else if(VideoRicevuti[tmp].how[0].titolo.includes("How")){
+							var tit=VideoRicevuti[tmp].how[0].titolo;
+							titolo=tit.replace('How','');  // tolgo what dal titolo
+						}else{
+							titolo=VideoRicevuti[tmp].how[0].titolo;
+						}
+					}
+					var infowindow = new google.maps.InfoWindow({
+						content: titolo
+					  });
+					  infowindow.open(map, marker);
+				}
+				else if(VideoRicevuti[tmp].why.length!=0){
+					if(VideoRicevuti[tmp].why[0].titolo.split(":").length>1){
+						titolo=VideoRicevuti[tmp].why[0].titolo.split(":")[0];
+					}
+					else if(VideoRicevuti[tmp].why[0].titolo.split("#").length>1){
+						titolo=VideoRicevuti[tmp].why[0].titolo.split("#")[0];
+					}else{
+						if(VideoRicevuti[tmp].why[0].titolo.includes("why")){
+							var tit=VideoRicevuti[tmp].why[0].titolo;
+							titolo=tit.replace('why','');  // tolgo what dal titolo
+						}
+						else if(VideoRicevuti[tmp].why[0].titolo.includes("Why")){
+							var tit=VideoRicevuti[tmp].why[0].titolo;
+							titolo=tit.replace('Why','');  // tolgo what dal titolo
+						}else{
+							titolo=VideoRicevuti[tmp].why[0].titolo;
+						}
+					}
+					var infowindow = new google.maps.InfoWindow({
+						content: titolo
+					  });
+					  infowindow.open(map, marker);
+				}
+				
+			}
+		}
+		google.maps.event.addListener(marker, 'mouseout', function () { //chiudo il popup
+			infowindow.close(map, this);
+		});
+
 	});
 
 	return marker;

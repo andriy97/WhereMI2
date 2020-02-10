@@ -1,12 +1,12 @@
 
 //JOANNA
- const API_KEY = "AIzaSyD-mpMmNo1CDOd8fAF7exQ_g4GInG882FM";
- const CLIENT_ID = "899376088276-hufn1h9oj01vc5u9ui9ithdku5iln5rg.apps.googleusercontent.com";
+ //const API_KEY = "AIzaSyD-mpMmNo1CDOd8fAF7exQ_g4GInG882FM";
+ //const CLIENT_ID = "899376088276-hufn1h9oj01vc5u9ui9ithdku5iln5rg.apps.googleusercontent.com";
 
 
 //MIO
-//  const API_KEY = "AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A";
-//  const CLIENT_ID = "600073852662-qiaidgofjs1bt8dpd1jgm3tbk72sdlej.apps.googleusercontent.com";
+ const API_KEY = "AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A";
+ const CLIENT_ID = "600073852662-qiaidgofjs1bt8dpd1jgm3tbk72sdlej.apps.googleusercontent.com";
 
 
 // Array of API discovery doc URLs for APIs used by the quickstart

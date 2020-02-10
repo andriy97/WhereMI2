@@ -140,8 +140,7 @@ function generatePlusCode(lat, lng) {
 
 async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 
-	titolo = document.getElementById("titolo").value + "#wheremi-guide";
-	descrizione = document.getElementById("descrizione").value;
+	titolo = document.getElementById("titolo").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
 	categoria = document.getElementById("categoria").value;
@@ -149,7 +148,7 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 	dettagli = document.getElementById("dettagli").value;
 
 
-	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
+	if (titolo == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
 
@@ -173,7 +172,6 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 				divMetadati.style.display = 'none';
 				uploadedBox.style.display = 'block';
 				document.getElementById("titolo").value = "";
-				document.getElementById("descrizione").value = "";
 				document.getElementById("scopo").value = "";
 				document.getElementById("lingua").value = "";
 				document.getElementById("categoria").value = "";
@@ -254,14 +252,13 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 async function getDataAndUploadPrivate() {
 
 	titolo = document.getElementById("titolo").value ;
-	descrizione = document.getElementById("descrizione").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
 
-	if (titolo == "" || descrizione == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
+	if (titolo == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
 
@@ -283,7 +280,6 @@ async function getDataAndUploadPrivate() {
 				divMetadati.style.display = 'none';
 				uploadedBox.style.display = 'block';
 				document.getElementById("titolo").value = "";
-				document.getElementById("descrizione").value = "";
 				document.getElementById("scopo").value = "";
 				document.getElementById("lingua").value = "";
 				document.getElementById("categoria").value = "";
