@@ -19,7 +19,7 @@ var SCOPES = "https://www.googleapis.com/auth/youtube.upload https://www.googlea
 var authorizeButton = document.getElementById('authorize_button');
 var signoutButton = document.getElementById('signout_button');
 var utenteButton = document.getElementById('buttonLogin');
-var userStatus = document.getElementById('userStatus')
+var userStatus = document.getElementById('userStatus');
 var update = document.getElementById('update');
 
 /*function f() {

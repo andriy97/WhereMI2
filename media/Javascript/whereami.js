@@ -471,15 +471,21 @@ function popolaDivVideo(obj) {
 	for (let video in obj.what) {
 		//if(obj.what[video].dettagli)
 
-		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.what[video].titolo+'<br>purpose: what<br>lingua: '+obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.what[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + 
+		obj.what[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b>'+obj.what[video].titolo+'</b><br>purpose: what<br>lingua: '+
+		obj.what[video].lingua+'<br>categoria: '+obj.what[video].categoria+'<br>audience: '+obj.what[video].audience+'<br>dettagli: '+obj.what[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.how) {
-		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.how[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.how[video].titolo+'<br>purpose: how<br>lingua: ' +obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li>' + '<img class="video-image" onclick="playThisVideo(\''+obj.how[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + 
+		obj.how[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b>'+obj.how[video].titolo+'</b><br>purpose: how<br>lingua: ' +
+		obj.how[video].lingua+'<br>categoria: '+obj.how[video].categoria+'<br>audience: '+obj.how[video].audience+'<br>dettagli: '+obj.how[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 	for (let video in obj.why) {
-		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.why[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' + obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p>Titolo: '+obj.why[video].titolo+'<br>purpose: why<br>lingua: ' +obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
+		outputTitolo = '<li >' + '<img class="video-image" onclick="playThisVideo(\''+obj.why[video].id+'\')" width="50%" height="50%" src="https://img.youtube.com/vi/' +
+		obj.why[video].id +'/hqdefault.jpg" alt="YouTube Video"/>' + '<div  style=" width=50%; float: right;"><p><b> '+obj.why[video].titolo+'</b><br>purpose: why<br>lingua: ' +
+		obj.why[video].lingua+'<br>categoria: '+obj.why[video].categoria+'<br>audience: '+obj.why[video].audience+'<br>dettagli: '+obj.why[video].dettagli+'</p></div></li>';
 		$("#listavideo").append(outputTitolo);
 	}
 
@@ -500,21 +506,12 @@ function playThisVideo(id){
 
 
 function getValuesFiltro() { //crea un oggetto con i campi selezionati
-	/*
+	
 	 	var Oggetto = {
 	 		lingua: document.getElementById("selectlingua").value,
 	 		audience: document.getElementById("selectAudience").value,
 	 		categoria: document.getElementById("categoria").value,
-		 };
-		 
-	*/
-	var Oggetto = {
-		lingua: "",
-		categoria: "",
-		audience: ""
-
-	};
-
+		 }
 	return Oggetto;
 }
 
@@ -688,6 +685,16 @@ window.onload = function () {
 			LatLentoID(posizioneattuale)
 		}
 		
+
+	});
+
+	$("#filtraButton").click(function () {
+		filtraVideo(videoPos);
+		//chiudo div e cancello i campi 
+		document.getElementById("openFilter").style.display="none";
+		document.getElementById("selectlingua").value="";
+	 	document.getElementById("selectAudience").value="";
+	 	document.getElementById("categoria").value="";
 
 	});
 
@@ -890,3 +897,5 @@ function showBar(show) { //mostra o nasconde la finestra del player e audio
 		barra.style.visibility = 'hidden';
 	}
 }
+
+
