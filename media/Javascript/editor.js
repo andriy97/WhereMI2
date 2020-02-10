@@ -247,7 +247,7 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 
 
 }
-/////////////////UPLOAD VIDEO PRIVATI//////////////////////////////////////
+/////////////////UPLOAD VIDEO PRIVATI////////////////////
 
 async function getDataAndUploadPrivate() {
 
