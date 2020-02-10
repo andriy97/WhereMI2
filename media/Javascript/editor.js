@@ -247,7 +247,7 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 
 
 }
-/////////////////UPLOAD VIDEO PRIVATI//////////////////////////////////////
+/////////////////UPLOAD VIDEO PRIVATI////////////////////
 
 async function getDataAndUploadPrivate() {
 
@@ -397,10 +397,9 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 		},
 		function (data) {
 			$.each(data.items, function (i, item) {
-				var titolo = item.snippet.title;
-				arrStr = titolo.split("+"); //ogni video privato caricato col nostro sito ha "whereami" nel titolo seguito da un + perciò divito la stringa
-				if (item.status.privacyStatus == "unlisted" && arrStr[0] == "whereami") { //seleziono solo i video unlisted del canale
-					output = '<li id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">' + arrStr[1] + '</li>' +
+				
+				if (item.status.privacyStatus == "unlisted" ) { //seleziono solo i video unlisted del canale
+					output = '<li id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">' + item.snippet.title + '</li>' +
 						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Play</button>' +
 						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Stop</button>' +
 						'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button>';
@@ -420,13 +419,23 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 
 							.then(function () {
 								//aggiorno privacyStatus video youtube
+								
 								var request = gapi.client.youtube.videos.update({
 									id: item.snippet.resourceId.videoId,
 									part: 'status',
 									status: {
 										privacyStatus: 'public'
-									}
+									},
+									
+
+									
+									
 								});
+
+						
+
+									
+							
 
 								request.execute(function (response) {
 									console.log(response);
