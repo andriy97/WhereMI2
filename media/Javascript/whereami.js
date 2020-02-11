@@ -103,6 +103,7 @@ function insertHere(flag, item, descrizione) {
 }
 
 function initCoords() { //geolocalizza l'utente o apre la mappa a Bologna in assenza della posizione
+console.log("entrato");
 	navigator.geolocation.getCurrentPosition(initAutocomplete, function (error) { //chiama initAutocodramplete con la tua posizione, senza consenso alla posizione ti porta a bologna
 		if (error.code == error.PERMISSION_DENIED) {
 			var position = {
@@ -347,7 +348,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		zoom: 15,
 		center: coords,
 	});
-
+aggiornaVideo();
 
 	//marker della tua posizione
 	var marker = creaMarker(coords);
@@ -363,7 +364,7 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 			marker.setPosition(results[0].geometry.location)
 			posizioneattuale = results[0].geometry.location;
 			posizioneiniziale = results[0].geometry.location;
-			aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng())
+			aggiornaVideo();
 
 		});
 		showBar(false);
@@ -401,15 +402,16 @@ function initAutocomplete(position) { // crea mappa e marker con tutte le loro f
 		marker.setPosition(marker.getPosition());
 		posizioneattuale = marker.getPosition();
 		posizioneiniziale = marker.getPosition();
-		aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng());
+		aggiornaVideo();
 		
 	});
 
 }
 
-function aggiornaVideo(lat, long){
+function aggiornaVideo(){
 //trova video intorno a te e aggiunge i marker alla mappa
-
+var lat=posizioneiniziale.lat();
+var long=posizioneiniziale.lng();
 var mioOlc = OpenLocationCode.encode(lat, long);
 var olcGrande = mioOlc.substring(0, 6) + "00+-";
 TrovaVideo(olcGrande);
@@ -773,7 +775,7 @@ function popolaHow(videoPos){
 var videoPos;
 var arraywhy= new Array();
 window.onload = function () {
-	aggiornaVideo(posizioneiniziale.lat(), posizioneiniziale.lng());
+	initCoords();
 
 	$("#wheremi").click(function () {
 		
