@@ -14,7 +14,7 @@ body {
     overflow-x: hidden;
     overflow-y: auto;
     opacity: 11;
-    top: 31%;
+    top: 7%;
 }
 .modal-header .close {
     margin-top: 10px;
@@ -928,6 +928,19 @@ color: #0a0a0a;
         margin: auto;
         min-width: 300px;
         max-width: 100%;;
+        display: block;
+        height: 100%;
+        max-height: 300px;
+        overflow: scroll;
+    }
+    .modal {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: unset;
+    }
+    .modal.fade .modal-dialog {
+        -webkit-transform: unset;
     }
 
 .saved-list li{
@@ -1163,3 +1176,13 @@ button{
       width: 100%;
     }
   }
+
+
+  .modal-backdrop.fade {
+    filter: alpha(opacity=0);
+    /* opacity: 0; */
+    /* background-color: black; */
+    /* opacity: 0.8; */
+    background-color: black;
+    opacity: 0.8;
+}
