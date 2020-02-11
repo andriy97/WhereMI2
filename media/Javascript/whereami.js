@@ -103,7 +103,6 @@ function insertHere(flag, item, descrizione) {
 }
 
 function initCoords() { //geolocalizza l'utente o apre la mappa a Bologna in assenza della posizione
-console.log("entrato");
 	navigator.geolocation.getCurrentPosition(initAutocomplete, function (error) { //chiama initAutocodramplete con la tua posizione, senza consenso alla posizione ti porta a bologna
 		if (error.code == error.PERMISSION_DENIED) {
 			var position = {
@@ -226,6 +225,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 				videoPos = VideoRicevuti[tmp];
 				arraywhy=videoPos.why;
 				posizioneattuale=marker.getPosition();
+				
 				arrivo=olc;
 				popolaDivVideo(videoPos);
 				popolaWhat(videoPos);
@@ -780,7 +780,7 @@ window.onload = function () {
 	$("#wheremi").click(function () {
 		
 	
-		videoPos = nextLuogo(posizioneattuale, true);
+		videoPos = nextLuogo(posizioneiniziale, true);
 		popolaWhat(videoPos);
 		popolaDivVideo(videoPos);
 		arraywhy=videoPos.why;
