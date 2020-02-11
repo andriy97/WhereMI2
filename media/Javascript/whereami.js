@@ -997,10 +997,24 @@ function riempiCampoOrari(text){
 	}
 
 }
-
-
+// var wasVisited=1;
+// $(document).ready(function () {
+// 	if (localStorage.getItem(wasVisited) == 1) {
+// 		document.getElementById("hideCarousel").style.display = "block";
+// 		document.getElementById("browser-section").style.display = "none";
+		
+// 		localStorage.setItem(wasVisited , 2);
+// 	} else {
+		
+	
+// 		document.getElementById("browser-section").style.display = "block";
+// 		document.getElementById("hideCarousel").style.display = "none";
+		
+// 	}
+// 	console.log(wasVisited)
+// });
 // OPEN BROWSER AND CLOSE PREVIEW
-function openBrowser(){
+function openBrowser(target){
 	document.getElementById("browser-section").style.display = "block";
 	document.getElementById("hideCarousel").style.display = "none";
 }
