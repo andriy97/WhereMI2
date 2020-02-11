@@ -386,24 +386,27 @@ function getPlaylist() {
 
 }
 
-
+var counter=0;
 function getVids(videos) { //funzione che crea la lista di video salvati 
 	var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
 	$.get(
 		"https://www.googleapis.com/youtube/v3/playlistItems?access_token=" + encodeURIComponent(token), {
 			part: 'snippet, status',
 			maxResults: 20,
-			playlistId: videos
+			playlistId: videos, 
 		},
 		function (data) {
+				counter=0;
 			$.each(data.items, function (i, item) {
 				
 				if (item.status.privacyStatus == "unlisted" ) { //seleziono solo i video unlisted del canale
+					counter+=1;
 					output = '<li style="text-align:center;" id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '"><div>' + item.snippet.title +"  " +'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button></div>' +
 					
 						'<div style="margin: 5px;"><iframe id="'+item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+item.snippet.resourceId.videoId +'" width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' +  item.snippet.resourceId.videoId + '"></iframe></div></li>';
 					
 					$("#videosalvatilist").append(output); //aggiungo nomi e button alla lista dei video
+						
 					
 					//se clicco carica
 					document.getElementById(item.snippet.resourceId.videoId).onclick = function () {
@@ -448,7 +451,9 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 					}
 				}
 			})
-
+			if(counter==0){
+				document.getElementById("videosalvatilist").innerHTML="<li>Nessun video salvato</li>";
+			}
 		}
 	)
 }
@@ -468,7 +473,8 @@ $("#tastovideosalvati").click(function () {
 	} else {
 		document.getElementById("videosalvatilist").style.display = "none";
 	}
-
+	
+	
 
 });
 

@@ -1,5 +1,4 @@
 /*      PROTOTIPO OGGETTO
-
  var VideoRicevuti= {
 
  	"8FPHF8VV+F6": {
@@ -7,21 +6,9 @@
  		"what": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..],
  		"how": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..],
  		"why": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..]
- 	},
-
- 	"8FPHF8DO+EP": {
-		"what": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..],
-		"how": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..],
-		"why": [{"titolo":"bla", "id":"idvideo"..}, {}, {}..]
  	}
  }
  */
-
-
-//8FPHG900+-8FPHG925+-8FPHG925+GG:what:ita:mod:A+gen:P+default#Il lab del DASPLab
-//8FPHG925+HJ:what:ita:flk:Agen:P1
-//8FPH0000+:8FPHF800+:8FPHF8WW+RX:what:ita:cui-prs:Agen:P1
-
 
 /**************SETTAGGIO MAPPA*************/
 
@@ -29,8 +16,152 @@ var posizioneattuale; //posizione iniziale
 var posizioneiniziale;
 var VideoRicevuti = {};
 
-var flag;
 
+
+
+
+
+
+function initCoords() { //geolocalizza l'utente o apre la mappa a Bologna in assenza della posizione
+	navigator.geolocation.getCurrentPosition(initAutocomplete, function (error) { //chiama initAutocodramplete con la tua posizione, senza consenso alla posizione ti porta a bologna
+		if (error.code == error.PERMISSION_DENIED) {
+			var position = {
+				coords: {
+					latitude: 44.4936714, //posizione di Bologna
+					longitude: 11.3430347
+				}
+			};
+			initAutocomplete(position);
+		}
+	});
+
+
+}
+
+
+var directionsRenderer;
+
+
+function initAutocomplete(position) { // crea mappa e marker con tutte le loro funzionalità
+
+	var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+	posizioneattuale = coords;
+	posizioneiniziale = coords;
+	directionsRenderer = new google.maps.DirectionsRenderer; //servizi di google per la creazione di strade
+	var directionsService = new google.maps.DirectionsService; //servizi di google per la creazione di strade
+	var geocoder = new google.maps.Geocoder(); //servizio di google che converte luoghi in coordinate
+
+	//crea l'oggetto mappa
+	map = new google.maps.Map(document.getElementById('map'), {
+		zoom: 15,
+		center: coords,
+	});
+aggiornaVideo();
+
+	//marker della tua posizione
+	var marker = creaMarker(coords);
+	marker.setMap(map);
+
+
+	function geocodeAddress(geocoder, resultsMap, address) { //trasforma un indirizzo in un dato LatLng
+		marker.setMap(null);
+		geocoder.geocode({
+			'address': address
+		}, function (results) {
+			resultsMap.setCenter(results[0].geometry.location);
+			marker.setPosition(results[0].geometry.location)
+			posizioneattuale = results[0].geometry.location;
+			posizioneiniziale = results[0].geometry.location;
+			aggiornaVideo();
+
+		});
+		showBar(false);
+		return (marker)
+	}
+
+	directionsRenderer.setMap(map);
+	//directionsRenderer.setPanel(document.getElementById('right-panel'));
+
+
+	compiler(end, map);
+	compiler(pos, map);
+
+
+	document.getElementById('end').addEventListener('change', function () { //crea il percorso dalla tua posizione a quella desiderata
+		directionsRenderer.set('directions', null);
+		var arrivo = document.getElementById('end').value;
+		
+		calculateAndDisplayRoute(directionsService, directionsRenderer, posizioneattuale, arrivo);
+		document.getElementById("end").value = "";
+	});
+
+	document.getElementById('pos').addEventListener('change', function () { //cambia il tuo luogo di partrenza
+		var address = document.getElementById('pos').value;
+		directionsRenderer.set('directions', null);
+		marker = geocodeAddress(geocoder, map, address);
+		marker.setMap(map);
+		map.setZoom(15)
+	});
+
+
+
+	google.maps.event.addListener(marker, 'dragend', function () { //setta la tua posizione dopo che hai spostato il marker
+		directionsRenderer.set('directions', null);
+		marker.setPosition(marker.getPosition());
+		posizioneattuale = marker.getPosition();
+		posizioneiniziale = marker.getPosition();
+		aggiornaVideo();
+		
+	});
+
+}
+
+function compiler(input, map) { // funzione che autocompila i textbox in base alla visualizzazione della mappa 
+
+	var searchBox = new google.maps.places.SearchBox(input);
+	map.controls.push(input);
+
+	// Bias the SearchBox results towards current map's viewport.
+	map.addListener('bounds_changed', function () {
+		searchBox.setBounds(map.getBounds());
+	});
+
+	searchBox.addListener('places_changed', function () {
+		var places = searchBox.getPlaces();
+
+		if (places.length == 0) {
+			return;
+		}
+
+	})
+}
+
+function calculateAndDisplayRoute(directionsService, directionsRenderer, partenza, arrivo) { //cerca e crea il percorso per arrivare ad un posto
+
+	directionsService.route({
+
+		origin: partenza,
+		destination: arrivo,
+		travelMode: 'WALKING',
+
+
+	}, function (response, status) {
+		if (status === 'OK') {
+
+			directionsRenderer.setDirections(response);
+			directionsRenderer.setOptions({
+				suppressMarkers: true
+			});
+		} else {
+			alert("No route found");
+		}
+	});
+
+}
+
+
+
+var flag;
 function popolaVideoRicevuti(item) {
 	flag = null;
 	var descrizione = item.snippet.description.split(":");
@@ -102,21 +233,7 @@ function insertHere(flag, item, descrizione) {
 
 }
 
-function initCoords() { //geolocalizza l'utente o apre la mappa a Bologna in assenza della posizione
-	navigator.geolocation.getCurrentPosition(initAutocomplete, function (error) { //chiama initAutocodramplete con la tua posizione, senza consenso alla posizione ti porta a bologna
-		if (error.code == error.PERMISSION_DENIED) {
-			var position = {
-				coords: {
-					latitude: 44.4936714, //posizione di Bologna
-					longitude: 11.3430347
-				}
-			};
-			initAutocomplete(position);
-		}
-	});
 
-
-}
 
 
 
@@ -331,82 +448,7 @@ function creaMarkerLuogo(coords) { //crea marker del luogo in input
 
 
 
-var directionsRenderer;
 
-
-function initAutocomplete(position) { // crea mappa e marker con tutte le loro funzionalità
-
-	var coords = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-	posizioneattuale = coords;
-	posizioneiniziale = coords;
-	directionsRenderer = new google.maps.DirectionsRenderer; //servizi di google per la creazione di strade
-	var directionsService = new google.maps.DirectionsService; //servizi di google per la creazione di strade
-	var geocoder = new google.maps.Geocoder(); //servizio di google che converte luoghi in coordinate
-
-	//crea l'oggetto mappa
-	map = new google.maps.Map(document.getElementById('map'), {
-		zoom: 15,
-		center: coords,
-	});
-aggiornaVideo();
-
-	//marker della tua posizione
-	var marker = creaMarker(coords);
-	marker.setMap(map);
-
-
-	function geocodeAddress(geocoder, resultsMap, address) { //trasforma un indirizzo in un dato LatLng
-		marker.setMap(null);
-		geocoder.geocode({
-			'address': address
-		}, function (results) {
-			resultsMap.setCenter(results[0].geometry.location);
-			marker.setPosition(results[0].geometry.location)
-			posizioneattuale = results[0].geometry.location;
-			posizioneiniziale = results[0].geometry.location;
-			aggiornaVideo();
-
-		});
-		showBar(false);
-		return (marker)
-	}
-
-	directionsRenderer.setMap(map);
-	//directionsRenderer.setPanel(document.getElementById('right-panel'));
-
-
-	compiler(end, map);
-	compiler(pos, map);
-
-
-	document.getElementById('end').addEventListener('change', function () { //crea il percorso dalla tua posizione a quella desiderata
-		directionsRenderer.set('directions', null);
-		var arrivo = document.getElementById('end').value;
-		
-		calculateAndDisplayRoute(directionsService, directionsRenderer, posizioneattuale, arrivo);
-		document.getElementById("end").value = "";
-	});
-
-	document.getElementById('pos').addEventListener('change', function () { //cambia il tuo luogo di partrenza
-		var address = document.getElementById('pos').value;
-		directionsRenderer.set('directions', null);
-		marker = geocodeAddress(geocoder, map, address);
-		marker.setMap(map);
-		map.setZoom(15)
-	});
-
-
-
-	google.maps.event.addListener(marker, 'dragend', function () { //setta la tua posizione dopo che hai spostato il marker
-		directionsRenderer.set('directions', null);
-		marker.setPosition(marker.getPosition());
-		posizioneattuale = marker.getPosition();
-		posizioneiniziale = marker.getPosition();
-		aggiornaVideo();
-		
-	});
-
-}
 
 function aggiornaVideo(){
 //trova video intorno a te e aggiunge i marker alla mappa
@@ -418,48 +460,7 @@ TrovaVideo(olcGrande);
 
 }
 
-function compiler(input, map) { // funzione che autocompila i textbox in base alla visualizzazione della mappa 
 
-	var searchBox = new google.maps.places.SearchBox(input);
-	map.controls.push(input);
-
-	// Bias the SearchBox results towards current map's viewport.
-	map.addListener('bounds_changed', function () {
-		searchBox.setBounds(map.getBounds());
-	});
-
-	searchBox.addListener('places_changed', function () {
-		var places = searchBox.getPlaces();
-
-		if (places.length == 0) {
-			return;
-		}
-
-	})
-}
-
-function calculateAndDisplayRoute(directionsService, directionsRenderer, partenza, arrivo) { //cerca e crea il percorso per arrivare ad un posto
-
-	directionsService.route({
-
-		origin: partenza,
-		destination: arrivo,
-		travelMode: 'WALKING',
-
-
-	}, function (response, status) {
-		if (status === 'OK') {
-
-			directionsRenderer.setDirections(response);
-			directionsRenderer.setOptions({
-				suppressMarkers: true
-			});
-		} else {
-			alert("No route found");
-		}
-	});
-
-}
 
 
 
@@ -727,49 +728,75 @@ function filtraVideo(oggInCuiSono) {
 
 }
 
-function popolaWhat(obj) {
+
+
+
+function prevLuogo() {
+	console.log(luoghiVisitati);
+	if(luoghiVisitati.length>1){
+		var obj = luoghiVisitati.pop();
 	
-	document.getElementById("bacicci").style.display = "block";
-	$("#youtube-video").html('');
+
 	
-
-	if (obj.what.length != 0) {
-		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>'+ '</li>';
-		$("#youtube-video").append(outputTitolo);
-	}
-	else if(obj.why.length != 0){
-		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[0].id + '"></iframe>' + '</li>';
-		$("#youtube-video").append(outputTitolo);
-	}
-	else{
-		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[0].id + '"></iframe>' + '</li>';
-		$("#youtube-video").append(outputTitolo);
-
-	}
-}
-
-
-function popolaHow(videoPos){
-
-		var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
-		var lng = OpenLocationCode.decode(arrivo).longitudeCenter;
+		var lat = OpenLocationCode.decode(obj).latitudeCenter;
+		var lng = OpenLocationCode.decode(obj).longitudeCenter;
 		var position = new google.maps.LatLng(lat, lng);
-		var directionsService = new google.maps.DirectionsService;
-		calculateAndDisplayRoute(directionsService, directionsRenderer,posizioneiniziale,position);
-		posizionepartenza=position;
-
-	if (videoPos.how.length!=0) {
-		$("#youtube-video").html('');
-		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
-		$("#youtube-video").append(outputTitolo);
+		posizioneattuale = position;
+		oggProvvisorio[obj] = new Object;
+		oggProvvisorio[obj] = VideoRicevuti[obj]; 
+		
+	
+		return oggProvvisorio[obj];
 	}else{
-		$("#youtube-video").html('');
-		outputTitolo = '<li> Non ci sono video HOW </li>';
-		$("#youtube-video").append(outputTitolo);
+		return null;
 	}
-
 	
 }
+
+var luoghiVisitati = new Array;
+var arrivo;
+
+function nextLuogo(position, flag) { //ritorna il luogo più vicino
+	var OLC = OpenLocationCode.encode(position.lat(), position.lng());
+	var arraydistanza = new Array();
+	var luogopiuvicino;
+	var spherical = google.maps.geometry.spherical;
+	
+
+	for (let luogo in VideoRicevuti) {
+		if (luogo == OLC) {
+			
+			if(jQuery.isEmptyObject(oggProvvisorio)){
+				return null;
+			}else{
+				luoghiVisitati.push(luogo);
+				if(flag==false){
+					delete oggProvvisorio[luogo];
+				}
+			}
+		}
+	}
+
+
+	for (let luogo in oggProvvisorio) {
+
+		var latogg = OpenLocationCode.decode(luogo).latitudeCenter;
+		var lngogg = OpenLocationCode.decode(luogo).longitudeCenter;
+		var positionOgg = new google.maps.LatLng(latogg, lngogg); //posizione luogo da confrontare
+		var distanza = spherical.computeDistanceBetween(position, positionOgg);
+		arraydistanza.push(distanza);
+		if (distanza <= Math.min.apply(null, arraydistanza)) {
+			
+			luogopiuvicino = oggProvvisorio[luogo];
+			posizioneattuale = positionOgg; //settiamo posizione attuale 
+			arrivo=luogo; //arrivo e la pos dove deve andare con calculateandisplayroute
+		}
+
+	}
+	
+	return luogopiuvicino;
+}
+
 
 
 var videoPos;
@@ -849,70 +876,49 @@ window.onload = function () {
 }
 
 
-function prevLuogo() {
-	console.log(luoghiVisitati);
-	if(luoghiVisitati.length>1){
-		var obj = luoghiVisitati.pop();
+function popolaWhat(obj) {
+	
+	document.getElementById("bacicci").style.display = "block";
+	$("#youtube-video").html('');
 	
 
-	
-		var lat = OpenLocationCode.decode(obj).latitudeCenter;
-		var lng = OpenLocationCode.decode(obj).longitudeCenter;
-		var position = new google.maps.LatLng(lat, lng);
-		posizioneattuale = position;
-		oggProvvisorio[obj] = new Object;
-		oggProvvisorio[obj] = VideoRicevuti[obj]; 
-		
-	
-		return oggProvvisorio[obj];
-	}else{
-		return null;
+	if (obj.what.length != 0) {
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.what[0].id + '"></iframe>'+ '</li>';
+		$("#youtube-video").append(outputTitolo);
 	}
-	
+	else if(obj.why.length != 0){
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.why[0].id + '"></iframe>' + '</li>';
+		$("#youtube-video").append(outputTitolo);
+	}
+	else{
+		outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + obj.how[0].id + '"></iframe>' + '</li>';
+		$("#youtube-video").append(outputTitolo);
+
+	}
 }
 
-var luoghiVisitati = new Array;
-var arrivo;
-
-function nextLuogo(position, flag) { //ritorna il luogo più vicino
-	var OLC = OpenLocationCode.encode(position.lat(), position.lng());
-	var arraydistanza = new Array();
-	var luogopiuvicino;
-	var spherical = google.maps.geometry.spherical;
-	
-
-	for (let luogo in VideoRicevuti) {
-		if (luogo == OLC) {
-			
-			if(jQuery.isEmptyObject(oggProvvisorio)){
-				return null;
-			}else{
-				luoghiVisitati.push(luogo);
-				if(flag==false){
-					delete oggProvvisorio[luogo];
-				}
-			}
-		}
-	}
 
 
-	for (let luogo in oggProvvisorio) {
+function popolaHow(videoPos){
 
-		var latogg = OpenLocationCode.decode(luogo).latitudeCenter;
-		var lngogg = OpenLocationCode.decode(luogo).longitudeCenter;
-		var positionOgg = new google.maps.LatLng(latogg, lngogg); //posizione luogo da confrontare
-		var distanza = spherical.computeDistanceBetween(position, positionOgg);
-		arraydistanza.push(distanza);
-		if (distanza <= Math.min.apply(null, arraydistanza)) {
-			
-			luogopiuvicino = oggProvvisorio[luogo];
-			posizioneattuale = positionOgg; //settiamo posizione attuale 
-			arrivo=luogo; //arrivo e la pos dove deve andare con calculateandisplayroute
-		}
+	var lat = OpenLocationCode.decode(arrivo).latitudeCenter;
+	var lng = OpenLocationCode.decode(arrivo).longitudeCenter;
+	var position = new google.maps.LatLng(lat, lng);
+	var directionsService = new google.maps.DirectionsService;
+	calculateAndDisplayRoute(directionsService, directionsRenderer,posizioneiniziale,position);
+	posizionepartenza=position;
 
-	}
-	
-	return luogopiuvicino;
+if (videoPos.how.length!=0) {
+	$("#youtube-video").html('');
+	outputTitolo = '<li> <iframe width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + videoPos.how[0].id + '"></iframe>'+ '</li>';
+	$("#youtube-video").append(outputTitolo);
+}else{
+	$("#youtube-video").html('');
+	outputTitolo = '<li> Non ci sono video HOW </li>';
+	$("#youtube-video").append(outputTitolo);
+}
+
+
 }
 
 
@@ -999,23 +1005,14 @@ function riempiCampoOrari(text){
 	}
 
 }
-// var wasVisited=1;
-// $(document).ready(function () {
-// 	if (localStorage.getItem(wasVisited) == 1) {
-// 		document.getElementById("hideCarousel").style.display = "block";
-// 		document.getElementById("browser-section").style.display = "none";
-		
-// 		localStorage.setItem(wasVisited , 2);
-// 	} else {
-		
-	
-// 		document.getElementById("browser-section").style.display = "block";
-// 		document.getElementById("hideCarousel").style.display = "none";
-		
-// 	}
-// 	console.log(wasVisited)
-// });
+
+
+
+
+
 // OPEN BROWSER AND CLOSE PREVIEW
+
+
 function openBrowser(target){
 	document.getElementById("browser-section").style.display = "block";
 	document.getElementById("hideCarousel").style.display = "none";
@@ -1047,11 +1044,10 @@ $(function () {
     });
     $('#pauseButton').click(function () {
         $('#homeCarousel').carousel('pause');
-    });
+    });	
 });
 
-function showBar(show) { //mostra o nasconde la finestra del player e audio
-
+function showBar(show) { //mostra o nasconde barra posizione
 	var bottone = document.getElementById('set-position');
 	var barra = document.getElementById('pos');
 	if (show == true) {
