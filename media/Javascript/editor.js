@@ -399,19 +399,12 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 			$.each(data.items, function (i, item) {
 				
 				if (item.status.privacyStatus == "unlisted" ) { //seleziono solo i video unlisted del canale
-					output = '<li id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">' + item.snippet.title + '</li>' +
-						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Play</button>' +
-						'<button type= "button"  id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '">Stop</button>' +
-						'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button>';
+					output = '<li style="text-align:center;" id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '"><div>' + item.snippet.title +"  " +'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button></div>' +
+					
+						'<div style="margin: 5px;"><iframe id="'+item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+item.snippet.resourceId.videoId +'" width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' +  item.snippet.resourceId.videoId + '"></iframe></div></li>';
+					
 					$("#videosalvatilist").append(output); //aggiungo nomi e button alla lista dei video
-					//se clicco play
-					document.getElementById(item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId).onclick = function () { //riproduco il video salvato selezionato
-						playVideo(item.snippet.resourceId.videoId);
-					}
-					//se clicco pause
-					document.getElementById(item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId).onclick = function () { //riproduco il video salvato selezionato
-						player.pauseVideo();
-					}
+					
 					//se clicco carica
 					document.getElementById(item.snippet.resourceId.videoId).onclick = function () {
 
@@ -442,14 +435,13 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 								});
 								// elimino dalla lista il video che è stato appena caricato e i suoi tasti
 								var listId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
-								var playId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
+								var iframeId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
 								var caricaId = item.snippet.resourceId.videoId;
-								var pauseId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
-
+								
 								$("#" + listId).remove();
-								$("#" + playId).remove();
+								$("#" + iframeId).remove();
 								$("#" + caricaId).remove();
-								$("#" + pauseId).remove();
+								
 
 								console.log("il video è publico");
 							})
@@ -480,40 +472,6 @@ $("#tastovideosalvati").click(function () {
 
 });
 
-
-
-var tag = document.createElement('script');
-tag.src = "https://www.youtube.com/iframe_api";
-var firstScriptTag = document.getElementsByTagName('script')[0];
-firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-window.onYouTubeIframeAPIReady = function () {
-
-
-	player = new YT.Player('youtube-player2', { //lega il player al div "youtube-player2"
-		height: '0',
-		width: '0',
-		videoId: "eieeowLz-Ms", //url del video (stringa a 11 caratteri, dopo youtube.com/watch?v=)
-		playerVars: {
-			autoplay: 0,
-			loop: 0,
-			origin: 'https://site181964.tw.cs.unibo.it'
-		},
-	});
-
-
-}
-
-
-function playVideo(id) {
-	if (player) {
-		player.loadVideoById(id);
-		player.playVideo();
-		console.log(id);
-	} else {
-		console.log("variabile player non creata");
-	}
-}
 
 
 /////CALLBACK FUNCTION/////
