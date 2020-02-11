@@ -401,7 +401,7 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 				if (item.status.privacyStatus == "unlisted" ) { //seleziono solo i video unlisted del canale
 					output = '<li style="text-align:center;" id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '"><div>' + item.snippet.title +"  " +'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button></div>' +
 					
-						'<div style="margin: 5px;"><iframe id="'+item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+item.snippet.resourceId.videoId +'" width="50%" height="auto", src="' + 'https://www.youtube.com/embed/' +  item.snippet.resourceId.videoId + '"></iframe></div></li>';
+						'<div style="margin: 5px;"><iframe id="'+item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+item.snippet.resourceId.videoId +'" width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' +  item.snippet.resourceId.videoId + '"></iframe></div></li>';
 					
 					$("#videosalvatilist").append(output); //aggiungo nomi e button alla lista dei video
 					

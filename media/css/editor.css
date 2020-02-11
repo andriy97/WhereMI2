@@ -1038,77 +1038,7 @@ button{
   outline: none;
 
 }
-@media only screen and (max-width: 767px) {
-  .wrap {
-    position: unset;
-    top: 0;
-    left: 0;
-    transform: unset;
-    width: 100%;
-  }
-  .modal-header {
-    padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
-    padding-top: 64px;
-}
-  .modal-header .close {
-    margin-top: 25px;
-    position: absolute;
-    top: 11px;
-    left: 12px;
-}
-  .border-mob{
-   margin-top: 20px;
-    
-}
-  .remove-margin-on-mobile{
-margin-bottom:5px;
-  }
-  .clips-text {
-    border-radius: unset;
-  }
 
-  .position-style{
-    margin-left: -16px;
-  }
-  .register-section{
-    border-radius: unset;
-  }
-  /* .border-mob{
-    border-top-left-radius: 90px;
-  } */
-  .audio-buttons{
-    width: 100px;
-  }
-  .desc-part li{
-    border-left: 2px solid black;
-    padding-left: 10px;
-    color: white;
-  }
-
-  .clip-list ul li {
-    padding-top: 20px;
-    height: 160px;
-  }
-  .desc-part{
-    font-size: 15px;
-  }
-  .logo {
-    width: 53px;
-    border-radius: 10%;
-    margin-left: 0px;
-    margin-top: 11px;
-      width: 38px;
-      border-radius: 16%;
-      margin-left: 15px;
-      margin-top: 19px;
-
-  }
-
-  .bar {
-    width: 100%;
-  }
-}
 .logo-text {
     font-size: 24px;
     position: relative;
@@ -1162,3 +1092,74 @@ margin-bottom:5px;
     background-color: #000000;
     
 }
+@media only screen and (max-width: 767px) {
+    .wrap {
+      position: unset;
+      top: 0;
+      left: 0;
+      transform: unset;
+      width: 100%;
+    }
+    .modal-header {
+      padding: 15px;
+      border-bottom: 1px solid #e5e5e5;
+      padding-top: 64px;
+  }
+    .modal-header .close {
+      margin-top: 25px;
+      position: absolute;
+      top: 11px;
+      left: 12px;
+  }
+    .border-mob{
+     margin-top: 20px;
+      
+  }
+    .remove-margin-on-mobile{
+  margin-bottom:5px;
+    }
+    .clips-text {
+      border-radius: unset;
+    }
+  
+    .position-style{
+      margin-left: -16px;
+    }
+    .register-section{
+      border-radius: unset;
+    }
+    /* .border-mob{
+      border-top-left-radius: 90px;
+    } */
+    .audio-buttons{
+      width: 100px;
+    }
+    .desc-part li{
+      border-left: 2px solid black;
+      padding-left: 10px;
+      color: white;
+    }
+  
+    .clip-list ul li {
+      padding-top: 20px;
+      height: 160px;
+    }
+    .desc-part{
+      font-size: 15px;
+    }
+    .logo {
+      width: 53px;
+      border-radius: 10%;
+      margin-left: 0px;
+      margin-top: 11px;
+        width: 38px;
+        border-radius: 16%;
+        margin-left: 15px;
+        margin-top: 19px;
+  
+    }
+  
+    .bar {
+      width: 100%;
+    }
+  }
