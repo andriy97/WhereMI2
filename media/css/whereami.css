@@ -1219,9 +1219,7 @@ button {
 	.register-section {
 		border-radius: unset;
 	}
-	/* .border-mob{
-    border-top-left-radius: 90px;
-  } */
+
 	.audio-buttons {
 		width: 100px;
 	}
@@ -1292,22 +1290,26 @@ button {
 }
 .desk-map{
 	width: 32px;
-                                    position: relative;
-                                    bottom: 8px;
+    position: relative;
+    bottom: 8px;
 }
-.video-preview li iframe{
+.video-preview li iframe {
 	height: 34% !important;
 	/* border: 6px solid #dd0813;
     border-top-left-radius: 60px;
     border-top-right-radius: 60px; */
   }
-@media (min-width:768px){	
+
+  @media (min-width:1500px){
+	.bacicci-player{
+		max-width: 600px;
+	}
+}
+@media (min-width:768px){
   .hide-on-desktop{
     display: none;
   }
-  
 }
-
 @media (max-width:767px) {
 	.bacicci-player {
 		width: 100%;
