@@ -18,10 +18,6 @@ var VideoRicevuti = {};
 
 
 
-
-
-
-
 function initCoords() { //geolocalizza l'utente o apre la mappa a Bologna in assenza della posizione
 	navigator.geolocation.getCurrentPosition(initAutocomplete, function (error) { //chiama initAutocodramplete con la tua posizione, senza consenso alla posizione ti porta a bologna
 		if (error.code == error.PERMISSION_DENIED) {
@@ -166,7 +162,7 @@ function popolaVideoRicevuti(item) {
 	flag = null;
 	var descrizione = item.snippet.description.split(":");
 	var olc = descrizione[0].split("-");
-	if (olc[2]) { //controlla che ci siano tutte 3 componenti dell'OLC
+	if (olc[2] && !olc[3]) { //controlla che ci siano tutte 3 componenti dell'OLC
 		if (VideoRicevuti != {}) {
 			for (var i in VideoRicevuti) {
 				if (i == olc[2]) {
