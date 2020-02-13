@@ -1,12 +1,11 @@
-
 //JOANNA
- //const API_KEY = "AIzaSyD-mpMmNo1CDOd8fAF7exQ_g4GInG882FM";
- //const CLIENT_ID = "899376088276-hufn1h9oj01vc5u9ui9ithdku5iln5rg.apps.googleusercontent.com";
+//const API_KEY = "AIzaSyD-mpMmNo1CDOd8fAF7exQ_g4GInG882FM";
+//const CLIENT_ID = "899376088276-hufn1h9oj01vc5u9ui9ithdku5iln5rg.apps.googleusercontent.com";
 
 
 //MIO
- const API_KEY = "AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A";
- const CLIENT_ID = "600073852662-qiaidgofjs1bt8dpd1jgm3tbk72sdlej.apps.googleusercontent.com";
+const API_KEY = "AIzaSyAisQVJRCJqUAW-wICyJbshSxg_jPL-Y-A";
+const CLIENT_ID = "600073852662-qiaidgofjs1bt8dpd1jgm3tbk72sdlej.apps.googleusercontent.com";
 
 
 // Array of API discovery doc URLs for APIs used by the quickstart
@@ -65,30 +64,30 @@ function initClient() {
  *  appropriately. After a sign-in, the API is called.
  */
 function updateSigninStatus(isSignedIn) {
-    if (isSignedIn) {
-        authorizeButton.style.display = 'none';
-        signoutButton.style.display = 'block';
-        //Elementi statici presenti solo nel editor
-        if (utenteButton || update) {
-            utenteButton.style.display = 'none';
-            update.disabled = false;
-        }
-        //condizione per link to editor
-        if (userStatus) {
-            userStatus.style.display = 'block';
-        }
-    } else {
-        authorizeButton.style.display = 'block';
-        signoutButton.style.display = 'none';
-        if (utenteButton || update) {
-            utenteButton.style.display = 'none';
-            update.disabled = true;
-        }
-        //condizione per link to editor
-        if (userStatus) {
-            userStatus.style.display = 'none';
-        }
-    }
+	if (isSignedIn) {
+		authorizeButton.style.display = 'none';
+		signoutButton.style.display = 'block';
+		//Elementi statici presenti solo nel editor
+		if (utenteButton || update) {
+			utenteButton.style.display = 'none';
+			update.disabled = false;
+		}
+		//condizione per link to editor
+		if (userStatus) {
+			userStatus.style.display = 'block';
+		}
+	} else {
+		authorizeButton.style.display = 'block';
+		signoutButton.style.display = 'none';
+		if (utenteButton || update) {
+			utenteButton.style.display = 'none';
+			update.disabled = true;
+		}
+		//condizione per link to editor
+		if (userStatus) {
+			userStatus.style.display = 'none';
+		}
+	}
 }
 
 /**
@@ -111,8 +110,8 @@ function handleAuthClick(event) {
  */
 function handleSignoutClick(event) {
 	gapi.auth2.getAuthInstance().signOut();
-	if (window.location = "../media/html/editor.html") {         
-		window.location.replace("../../index.html");     
+	if (window.location = "../media/html/editor.html") {
+		window.location.replace("../../index.html");
 	}
 
 }

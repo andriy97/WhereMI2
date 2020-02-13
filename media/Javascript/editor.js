@@ -3,13 +3,9 @@ var titolo, scopo, lingua, categoria, descrizione, audience, dettagli; //metadat
 var player;
 var divMetadati = document.getElementById("metadatiupload");
 var uploadedBox = document.getElementById("uploadedCheck"); // success/fail caricamento icona
-
 var createForm = document.getElementById("myForm");
 
-
-
 function showAudio(show) { //mostra o nasconde il tag audio
-
 	if (show == true) {
 		audSave.style.display = 'block';
 		divMetadati.style.display = "block";
@@ -17,20 +13,16 @@ function showAudio(show) { //mostra o nasconde il tag audio
 		audSave.style.display = 'none';
 		divMetadati.style.display = "none";
 	}
-
 }
 
 function toggleRegistra(registra) { // cambia tasto registra
 	document.getElementById("btnStart").innerHTML = registra ? "Record" : "Stop";
 
 }
-
-
-let constraintObj = {
+let constraintObj = { //parametri 
 	audio: true,
 	video: true
 };
-
 if (navigator.mediaDevices === undefined) {
 	navigator.mediaDevices = {};
 	navigator.mediaDevices.getUserMedia = function (constraintObj) {
@@ -55,7 +47,6 @@ if (navigator.mediaDevices === undefined) {
 		})
 }
 
-
 navigator.mediaDevices.getUserMedia(constraintObj)
 	.then(function (mediaStreamObj) {
 		//connect the media stream to the first audio element
@@ -67,10 +58,8 @@ navigator.mediaDevices.getUserMedia(constraintObj)
 			audio.src = window.URL.createObjectURL(mediaStreamObj);
 		}
 
-
 		//add listeners for saving audio/audio
 		let start = document.getElementById('btnStart');
-
 		let mediaRecorder = new MediaRecorder(mediaStreamObj);
 		let chunks = [];
 		var started = false;
@@ -107,12 +96,8 @@ navigator.mediaDevices.getUserMedia(constraintObj)
 		}
 	})
 
-
 ///////////AUDIO DA PC////////
-
 const recorder = document.getElementById('recorder');
-
-
 recorder.addEventListener('change', function (e) {
 	const file = e.target.files[0];
 	const url = URL.createObjectURL(file);
@@ -122,38 +107,26 @@ recorder.addEventListener('change', function (e) {
 	document.getElementById("imgToChange").src = "https://media.giphy.com/media/17mNCcKU1mJlrbXodo/giphy.gif";
 });
 
-/////////////////UPLOAD VIDEO PUBBLICI///////////////////
-
 //input: posizione scelta
 //output: stringa con tre plusCode da mettere sulla descrizione
 function generatePlusCode(lat, lng) {
-
 	var pluscode3 = OpenLocationCode.encode(lat, lng);
 	var pluscode2 = pluscode3.split("+")[0];
 	var pluscode1 = pluscode2.substring(0, 6);
-
 	return result = pluscode1 + "00+-" + pluscode2 + "+-" + pluscode3;
-
 }
 
-
-
+/////////////////UPLOAD VIDEO PUBBLICI///////////////////
 async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
-
 	titolo = document.getElementById("titolo").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
-
-
 	if (titolo == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
-
-
-
 		var geocoder = new google.maps.Geocoder();
 		var address = document.getElementById('luogo').value;
 		geocoder.geocode({
@@ -163,10 +136,7 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 			var x = results[0].geometry.location;
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
-
 			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" + audience + ":P" + dettagli;
-			console.log(metadatiClip);
-
 			var success = window.uploadToYoutube(audSave.src || recorder.src, titolo, metadatiClip);
 			if (success) {
 				divMetadati.style.display = 'none';
@@ -179,12 +149,8 @@ async function getDataAndUpload() { //lettura dei dati nell'editor e caricamento
 				document.getElementById("dettagli").value = "";
 				document.getElementById('luogo').value = "";
 			}
-
-
 		});
-
 	}
-
 }
 
 window.uploadToYoutube = async function (urlClip, titolo, metadati) {
@@ -196,8 +162,6 @@ window.uploadToYoutube = async function (urlClip, titolo, metadati) {
 	uploadRawFile(rawData, titolo, metadati);
 	return true;
 }
-
-
 async function uploadRawFile(videoclip, titolo, metadatiClip) {
 	var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
 	var params = {
@@ -212,7 +176,6 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 			embeddable: true
 		}
 	};
-
 	//Building request
 	var request = new FormData();
 	var metadatiYoutube = new Blob([JSON.stringify(params)], {
@@ -220,10 +183,7 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 	});
 	request.append('video', metadatiYoutube);
 	request.append('mediaBody', videoclip);
-
 	//Upload via API youtube (POST)
-
-
 	$.ajax({
 			method: 'POST',
 			url: 'https://www.googleapis.com/upload/youtube/v3/videos?access_token=' + encodeURIComponent(token) +
@@ -244,24 +204,19 @@ async function uploadRawFile(videoclip, titolo, metadatiClip) {
 			console.log("Errore API per Upload YT!", errors);
 			return false;
 		});
-
-
 }
+
 /////////////////UPLOAD VIDEO PRIVATI////////////////////
-
 async function getDataAndUploadPrivate() {
-
-	titolo = document.getElementById("titolo").value ;
+	titolo = document.getElementById("titolo").value;
 	scopo = document.getElementById("scopo").value;
 	lingua = document.getElementById("lingua").value;
 	categoria = document.getElementById("categoria").value;
 	audience = document.getElementById("audience").value;
 	dettagli = document.getElementById("dettagli").value;
-
 	if (titolo == "" || scopo == "" || lingua == "" || categoria == "" || audience == "" || dettagli == "") {
 		alert("Compile all the fields!");
 	} else {
-
 		var geocoder = new google.maps.Geocoder();
 		var address = document.getElementById('luogo').value;
 		geocoder.geocode({
@@ -271,10 +226,8 @@ async function getDataAndUploadPrivate() {
 			var x = results[0].geometry.location;
 			latlong.lat = x.lat();
 			latlong.lng = x.lng();
-
 			var metadatiClip = generatePlusCode(latlong.lat, latlong.lng) + ":" + scopo + ":" + lingua + ":" + categoria + ":A" + audience + ":P" + dettagli;
 			console.log(metadatiClip);
-
 			var success = window.uploadToYoutubePrivate(audSave.src || recorder.src, titolo, metadatiClip);
 			if (success) {
 				divMetadati.style.display = 'none';
@@ -289,7 +242,6 @@ async function getDataAndUploadPrivate() {
 			}
 		});
 	}
-
 }
 
 window.uploadToYoutubePrivate = async function (urlClip, titolo, metadati) {
@@ -301,7 +253,6 @@ window.uploadToYoutubePrivate = async function (urlClip, titolo, metadati) {
 	uploadRawFilePrivate(rawData, titolo, metadati);
 	return true;
 }
-
 
 async function uploadRawFilePrivate(videoclip, titolo, metadatiClip) {
 	var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
@@ -317,7 +268,6 @@ async function uploadRawFilePrivate(videoclip, titolo, metadatiClip) {
 			embeddable: true
 		}
 	};
-
 	//Building request
 	var request = new FormData();
 	var metadatiYoutube = new Blob([JSON.stringify(params)], {
@@ -325,10 +275,7 @@ async function uploadRawFilePrivate(videoclip, titolo, metadatiClip) {
 	});
 	request.append('video', metadatiYoutube);
 	request.append('mediaBody', videoclip);
-
 	//Upload via API youtube (POST)
-
-
 	$.ajax({
 			method: 'POST',
 			url: 'https://www.googleapis.com/upload/youtube/v3/videos?access_token=' + encodeURIComponent(token) +
@@ -349,26 +296,17 @@ async function uploadRawFilePrivate(videoclip, titolo, metadatiClip) {
 			document.getElementById("imgToChange").src = "https://image.flaticon.com/icons/svg/1828/1828665.svg";
 			return false;
 		});
-
-
 }
-
-
 
 $("#upload").click(function () {
 	getDataAndUpload();
-
 });
-
 $("#salva").click(function () {
 	getDataAndUploadPrivate();
 });
 
-
 function getPlaylist() {
-
 	$("#videosalvatilist").html(''); //elimino contenuto lista prima di caricarla
-
 	var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
 	$.get(
 		"https://www.googleapis.com/youtube/v3/channels?access_token=" + encodeURIComponent(token), {
@@ -383,56 +321,38 @@ function getPlaylist() {
 			})
 		}
 	)
-
 }
 
-var counter=0;
+var counter = 0; //controllo se listavideosalvati è vuota
 function getVids(videos) { //funzione che crea la lista di video salvati 
 	var token = gapi.auth2.getAuthInstance().currentUser.get().getAuthResponse().access_token;
 	$.get(
 		"https://www.googleapis.com/youtube/v3/playlistItems?access_token=" + encodeURIComponent(token), {
 			part: 'snippet, status',
 			maxResults: 20,
-			playlistId: videos, 
+			playlistId: videos,
 		},
 		function (data) {
-				counter=0;
+			counter = 0;
 			$.each(data.items, function (i, item) {
-				
-				if (item.status.privacyStatus == "unlisted" ) { //seleziono solo i video unlisted del canale
-					counter+=1;
-					output = '<li style="text-align:center;" id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '"><div>' + item.snippet.title +"  " +'<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button></div>' +
-					
-						'<div style="margin: 5px;"><iframe id="'+item.snippet.resourceId.videoId + item.snippet.resourceId.videoId+item.snippet.resourceId.videoId +'" width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' +  item.snippet.resourceId.videoId + '"></iframe></div></li>';
-					
+				if (item.status.privacyStatus == "unlisted") { //seleziono solo i video unlisted del canale
+					counter += 1;
+					output = '<li style="text-align:center;" id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '"><div>' + item.snippet.title + "  " + '<button type= "button" id="' + item.snippet.resourceId.videoId + '">Upload</button></div>' +
+						'<div style="margin: 5px;"><iframe id="' + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + '" width="100%" height="auto", src="' + 'https://www.youtube.com/embed/' + item.snippet.resourceId.videoId + '"></iframe></div></li>';
 					$("#videosalvatilist").append(output); //aggiungo nomi e button alla lista dei video
-						
-					
+
 					//se clicco carica
 					document.getElementById(item.snippet.resourceId.videoId).onclick = function () {
-
 						gapi.client.load("https://www.googleapis.com/discovery/v1/apis/youtube/v3/rest") //aggiungo all'oggetto client la possibilità di accedere ai video di youtube
-
 							.then(function () {
 								//aggiorno privacyStatus video youtube
-								
 								var request = gapi.client.youtube.videos.update({
 									id: item.snippet.resourceId.videoId,
 									part: 'status',
 									status: {
 										privacyStatus: 'public'
 									},
-									
-
-									
-									
 								});
-
-						
-
-									
-							
-
 								request.execute(function (response) {
 									console.log(response);
 								});
@@ -440,32 +360,26 @@ function getVids(videos) { //funzione che crea la lista di video salvati
 								var listId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
 								var iframeId = item.snippet.resourceId.videoId + item.snippet.resourceId.videoId + item.snippet.resourceId.videoId;
 								var caricaId = item.snippet.resourceId.videoId;
-								
+
 								$("#" + listId).remove();
 								$("#" + iframeId).remove();
 								$("#" + caricaId).remove();
-								
+
 
 								console.log("il video è publico");
 							})
 					}
 				}
 			})
-			if(counter==0){
-				document.getElementById("videosalvatilist").innerHTML="<li>Nessun video salvato</li>";
+			if (counter == 0) {
+				document.getElementById("videosalvatilist").innerHTML = "<li>Nessun video salvato</li>";
 			}
 		}
 	)
 }
 
-
 ////////PLAYER e VIDEO SALVATI////////
-
 $("#tastovideosalvati").click(function () {
-
-	
-
-	
 	var display = document.getElementById("videosalvatilist").style.display;
 	if (display == "none") {
 		getPlaylist();
@@ -473,17 +387,13 @@ $("#tastovideosalvati").click(function () {
 	} else {
 		document.getElementById("videosalvatilist").style.display = "none";
 	}
-	
-	
-
 });
-
-
 
 /////CALLBACK FUNCTION/////
 function callbackgoogle() {
 	var autocomplete = new google.maps.places.Autocomplete(
 		document.getElementById('luogo'), {
 			types: ['geocode']
-		});
+		}
+	);
 }
