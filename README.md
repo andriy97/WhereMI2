@@ -1,4 +1,4 @@
-# WhereMI è un sito interattivo che permette di ascoltare e caricare audioguide in qualunque città tu ti trovi. 
+# WhereMI è un sito interattivo che permette di ascoltare e caricare audioguide 
 
 ![GitHub Logo](/public/Screenshot%20(34).png)
 
